@@ -42,7 +42,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'users.destroy','permission'=>'user delete']);
         Permission::create(['name'=>'users.show','permission'=>'user view']);
 
-         //listado de permisos para zones
+         //listado de permisos para zonas
          Permission::create(['name'=>'zones.index','permission'=>'zone list']);
          Permission::create(['name'=>'zones.create','permission'=>'zone create']);
          Permission::create(['name'=>'zones.store','permission'=>'zone create']);
@@ -50,6 +50,32 @@ class PermissionSeeder extends Seeder
          Permission::create(['name'=>'zones.update','permission'=>'zone edit']);
          Permission::create(['name'=>'zones.destroy','permission'=>'zone delete']);
          Permission::create(['name'=>'zones.show','permission'=>'zone view']);
+  
+        //listado de permisos para systems
+        Permission::create(['name'=>'systems.index','permission'=>'system list']);
+        Permission::create(['name'=>'systems.create','permission'=>'system create']);
+        Permission::create(['name'=>'systems.store','permission'=>'system create']);
+        Permission::create(['name'=>'systems.edit','permission'=>'system edit']);
+        Permission::create(['name'=>'systems.update','permission'=>'system edit']);
+        Permission::create(['name'=>'systems.destroy','permission'=>'system delete']);
+        Permission::create(['name'=>'systems.show','permission'=>'system view']);
 
+         //listado de permisos para subsystems
+         Permission::create(['name'=>'subsystems.index','permission'=>'subsystem list']);
+         Permission::create(['name'=>'subsystems.create','permission'=>'subsystem create']);
+         Permission::create(['name'=>'subsystems.store','permission'=>'subsystem create']);
+         Permission::create(['name'=>'subsystems.edit','permission'=>'subsystem edit']);
+         Permission::create(['name'=>'subsystems.update','permission'=>'subsystem edit']);
+         Permission::create(['name'=>'subsystems.destroy','permission'=>'subsystem delete']);
+         Permission::create(['name'=>'subsystems.show','permission'=>'subsystem view']);
+
+          //listado de permisos para prototype
+          Permission::create(['name'=>'prototypes.index','permission'=>'prototype list']);
+          Permission::create(['name'=>'prototypes.create','permission'=>'prototype create']);
+          Permission::create(['name'=>'prototypes.store','permission'=>'prototype create']);
+          Permission::create(['name'=>'prototypes.edit','permission'=>'prototype edit']);
+          Permission::create(['name'=>'prototypes.update','permission'=>'prototype edit']);
+          Permission::create(['name'=>'prototypes.destroy','permission'=>'prototype delete']);
+          Permission::create(['name'=>'prototypes.show','permission'=>'prototype view']);
     }
 }

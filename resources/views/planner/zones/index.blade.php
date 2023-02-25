@@ -1,14 +1,14 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-3xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('role list') }}</h1>
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('zone list') }}</h1>
             <div class="flex items-center justify-end mb-3">
-                <a href="{{route('roles.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                <a href="{{route('zones.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
                     <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{__('add role')}}
+                    {{__('add zone')}}
                 </a>
             </div>
-            <table id="role" class="">
+            <table id="zone" class="">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -16,13 +16,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ( $roles as $role )
+                @foreach ( $zones as $zone )
                 <tr>
-                    <td width="80%">{{$role->name}}</td>
+                    <td width="80%">{{$zone->name}}</td>
                     <td class="flex items-center justify-between">
-                        <a href="{{ route('roles.show',$role->id)}}" title="{{ __('view daitl of role ').$role->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a>
-                        <a href="{{ route('roles.edit',$role->id)}}" title="{{ __('edit role ').$role->name }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
-                        <form action="{{ route('roles.destroy',$role->id)}}" method="POST" class="form-delete">
+                        {{-- <a href="{{ route('zones.show',$zone->id)}}" title="{{ __('view daitl of zone ').$zone->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
+                        <a href="{{ route('zones.edit',$zone->id)}}" title="{{ __('edit zone ').$zone->name }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
+                        <form action="{{ route('zones.destroy',$zone->id)}}" method="POST" class="form-delete">
                         @csrf
                         @method('DELETE')
                         <button type="submit"><i class="text-red-500 fa-solid fa-trash-can"></i></button>
@@ -38,7 +38,7 @@
     @push('script')
     <script>
       $(document).ready( function () {
-        $('#role').DataTable({
+        $('#zone').DataTable({
             "pagingType":"full_numbers",
            "language":{
              "info": "Mostrando pag  _PAGE_ de _PAGES_  páginas,  Total de Registros: _TOTAL_ ",
@@ -73,7 +73,7 @@
     $('.form-delete').submit(function(e){
         e.preventDefault();
         Swal.fire({
-  title: 'Esta seguro de querer eliminar Role?',
+  title: 'Esta seguro de querer eliminar zone?',
   text: "Esta operacion es irreversible",
   icon: 'warning',
   showCancelButton: true,

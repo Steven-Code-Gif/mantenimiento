@@ -1,0 +1,34 @@
+[
+    {
+        "name":"Bomba Hidraulica",
+        "cha_1":"desplasamiento positivo",
+        "cha_2":"reciprocante",
+        "cha_3":"piston",
+        "cha_4":""
+
+    },
+    {
+        "name":"Bomba Hidraulica",
+        "cha_1":"desplasamiento positivo",
+        "cha_2":"reciprocante",
+        "cha_3":"diafragma",
+        "cha_4":""
+
+    },
+    {
+        "name":"Bomba Hidraulica",
+        "cha_1":"desplasamiento positivo",
+        "cha_2":"rotor simple",
+        "cha_3":"aspas",
+        "cha_4":""
+
+    },
+    {
+        "name":"Bomba Hidraulica",
+        "cha_1":"dinamicas",
+        "cha_2":"rotatorias",
+        "cha_3":"piston",
+        "cha_4":""
+
+    }
+]

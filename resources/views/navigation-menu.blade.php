@@ -3,7 +3,10 @@ $navlinks=[
 ['name'=>'roles','route'=>'roles.index','active'=>request()->routeIs('roles.index')],
 ['name'=>'permission','route'=>'permission.index','active'=>request()->routeIs('permission.index')],
 ['name'=>'users','route'=>'users.index','active'=>request()->routeIs('users.index')],
+['name'=>'systems','route'=>'systems.index','active'=>request()->routeIs('systems.index')],
+['name'=>'subsystems','route'=>'subsystems.index','active'=>request()->routeIs('subsystems.index')],
 ['name'=>'zones','route'=>'zones.index','active'=>request()->routeIs('zones.index')],
+['name'=>'prototypes','route'=>'prototypes.index','active'=>request()->routeIs('prototypes.index')],
 
 ]
 @endphp

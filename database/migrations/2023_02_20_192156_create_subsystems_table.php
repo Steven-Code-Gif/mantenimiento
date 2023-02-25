@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('zones', function (Blueprint $table) {
+        Schema::create('subsystems', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('slug');
+            $table->foreignId('system_id')->references('id')->on('systems')
+            ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zones');
+        Schema::dropIfExists('subsystems');
     }
 };

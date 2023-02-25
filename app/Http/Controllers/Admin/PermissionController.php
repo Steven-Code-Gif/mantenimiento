@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('can:permission.index')->only('index');
+        $this->middleware('can:permission.create')->only(['create','store']);
+        $this->middleware('can:permission.show')->only('show');
+        $this->middleware('can:permission.edit')->only(['edit','update']);
+        $this->middleware('can:permission.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
