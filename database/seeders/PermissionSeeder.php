@@ -77,5 +77,23 @@ class PermissionSeeder extends Seeder
           Permission::create(['name'=>'prototypes.update','permission'=>'prototype edit']);
           Permission::create(['name'=>'prototypes.destroy','permission'=>'prototype delete']);
           Permission::create(['name'=>'prototypes.show','permission'=>'prototype view']);
+
+        //    listado de permisos para protocol
+           Permission::create(['name'=>'protocols.index','permission'=>'protocols list']);
+           Permission::create(['name'=>'protocols.create','permission'=>'protocols create']);
+           Permission::create(['name'=>'protocols.store','permission'=>'protocols create']);
+           Permission::create(['name'=>'protocols.edit','permission'=>'protocols edit']);
+           Permission::create(['name'=>'protocols.update','permission'=>'protocols edit']);
+           Permission::create(['name'=>'protocols.destroy','permission'=>'protocols delete']);
+           Permission::create(['name'=>'protocols.show','permission'=>'protocols view']);
+
+        //    listado de permisos para prototype-protocol
+           Permission::create(['name'=>'prototype.protocols.index','permission'=>'prototype-protocol list']);
+           Permission::create(['name'=>'prototype.protocols.create','permission'=>'prototype-protocol create']);
+           Permission::create(['name'=>'prototype.protocols.store','permission'=>'prototype-protocol create']);
+           Permission::create(['name'=>'prototype.protocols.edit','permission'=>'prototype-protocol edit']);
+           Permission::create(['name'=>'prototype.protocols.update','permission'=>'prototype-protocol edit']);
+           Permission::create(['name'=>'prototype.protocols.destroy','permission'=>'prototype-protocol delete']);
+           Permission::create(['name'=>'prototype.protocols.show','permission'=>'prototype-protocol view']);
     }
 }

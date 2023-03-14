@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-2xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('user list') }}</h1>
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Usuarios') }}</h1>
             <div class="flex items-center justify-end mb-3">
                 {{-- <a href="{{route('users.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
                     <i class="fa-sharp fa-solid fa-address-card"></i>
@@ -11,7 +11,7 @@
             <table id="user" class="">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Nombre</th>
                     <th>Role</th>
                     <th class="text-center">Action</th>
                 </tr>

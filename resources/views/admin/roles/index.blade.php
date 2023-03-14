@@ -1,17 +1,17 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-3xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('role list') }}</h1>
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Roles') }}</h1>
             <div class="flex items-center justify-end mb-3">
                 <a href="{{route('roles.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
                     <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{__('add role')}}
+                    {{__('Agregar Rol')}}
                 </a>
             </div>
             <table id="role" class="">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Nombre</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -20,8 +20,8 @@
                 <tr>
                     <td width="80%">{{$role->name}}</td>
                     <td class="flex items-center justify-between">
-                        <a href="{{ route('roles.show',$role->id)}}" title="{{ __('view daitl of role ').$role->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a>
-                        <a href="{{ route('roles.edit',$role->id)}}" title="{{ __('edit role ').$role->name }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
+                        <a href="{{ route('roles.show',$role->id)}}" title="{{ __('Ver detalle del Rol').$role->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a>
+                        <a href="{{ route('roles.edit',$role->id)}}" title="{{ __('Editar Rol').$role->name }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
                         <form action="{{ route('roles.destroy',$role->id)}}" method="POST" class="form-delete">
                         @csrf
                         @method('DELETE')

@@ -1,0 +1,10 @@
+[
+    {
+        "task":"Inspeccion",
+        "detail":"son inspecciones que se realizan con los sentidos, sin necesidad de instrumentos de medida o medios tecnicos adicionales. Lecturas y anotacion de parametros de funcionamiento, con intrumentos que estan instalados en los equipos."
+    },
+    {
+        "task":"Lubricacion",
+        "detail":"verificaciones mecanicas, como medicion de holguras, de alineacion, de espesor, de apriete de pernos, de instrumentos de medida,de funcionamiento de lazos de control,etc. Pueden requerir de una intervencion para que determinados parametros se ajusten a unos valores presestablecidos."
+    }
+]

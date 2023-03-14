@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers\Planner;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\Prototype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
+
+
+
+
 class PrototypeController extends Controller
 {
+    
     public function __construct(){
         $this->middleware('can:prototypes.index')->only('index');
         $this->middleware('can:prototypes.create')->only(['create','store']);
@@ -37,7 +44,7 @@ class PrototypeController extends Controller
         $prototype = new Prototype();
         $title="add prototype";
         $btn="create";
-        return view('planner.prototypes.create',compact('prototype','title','btn'));
+        return view('planner.prototypes.create', compact('prototype','title','btn'));
     }
 
     /**
@@ -52,7 +59,6 @@ class PrototypeController extends Controller
             'name'=>'required',
             'url'=>'image|mimes:jpg,jpeg,png,bmp,tiff |max:4096'
         ]);
-
         $prototype = Prototype::create([
             'name'=>mb_strtolower($request->input('name')),
             'cha_1'=>mb_strtolower($request->input('cha_1')),
@@ -61,7 +67,6 @@ class PrototypeController extends Controller
             'cha_4'=>mb_strtolower($request->input('cha_4')),
             'description'=>mb_strtolower($request->input('description')),
         ]);
-
         if ($request->file('url')) {
             $file = $request->file('url')->store('public/prototypes');
             $url = Storage::url($file);
@@ -81,7 +86,7 @@ class PrototypeController extends Controller
      */
     public function show(Prototype $prototype)
     {
-        //
+        return view('planner.prototypes.show', compact('prototype'));
     }
 
     /**
@@ -92,7 +97,9 @@ class PrototypeController extends Controller
      */
     public function edit(Prototype $prototype)
     {
-        //
+        $title="edit prototype";
+        $btn="update";
+        return view('planner.prototypes.edit', compact('prototype','title','btn'));
     }
 
     /**
@@ -104,7 +111,28 @@ class PrototypeController extends Controller
      */
     public function update(Request $request, Prototype $prototype)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'url'=>'image|mimes:jpg,jpeg,png,bmp,tiff |max:4096'
+        ]);
+       
+            $prototype->name = mb_strtolower($request->input('name'));
+            $prototype->cha_1 = mb_strtolower($request->input('cha_1'));
+            $prototype->cha_2 = mb_strtolower($request->input('cha_2'));
+            $prototype->cha_3 = mb_strtolower($request->input('cha_3'));
+            $prototype->cha_4 = mb_strtolower($request->input('cha_4'));
+            $prototype->description = mb_strtolower($request->input('description'));
+            $prototype->save();
+        
+        if ($request->file('url')) {
+            $file = $request->file('url')->store('public/prototypes');
+            $url = storage::url($file);
+            $prototype->images()->create([
+                'url'=>$url,
+                'description'=>mb_strtolower($request->input('description')) 
+            ]);  
+        }
+        return redirect()->route('prototypes.index')->with('success','Prototipo actualizado correctamente');
     }
 
     /**
@@ -115,6 +143,17 @@ class PrototypeController extends Controller
      */
     public function destroy(Prototype $prototype)
     {
-        //
+        $message ="Error al intentar borrar archivos";
+        if ($prototype->images()->count()>0) {
+            
+            $files=$prototype->images()->pluck('url')->toArray();
+            foreach ($files as $file){
+                $url=str_replace('storage','public',$file);
+                Storage::delete($url);
+            }
+            $message="archivos eliminados correctamente";
+        }
+        $prototype->images()->delete();
+        return redirect()->route('prototypes.index')->with('success',$message);
     }
 }

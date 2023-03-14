@@ -8,7 +8,7 @@
                     <h1 class="card-title"> {{ __($title) }} </h1> 
                     <div class="grid grid-cols-5 gap-3">
                         <div class="mb-4">
-                            <x-jet-label class="italic my-2 capitalize" value="{{ __('name') }}"
+                            <x-jet-label class="italic my-2 capitalize" value="{{ __('Nombre') }}"
                             for="name"/>
                             <x-jet-input type="text" name="name" class="w-full " placeholder="{{ __
                             ('input name')}}"

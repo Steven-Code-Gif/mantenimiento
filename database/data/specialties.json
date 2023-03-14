@@ -1,0 +1,9 @@
+[
+    { "name":"Mantenimiento General"},
+    { "name":"Mantenimiento Tecnologico"},
+    { "name":"Mantenimiento Electrico"},
+    { "name":"Mantenimiento Mecanico"},
+    { "name":"Mantenimiento Electromecanico"},
+    { "name":"Mantenimiento Electronico"},
+    { "name":"Otro"}
+]

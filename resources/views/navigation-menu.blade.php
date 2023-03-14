@@ -7,7 +7,7 @@ $navlinks=[
 ['name'=>'subsystems','route'=>'subsystems.index','active'=>request()->routeIs('subsystems.index')],
 ['name'=>'zones','route'=>'zones.index','active'=>request()->routeIs('zones.index')],
 ['name'=>'prototypes','route'=>'prototypes.index','active'=>request()->routeIs('prototypes.index')],
-
+['name'=>'prototocols','route'=>'protocols.index','active'=>request()->routeIs('protocols.index')],
 ]
 @endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">

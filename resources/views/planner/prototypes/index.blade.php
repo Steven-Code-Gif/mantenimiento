@@ -1,12 +1,12 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-7xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('prototype list') }}</h1>
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Prototipos') }}</h1>
             <div class="flex items-center justify-end mb-3">
                 <a href="{{ route('prototypes.create') }}"
                     class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
                     <i class="fa-brands fa-codepen"></i>
-                    {{ __('add prototype') }}
+                    {{ __('Agregar Prototipo') }}
                 </a>
             </div>
             <table id="prototype" class="">
@@ -14,7 +14,7 @@
                     <tr>
                         <th>Imagen</th>
                         <th>Prototipo</th>
-                        <th>Description</th>
+                        <th>Descripcion</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -23,29 +23,37 @@
                         <tr>
                             <td width="20%" class="text-center">
                                 @if ($prototype->images()->count() > 0)
-                                    <img src="{{ $prototype->images()->first()->url }}" class="w-full h-48 object-cover">
+                                    <img src="{{ $prototype->images()->first()->url }}" 
+                                    class="w-full h-48 object-cover" alt="">
                                 @else
                                     <div>
-                                        <h1>Sin imagen</h1>
+                                        <h1>Sin Imagen</h1>
                                     </div>
                                 @endif
                             </td>
                             <td width="30%">
                                 <h1 class="text-gray-500 font-bold uppercase">
-                                    {{ $prototype->name }}</h1>
-                                <p class="text-sm text-gray-400">{{ $prototype->cha_1 }}</p>
-                                <p class="text-sm text-gray-400">{{ $prototype->cha_2 }}</p>
-                                <p class="text-sm text-gray-400">{{ $prototype->cha_3 }}</p>
-                                <p class="text-sm text-gray-400">{{ $prototype->cha_4 }}</p>
+                                    {{ $prototype->name }} </h1>
+                                <p class="text-sm text-gray-400"> {{ $prototype->cha_1 }}</p>
+                                <p class="text-sm text-gray-400"> {{ $prototype->cha_2 }}</p>
+                                <p class="text-sm text-gray-400"> {{ $prototype->cha_3 }}</p>
+                                <p class="text-sm text-gray-400"> {{ $prototype->cha_4 }}</p>
                             </td>
                             <td width="30%">{{ $prototype->description }}</td>
                             <td class="flex items-center justify-between">
+                                <a href="{{ route('prototypes.protocols.create',$prototype->id) }}"
+                                    title="{{ __('add protocol of prototype ') .$prototype->name }}">
+                                    <i class="icono fa-solid fa-screwdriver-wrench text-green-600"></i></a>
+
                                 <a href="{{ route('prototypes.show', $prototype->id) }}"
                                     title="{{ __('view daitl of prototype ') . $prototype->name }}"><i
                                         class="icono text-blue-500 fa-solid fa-eye"></i></a>
+
                                 <a href="{{ route('prototypes.edit', $prototype->id) }}"
-                                    title="{{ __('edit prototypes ') . $prototype->name }}"><i
-                                        class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
+                                    title="{{ __('edit prototype ') . $prototype->name }}"><i
+                                        class="icono text-green-500 
+                        fa-solid fa-pen-to-square"></i></a>
+
                                 <form action="{{ route('prototypes.destroy', $prototype->id) }}" method="POST"
                                     class="form-delete">
                                     @csrf
@@ -60,7 +68,6 @@
             </table>
         </div>
     </div>
-
     @push('script')
         <script>
             $(document).ready(function() {

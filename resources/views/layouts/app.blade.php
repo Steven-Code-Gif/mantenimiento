@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
         <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css')}}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('flexslider/flexslider.css')}}">
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -47,6 +48,7 @@
         <script type="text/javascript" src="{{asset ('js/jquery-3.5.1.js')}}"></script>
         <script type="text/javascript" src="{{asset ('js/jquery.dataTables.min.js')}}"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript" src="{{ asset('flexslider/jquery.flexslider.js')}}"></script>
         
         @stack('script')
 

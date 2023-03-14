@@ -9,7 +9,7 @@
                     <h1 class="card-title"> {{ __($title) }} </h1> 
                     <div class="grid grid-cols-1 gap-3">
                         <div class="mb-4">
-                            <x-jet-label class="italic my-2 capitalize" value="{{ __('system') }}"
+                            <x-jet-label class="italic my-2 capitalize" value="{{ __('Sistema') }}"
                             for="system"/>
                             <select name="system_id" class="w-full rounded-lg">
                                 @foreach ($systems as $system)
@@ -19,7 +19,7 @@
                             </select>
                         </div>    
                         <div class="mb-4">
-                            <x-jet-label class="italic my-2 capitalize" value="{{ __('subsystem') }}"
+                            <x-jet-label class="italic my-2 capitalize" value="{{ __('Subsistema') }}"
                             for="name"/>
                             <x-jet-input type="text" name="name" class="w-full " placeholder="{{ __
                             ('input name')}}"

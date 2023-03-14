@@ -15,11 +15,9 @@ class ZoneSeeder extends Seeder
      */
     public function run()
     {
-        Zone::create(['name'=>'materia prima','slug'=>'materia prima']);
-        Zone::create(['name'=>'almacen','slug'=>'almacen']);
-        Zone::create(['name'=>'patio norte','slug'=>'patio norte']);
-        Zone::create(['name'=>'estacionamiento','slug'=>'estacionamiento']);
-        Zone::create(['name'=>'produccion','slug'=>'produccion']);
-        Zone::create(['name'=>'montaje','slug'=>'montaje']);
+        Zone::create(['name'=>'Banzer','slug'=>'Banzer']);
+        Zone::create(['name'=>'Centro de Producción','slug'=>'Centro de Producción']);
+        Zone::create(['name'=>'Almacen','slug'=>'Almacén']);
+        Zone::create(['name'=>'Oficina Central','slug'=>'Oficina Central']);
     }
 }
