@@ -40,11 +40,7 @@
                                 <p class="text-sm text-gray-400"> {{ $prototype->cha_4 }}</p>
                             </td>
                             <td width="30%">{{ $prototype->description }}</td>
-                            <td class="flex items-center justify-between">
-                                <a href="{{ route('prototypes.protocols.create',$prototype->id) }}"
-                                    title="{{ __('add protocol of prototype ') .$prototype->name }}">
-                                    <i class="icono fa-solid fa-screwdriver-wrench text-green-600"></i></a>
-
+                            <td class="grid grid-cols-3 gap-3 items-center justify-between">
                                 <a href="{{ route('prototypes.show', $prototype->id) }}"
                                     title="{{ __('view daitl of prototype ') . $prototype->name }}"><i
                                         class="icono text-blue-500 fa-solid fa-eye"></i></a>
@@ -59,8 +55,20 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"><i
-                                            class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                        class="icono text-red-500 fa-solid fa-trash-can"></i></button>
                                 </form>
+
+                                <a href="{{ route('prototypes.protocols.create',$prototype->id) }}"
+                                    title="{{ __('add protocol of prototype ') .$prototype->name }}">
+                                <i class="icono fa-solid fa-screwdriver-wrench text-green-600"></i></a>
+                                
+                                <a href="{{ route('features-prototype',$prototype->id) }}"
+                                    title="{{ __('add features of prototype ') .$prototype->name }}">
+                               <i class="icono text-blue-500 fa-solid fa-file-contract"></i></a>
+
+                                <a href="{{ route('images-prototype',$prototype->id) }}"
+                                    title="{{ __('add images of prototype ') .$prototype->name }}">
+                                <i class="icono text-yellow-500 fa-solid fa-camera"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -109,7 +117,7 @@
             $('.form-delete').submit(function(e) {
                 e.preventDefault();
                 Swal.fire({
-                    title: 'Esta seguro de querer eliminar system?',
+                    title: 'Esta seguro de querer eliminar Prototipo?',
                     text: "Esta operacion es irreversible",
                     icon: 'warning',
                     showCancelButton: true,

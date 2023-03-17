@@ -20,7 +20,7 @@
                             <x-jet-label class="italic my-2 capitalize" value="{{ __('Subsistema') }}"
                             for="name"/>
                             <x-jet-input type="text" name="name" class="w-full " placeholder="{{ __
-                            ('input name')}}"
+                            ('nombre')}}"
                             value="{{ old('name' ,$subsystem->name) }}"/>
                             <x-jet-input-error for="name"/> 
                             <hr class="mb-4">

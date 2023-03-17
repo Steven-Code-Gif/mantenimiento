@@ -1,57 +1,52 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-7xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Protocolos') }}</h1>
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de equipos') }}</h1>
             <div class="flex items-center justify-end mb-3">
-                <a href="{{route('protocols.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                <a href="{{route('equipments.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
                     <i class="fa-sharp fa-solid fa-list-check"></i>
-                    {{__('Agregar Protocolo')}}
+                    {{__('Agregar equipo')}}
                 </a>
             </div>
-            <table id="protocol" class="">
+            <table id="equipment" class="">
             <thead>
                 <tr>
                     <th>Prototipo</th>
-                    <th>Tipo de Tarea</th>
-                    <th>Tarea</th>
-                    <th>Detalles</th>
+                    <th>Equipo</th>
+                    <th>Condiciones</th>
+                    <th>Caracteristicas</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ( $protocols as $protocol )
+                @foreach ( $equipments as $equipment )
                 <tr>
                     <td width="15%">
                         <div>
-                            <p class="text-gray-700 font-bold text-base">{{$protocol->prototype->name}}</p>
-                            <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_1}}</p>
-                            <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_2}}</p>
-                            <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_3}}</p>
-                            <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_4}}</p>
+                            <p class="text-gray-700 font-bold text-base">{{$equipment->prototype->name}}</p>
+                            <p class="text-gray-600 font-semibold text-sm">{{$equipment->prototype->cha_1}}</p>
+                            <p class="text-gray-600 font-semibold text-sm">{{$equipment->prototype->cha_2}}</p>
+                            <p class="text-gray-600 font-semibold text-sm">{{$equipment->prototype->cha_3}}</p>
+                            <p class="text-gray-600 font-semibold text-sm">{{$equipment->prototype->cha_4}}</p>
                         </div>
                     </td>
 
                     <td width="25%">
-                        <p class="text-gray-600 font-semibold text-sm">Especialidad : {{$protocol->specialty()->name}}</p>
-                        <p class="text-gray-600 font-semibold text-sm">Tipo de Tarea : {{$protocol->typeTask()->name}}</p>
+                        <p class="text-gray-600 font-semibold text-sm">Equipo : {{$equipment->name}}</p>
                     </td>
                     <td width="30%">
-                        <p class="text-gray-600 font-bold text-sm">Posición : {{$protocol->position}}</p>
-                        <p class="text-gray-600 font-bold text-sm">Tarea : {{$protocol->task}}</p>
-                        <p class="text-gray-600 font-semibold text-xs">Detalle : {{$protocol->detail}}</p>
+                        <p class="text-gray-600 font-bold text-sm">Servicio : {{$equipment->service}} horas al día</p>
+                        <p class="text-gray-600 font-bold text-sm">Ubicación : {{$equipment->location}}</p>
+                        <p class="text-gray-600 font-semibold text-xs">Descripción : {{$equipment->description}}</p>
                     </td>
                     <td width="">
-                        <p class="text-gray-600 font-bold text-sm">Permisos : {{$protocol->permissions}}</p>
-                        <p class="text-gray-600 font-semibold text-xs">Seguridad : {{$protocol->security}}</p>
-                        <p class="text-gray-600 font-semibold text-xs">Condición : {{$protocol->conditions}}</p>
-                        <p class="text-gray-600 font-semibold text-xs">Frecuencia : {{$protocol->frecuency}}veces al año</p>
-                        <p class="text-gray-600 font-semibold text-xs">Duración : {{$protocol->duration}}horas</p>
-                        <p class="text-gray-600 font-semibold text-xs">Trabajadores : {{$protocol->workers}}trabajadores</p>
+                        <p class="text-gray-600 font-semibold text-xs">Caracteristicas : {{$equipment->features}}</p>
+                        <p class="text-gray-600 font-semibold text-xs">Trabajadores : {{$equipment->protocols}}trabajadores</p>
                     </td>
                     <td class="flex items-center justify-between">
-                        {{-- <a href="{{ route('protocols.show',$protocol->id)}}" title="{{ __('view daitl of protocol ').$protocol->task }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
-                        <a href="{{ route('protocols.edit',$protocol->id)}}" title="{{ __('Editar Protocolo').$protocol->task }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
-                        <form action="{{ route('protocols.destroy',$protocol->id)}}" method="POST" class="form-delete">
+                        {{-- <a href="{{ route('equipments.show',$equipment->id)}}" title="{{ __('view daitl of equipment ').$equipment->task }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
+                        <a href="{{ route('equipments.edit',$equipment->id)}}" title="{{ __('Editar equipmento').$equipment->task }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
+                        <form action="{{ route('equipments.destroy',$equipment->id)}}" method="POST" class="form-delete">
                         @csrf
                         @method('DELETE')
                         <button type="submit"><i class="text-red-500 fa-solid fa-trash-can"></i></button>
@@ -67,7 +62,7 @@
     @push('script')
     <script>
       $(document).ready( function () {
-        $('#protocol').DataTable({
+        $('#equipment').DataTable({
             "pagingType":"full_numbers",
            "language":{
              "info": "Mostrando pag  _PAGE_ de _PAGES_  páginas,  Total de Registros: _TOTAL_ ",
@@ -102,7 +97,7 @@
     $('.form-delete').submit(function(e){
         e.preventDefault();
         Swal.fire({
-  title: 'Esta seguro de querer eliminar Protocolo?',
+  title: 'Esta seguro de querer eliminar Equipo?',
   text: "Esta operacion es irreversible",
   icon: 'warning',
   showCancelButton: true,

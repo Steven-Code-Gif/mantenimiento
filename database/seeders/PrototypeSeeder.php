@@ -17,7 +17,7 @@ class PrototypeSeeder extends Seeder
      */
     public function run()
     {
-        $json = File::get('database/data/prototipo.json');
+        $json = File::get('database/data/prototipos.json');
         $data = json_decode($json);
         foreach($data as $obj){
             $prototype = new Prototype();

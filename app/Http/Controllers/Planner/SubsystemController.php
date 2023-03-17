@@ -37,7 +37,7 @@ class SubsystemController extends Controller
     {
         $systems = System::all();
         $subsystem = new Subsystem();
-        $title="add subsystem";
+        $title="Agregar Subsistema";
         $btn="create";
         return view('planner.subsystems.create',compact('systems','subsystem','title','btn'));
     }
@@ -82,7 +82,7 @@ class SubsystemController extends Controller
     public function edit(Subsystem $subsystem)
     {
         $systems = System::all();
-        $title="edit subsystem";
+        $title="Editar Subsistema";
         $btn="update";
         return view('planner.subsystems.edit',compact('systems','subsystem','title','btn'));
     }
@@ -116,6 +116,6 @@ class SubsystemController extends Controller
     public function destroy(Subsystem $subsystem)
     {
         $subsystem->delete();
-        return redirect()->route ('subsystems.index')->with('success','Subsistema eliminado correctamente');
+        return redirect()->route ('subsystems.index')->with('fail','Subsistema eliminado correctamente');
     }
 }

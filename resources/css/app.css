@@ -7,10 +7,10 @@
 }
 
 .card{
-    @apply bg-white rounded overflow-hidden border ;
+    @apply bg-white rounded overflow-hidden;
   }
 .card-body{
-    @apply px-6 py-4 border;
+    @apply px-6 py-4;
 }
 
 .card-title{

@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('prototype_id')->references('id')->on
+            ('prototypes')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('name');
+            $table->string('slug');
+            $table->text('description')->nullable();
+            $table->string('location')->nullable();
+            $table->string('service')->nullable();
             $table->timestamps();
         });
     }

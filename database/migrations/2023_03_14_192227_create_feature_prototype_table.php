@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create('feature_prototype', function (Blueprint $table) {
             $table->id();
-            $table->integer('isNumeric')->default(0);
-            $table->string('measure');
-            $table->string('slug')->nullable();
-            $table->string('unit')->nullable();
-            $table->string('symbol')->nullable();
-            $table->longText('description')->nullable();
+            $table->foreignId('feature_id')->references('id')->on('features')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('prototype_id')->references('id')->on('prototypes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('feature_prototype');
     }
 };

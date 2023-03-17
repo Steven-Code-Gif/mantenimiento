@@ -35,7 +35,7 @@ class ZoneController extends Controller
     public function create()
     {
         $zone = new Zone();
-        $title="add zone";
+        $title="Agregar Zona";
         $btn="create";
         return view('planner.zones.create',compact('zone','title','btn'));
     }
@@ -76,7 +76,7 @@ class ZoneController extends Controller
      */
     public function edit(Zone $zone)
     {
-        $title="edit zone";
+        $title="Editar Zona";
         $btn="update";
         return view('planner.zones.edit',compact('zone','title','btn'));
     }
@@ -108,6 +108,6 @@ class ZoneController extends Controller
     public function destroy(Zone $zone)
     {
         $zone->delete();
-        return redirect()->route ('zones.index')->with('success','Zona eliminada correctamente');
+        return redirect()->route ('zones.index')->with('fail','Zona eliminada correctamente');
     }
 }

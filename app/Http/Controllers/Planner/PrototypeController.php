@@ -42,7 +42,7 @@ class PrototypeController extends Controller
     public function create()
     {
         $prototype = new Prototype();
-        $title="add prototype";
+        $title="Agregar Prototipo";
         $btn="create";
         return view('planner.prototypes.create', compact('prototype','title','btn'));
     }
@@ -97,7 +97,7 @@ class PrototypeController extends Controller
      */
     public function edit(Prototype $prototype)
     {
-        $title="edit prototype";
+        $title="Editar Prototipo";
         $btn="update";
         return view('planner.prototypes.edit', compact('prototype','title','btn'));
     }
@@ -154,6 +154,10 @@ class PrototypeController extends Controller
             $message="archivos eliminados correctamente";
         }
         $prototype->images()->delete();
-        return redirect()->route('prototypes.index')->with('success',$message);
+        return redirect()->route('prototypes.index')->with('fail',$message);
+    }
+
+    public function image(Prototype $prototype){
+        return view ('planner.prototypes.images.image',compact('prototype'));
     }
 }

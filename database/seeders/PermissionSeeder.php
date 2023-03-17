@@ -95,5 +95,24 @@ class PermissionSeeder extends Seeder
            Permission::create(['name'=>'prototype.protocols.update','permission'=>'prototype-protocol edit']);
            Permission::create(['name'=>'prototype.protocols.destroy','permission'=>'prototype-protocol delete']);
            Permission::create(['name'=>'prototype.protocols.show','permission'=>'prototype-protocol view']);
+
+        //    listado de permisos para equipments
+           Permission::create(['name'=>'equipments.index','permission'=>'equipments list']);
+           Permission::create(['name'=>'equipments.create','permission'=>'equipments create']);
+           Permission::create(['name'=>'equipments.store','permission'=>'equipments create']);
+           Permission::create(['name'=>'equipments.edit','permission'=>'equipments edit']);
+           Permission::create(['name'=>'equipments.update','permission'=>'equipments edit']);
+           Permission::create(['name'=>'equipments.destroy','permission'=>'equipments delete']);
+           Permission::create(['name'=>'equipments.show','permission'=>'equipments view']);
+
+           //    listado de permisos para features
+           Permission::create(['name'=>'features.index','permission'=>'features list']);
+           Permission::create(['name'=>'features.create','permission'=>'features create']);
+           Permission::create(['name'=>'features.store','permission'=>'features create']);
+           Permission::create(['name'=>'features.edit','permission'=>'features edit']);
+           Permission::create(['name'=>'features.update','permission'=>'features edit']);
+           Permission::create(['name'=>'features.destroy','permission'=>'features delete']);
+           Permission::create(['name'=>'features.show','permission'=>'features view']);
+           
     }
 }

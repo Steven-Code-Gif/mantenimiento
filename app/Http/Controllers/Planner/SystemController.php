@@ -35,7 +35,7 @@ class SystemController extends Controller
     public function create()
     {
         $system = new System();
-        $title="add system";
+        $title="Agregar Sistema";
         $btn="create";
         return view('planner.systems.create',compact('system','title','btn'));
     }
@@ -77,7 +77,7 @@ class SystemController extends Controller
      */
     public function edit(System $system)
     {
-        $title="edit system";
+        $title="Editar Sistema";
         $btn="update";
         return view('planner.systems.edit',compact('system','title','btn'));
     }
@@ -114,6 +114,6 @@ class SystemController extends Controller
             return redirect()->route ('systems.index')->with('fail','Sistema 
             imposible eliminar, posee subsistemas');}
         $system->delete();
-        return redirect()->route('systems.index')->with('success','Sistema eliminado correctamente');
+        return redirect()->route('systems.index')->with('fail','Sistema eliminado correctamente');
     }
 }

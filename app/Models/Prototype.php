@@ -20,5 +20,11 @@ class Prototype extends Model
     public function protocols(){
         return $this->hasMany(Protocol::class);
     }
+    public function features(){
+        return $this->belongsToMany(Feature::class);
+    }
+    public function equipments(){
+        return $this->belongsToMany(Equipment::class)->withPivot('id');
+    }
     
 }

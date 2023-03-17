@@ -31,7 +31,7 @@
                             <div x-show="open" class="bg-white p-3">
                                 <ul class="w-full rounded">
                                     @foreach ($prototype->protocols as $protocol)
-                                    <li class="text-xs text-gray-400">{{ $protocol->task}}</li>
+                                      <li class="text-xs text-gray-400">{{ $protocol->task}}</li>
                                     @endforeach
                                 </ul>
                             </div>

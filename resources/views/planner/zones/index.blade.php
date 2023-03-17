@@ -73,7 +73,7 @@
     $('.form-delete').submit(function(e){
         e.preventDefault();
         Swal.fire({
-  title: 'Esta seguro de querer eliminar zone?',
+  title: 'Esta seguro de querer eliminar Zona?',
   text: "Esta operacion es irreversible",
   icon: 'warning',
   showCancelButton: true,

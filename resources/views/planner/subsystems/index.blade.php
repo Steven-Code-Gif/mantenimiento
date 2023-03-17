@@ -75,7 +75,7 @@
     $('.form-delete').submit(function(e){
         e.preventDefault();
         Swal.fire({
-  title: 'Esta seguro de querer eliminar system?',
+  title: 'Esta seguro de querer eliminar Subsistema?',
   text: "Esta operacion es irreversible",
   icon: 'warning',
   showCancelButton: true,

@@ -8,6 +8,8 @@ $navlinks=[
 ['name'=>'zones','route'=>'zones.index','active'=>request()->routeIs('zones.index')],
 ['name'=>'prototypes','route'=>'prototypes.index','active'=>request()->routeIs('prototypes.index')],
 ['name'=>'prototocols','route'=>'protocols.index','active'=>request()->routeIs('protocols.index')],
+['name'=>'equipments','route'=>'equipments.index','active'=>request()->routeIs('equipments.index')],
+['name'=>'features','route'=>'features.index','active'=>request()->routeIs('features.index')],
 ]
 @endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
