@@ -38,7 +38,7 @@ class PrototypeFeatures extends Component
     {
         $search = '%'.$this->search.'%';
         $this->features=Feature::where('measure','like',$search)->whereNotIn('id',
-        $this->prototypeFeaturesId)->pluck('measure','id');
+        $this->prototypeFeaturesId)->pluck('resume','id');
         return view('livewire.planner.prototype-features');
     }
 }

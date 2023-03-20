@@ -18,7 +18,7 @@ class Prototype extends Model
         return $this->morphMany(Image::class,'imageable');
     }
     public function protocols(){
-        return $this->hasMany(Protocol::class);
+        return $this->belongsToMany(Protocol::class);
     }
     public function features(){
         return $this->belongsToMany(Feature::class);

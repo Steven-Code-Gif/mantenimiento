@@ -69,6 +69,10 @@
                                 <a href="{{ route('images-prototype',$prototype->id) }}"
                                     title="{{ __('add images of prototype ') .$prototype->name }}">
                                 <i class="icono text-yellow-500 fa-solid fa-camera"></i></a>
+
+                                <a href="{{ route('protocols-prototype',$prototype->id) }}"
+                                    title="{{ __('add protocols of prototype ') .$prototype->name }}">
+                                    <i class="icono text-pink-500 fa-solid fa-wand-magic-sparkles"></i></a>
                             </td>
                         </tr>
                     @endforeach

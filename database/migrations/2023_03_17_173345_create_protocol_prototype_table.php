@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create('protocol_prototype', function (Blueprint $table) {
             $table->id();
-            $table->integer('isNumeric')->default(0);
-            $table->string('measure');
-            $table->string('slug')->nullable();
-            $table->string('unit')->nullable();
-            $table->string('symbol')->nullable();
-            $table->longText('description')->nullable();
-            $table->string('resume')->nullable();
+            $table->string('value')->nullable();
+            $table->foreignId('protocol_id')->references('id')->on('protocols')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('prototype_id')->references('id')->on('prototypes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('protocol_prototype');
     }
 };

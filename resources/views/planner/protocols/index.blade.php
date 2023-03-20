@@ -23,11 +23,12 @@
                 <tr>
                     <td width="15%">
                         <div>
-                            <p class="text-gray-700 font-bold text-base">{{$protocol->prototype->name}}</p>
+                            <p class="text-gray-700 font-bold text-base">{{$protocol->prototypes->count()}}</p>
+                            {{-- <p class="text-gray-700 font-bold text-base">{{$protocol->prototype->name}}</p>
                             <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_1}}</p>
                             <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_2}}</p>
                             <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_3}}</p>
-                            <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_4}}</p>
+                            <p class="text-gray-600 font-semibold text-sm">{{$protocol->prototype->cha_4}}</p> --}}
                         </div>
                     </td>
 

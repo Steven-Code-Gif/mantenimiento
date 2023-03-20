@@ -133,4 +133,7 @@ class ProtocolController extends Controller
         return redirect()->route('protocols.index')
         ->with('fail','Protocolo eliminado correctamente');
     }
+    public function prototype(Prototype $prototype){
+        return view ('planner.protocols.prototypes.prototype',compact('prototype'));
+    }
 }

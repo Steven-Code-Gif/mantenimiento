@@ -27,6 +27,10 @@ class FeatureSeeder extends Seeder
             $feature->unit = mb_strtolower($obj->unit);
             $feature->symbol = mb_strtolower($obj->symbol);
             $feature->description = mb_strtolower($obj->description);
+            $feature->resume=
+            mb_strtolower($obj->measure).' : '.
+            mb_strtolower($obj->unit).' : '.
+            mb_strtolower($obj->symbol);
             $feature->save();
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Planner;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Models\Prototype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -126,7 +127,7 @@ class PrototypeController extends Controller
         
         if ($request->file('url')) {
             $file = $request->file('url')->store('public/prototypes');
-            $url = storage::url($file);
+            $url = Storage::url($file);
             $prototype->images()->create([
                 'url'=>$url,
                 'description'=>mb_strtolower($request->input('description')) 
@@ -159,5 +160,12 @@ class PrototypeController extends Controller
 
     public function image(Prototype $prototype){
         return view ('planner.prototypes.images.image',compact('prototype'));
+    }
+    public function image_destroy(Request $request,Image $image){
+        $file = $image->url;
+        $url = str_replace('storage','public',$file);
+        Storage::delete($url);
+        $image->delete();
+        return redirect()->route('prototypes.show',$request->input('prototype_id'))->with('success','Imagen Eliminada correctamente');
     }
 }

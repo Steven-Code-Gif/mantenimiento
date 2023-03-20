@@ -21,4 +21,7 @@ Route::resource('/features',FeatureController::class)->names('features');
 Route::get('/features-prototype/{prototype}',[FeatureController::class,'prototype'])->name('features-prototype');
 Route::get('/images-prototype/{prototype}',[PrototypeController::class,'image'])->name('images-prototype');
 
+Route::get('/protocols-prototype/{prototype}',[ProtocolController::class,'prototype'])->name('protocols-prototype');
+Route::delete('/image-destroy/{image}',[PrototypeController::class,'image_destroy'])->name('image-destroy');
+
 Route::resource('/prototypes.protocols',PrototypeProtocolController::class)->names('prototypes.protocols');

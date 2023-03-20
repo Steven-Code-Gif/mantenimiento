@@ -11,8 +11,8 @@ class Protocol extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function prototype(){
-        return $this->belongsTo(Prototype::class);
+    public function prototypes(){
+        return $this->belongsToMany(Prototype::class);
     }
     public function specialty(){
         return Specialty::find($this->specialty_id);

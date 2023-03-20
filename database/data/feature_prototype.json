@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "feature_id": 7,
+        "prototype_id": 2,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 2,
+        "feature_id": 9,
+        "prototype_id": 2,
+        "created_at": null,
+        "updated_at": null
+    }
+]

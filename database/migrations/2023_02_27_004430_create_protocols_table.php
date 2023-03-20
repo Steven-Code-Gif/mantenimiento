@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('workers')->default(1);//# de trabajadores
             $table->string('conditions')->default('maquinaria detenida');
             $table->foreignId('task_id')->references('id')->on('tasks')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('prototype_id')->references('id')->on('prototypes')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('prototype_id')->references('id')->on('prototypes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
