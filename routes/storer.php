@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Planner\ServiceController;
-use App\Http\Controllers\Planner\SupplyController;
-use App\Http\Controllers\Planner\ToolController;
-use App\Http\Controllers\Planner\ReplacementController;
+use App\Http\Controllers\Store\ServiceController;
+use App\Http\Controllers\Store\SupplyController;
+use App\Http\Controllers\Store\ToolController;
+use App\Http\Controllers\Store\ReplacementController;
 use Illuminate\Support\Facades\Route;
 
 

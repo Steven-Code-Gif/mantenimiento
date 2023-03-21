@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Models\Replacement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ReplacementController extends Controller
 {
+    public function __construct(){
+        $this->middleware('can:replacements.index')->only('index');
+        $this->middleware('can:replacements.create')->only(['create','store']);
+        $this->middleware('can:replacements.show')->only('show');
+        $this->middleware('can:replacements.edit')->only(['edit','update']);
+        $this->middleware('can:replacements.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,8 @@ class ReplacementController extends Controller
      */
     public function index()
     {
-        //
+        $replacements = Replacement::all();
+        return view('storer.replacements.index',compact('replacements'));
     }
 
     /**
@@ -25,7 +34,10 @@ class ReplacementController extends Controller
      */
     public function create()
     {
-        //
+        $replacement = new Replacement();
+        $title="Agregar Repuesto";
+        $btn="create";
+        return view('storer.replacements.create',compact('replacement','title','btn'));
     }
 
     /**
@@ -36,7 +48,21 @@ class ReplacementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'price'=>'required|numeric|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
+            'stock'=>'required|numeric|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
+            'brand'=>'required|',
+        ]);
+        $replacement = Replacement::create([
+            'name'=>mb_strtolower($request->input('name')),
+            'slug'=>Str::slug($request->input('name')),
+            'brand'=>mb_strtolower($request->input('brand')),
+            'price'=>$request->input('price'),
+            'stock'=>$request->input('stock'),
+            'description'=>mb_strtolower($request->input('description')),
+        ]);
+        return redirect()->route ('replacements.index')->with('success','Repuesto creado correctamente');
     }
 
     /**
@@ -58,7 +84,10 @@ class ReplacementController extends Controller
      */
     public function edit(Replacement $replacement)
     {
-        //
+
+        $title="Editar Repuesto";
+        $btn="update";
+        return view('storer.replacements.edit',compact('replacement','title','btn'));
     }
 
     /**
@@ -70,9 +99,22 @@ class ReplacementController extends Controller
      */
     public function update(Request $request, Replacement $replacement)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'price'=>'required|numeric|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
+            'stock'=>'required|numeric|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
+            'brand'=>'required|',
+        ]);
+      
+            $replacement->name=mb_strtolower($request->input('name'));
+            $replacement->slug=Str::slug($request->input('name'));
+            $replacement->brand=mb_strtolower($request->input('brand'));
+            $replacement->price=$request->input('price');
+            $replacement->stock=$request->input('stock');
+            $replacement->description=mb_strtolower($request->input('description'));
+            $replacement->save();
+        return redirect()->route ('replacements.index')->with('success','Repuesto actualizado correctamente');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -81,6 +123,8 @@ class ReplacementController extends Controller
      */
     public function destroy(Replacement $replacement)
     {
-        //
+        $replacement->delete();
+        return redirect()->route ('replacements.index')->with('success','Repuesto eliminado correctamente');
+        
     }
 }
