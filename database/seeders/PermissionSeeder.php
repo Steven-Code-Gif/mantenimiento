@@ -113,6 +113,42 @@ class PermissionSeeder extends Seeder
            Permission::create(['name'=>'features.update','permission'=>'features edit']);
            Permission::create(['name'=>'features.destroy','permission'=>'features delete']);
            Permission::create(['name'=>'features.show','permission'=>'features view']);
+
+           //    listado de permisos para services
+           Permission::create(['name'=>'services.index','permission'=>'services list']);
+           Permission::create(['name'=>'services.create','permission'=>'services create']);
+           Permission::create(['name'=>'services.store','permission'=>'services create']);
+           Permission::create(['name'=>'services.edit','permission'=>'services edit']);
+           Permission::create(['name'=>'services.update','permission'=>'services edit']);
+           Permission::create(['name'=>'services.destroy','permission'=>'services delete']);
+           Permission::create(['name'=>'services.show','permission'=>'services view']);
+
+           //    listado de permisos para tool
+           Permission::create(['name'=>'tools.index','permission'=>'tools list']);
+           Permission::create(['name'=>'tools.create','permission'=>'tools create']);
+           Permission::create(['name'=>'tools.store','permission'=>'tools create']);
+           Permission::create(['name'=>'tools.edit','permission'=>'tools edit']);
+           Permission::create(['name'=>'tools.update','permission'=>'tools edit']);
+           Permission::create(['name'=>'tools.destroy','permission'=>'tools delete']);
+           Permission::create(['name'=>'tools.show','permission'=>'tools view']);
+
+            //    listado de permisos para supplies
+            Permission::create(['name'=>'supplies.index','permission'=>'supplies list']);
+            Permission::create(['name'=>'supplies.create','permission'=>'supplies create']);
+            Permission::create(['name'=>'supplies.store','permission'=>'supplies create']);
+            Permission::create(['name'=>'supplies.edit','permission'=>'supplies edit']);
+            Permission::create(['name'=>'supplies.update','permission'=>'supplies edit']);
+            Permission::create(['name'=>'supplies.destroy','permission'=>'supplies delete']);
+            Permission::create(['name'=>'supplies.show','permission'=>'supplies view']);
+
+            //    listado de permisos para replacements
+            Permission::create(['name'=>'replacements.index','permission'=>'replacements list']);
+            Permission::create(['name'=>'replacements.create','permission'=>'replacements create']);
+            Permission::create(['name'=>'replacements.store','permission'=>'replacements create']);
+            Permission::create(['name'=>'replacements.edit','permission'=>'replacements edit']);
+            Permission::create(['name'=>'replacements.update','permission'=>'replacements edit']);
+            Permission::create(['name'=>'replacements.destroy','permission'=>'replacements delete']);
+            Permission::create(['name'=>'replacements.show','permission'=>'replacements view']);
            
     }
 }

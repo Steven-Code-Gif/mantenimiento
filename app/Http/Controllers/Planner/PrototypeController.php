@@ -9,11 +9,6 @@ use App\Models\Prototype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-
-
-
-
-
 class PrototypeController extends Controller
 {
     

@@ -45,6 +45,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('planner')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/planner.php'));
+
+            Route::middleware('web','auth','role:storer|super-admin')
+                ->prefix('storer')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/storer.php'));
             
         });
     }

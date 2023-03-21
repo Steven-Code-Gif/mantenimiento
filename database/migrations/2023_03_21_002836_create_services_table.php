@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('equipment_protocol', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('value')->nullable();
-            $table->foreignId('protocol_id')->references('id')->on('protocols')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('equipment_id')->references('id')->on('equipment')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipment_protocol');
+        Schema::dropIfExists('services');
     }
 };

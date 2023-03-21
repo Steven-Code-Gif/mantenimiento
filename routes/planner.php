@@ -25,3 +25,9 @@ Route::get('/protocols-prototype/{prototype}',[ProtocolController::class,'protot
 Route::delete('/image-destroy/{image}',[PrototypeController::class,'image_destroy'])->name('image-destroy');
 
 Route::resource('/prototypes.protocols',PrototypeProtocolController::class)->names('prototypes.protocols');
+
+Route::get('/addFeatures/{equipment}',[EquipmentController::class, 'addFeatures'])->name('equipments.addFeatures');
+
+Route::get('/addValues/{equipment}',[EquipmentController::class, 'addValues'])->name('equipments.addValues');
+
+Route::post('/storeValues/{equipment}',[EquipmentController::class, 'storeValues'])->name('equipments.storeValues');
