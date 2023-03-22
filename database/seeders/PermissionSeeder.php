@@ -149,6 +149,15 @@ class PermissionSeeder extends Seeder
             Permission::create(['name'=>'replacements.update','permission'=>'replacements edit']);
             Permission::create(['name'=>'replacements.destroy','permission'=>'replacements delete']);
             Permission::create(['name'=>'replacements.show','permission'=>'replacements view']);
+
+             //    listado de permisos para rrhh
+             Permission::create(['name'=>'employes.index','permission'=>'employes list']);
+             Permission::create(['name'=>'employes.create','permission'=>'employes create']);
+             Permission::create(['name'=>'employes.store','permission'=>'employes create']);
+             Permission::create(['name'=>'employes.edit','permission'=>'employes edit']);
+             Permission::create(['name'=>'employes.update','permission'=>'employes edit']);
+             Permission::create(['name'=>'employes.destroy','permission'=>'employes delete']);
+             Permission::create(['name'=>'employes.show','permission'=>'employes view']);
            
     }
 }

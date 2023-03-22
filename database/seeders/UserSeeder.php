@@ -45,5 +45,15 @@ class UserSeeder extends Seeder
          ]);
 
          $user->assignRole('storer');
+
+         $user = User::create([
+            'name' =>'Recursos Humanos',
+            'email' =>'rrhh@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'remember_token' => Str::random(10),
+         ]);
+
+         $user->assignRole('rrhh');
     }
 }
