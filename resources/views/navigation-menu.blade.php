@@ -14,7 +14,9 @@ $navlinks=[
 ['name'=>'tools','route'=>'tools.index','active'=>request()->routeIs('tools.index')],
 ['name'=>'supplies','route'=>'supplies.index','active'=>request()->routeIs('supplies.index')],
 ['name'=>'replacements','route'=>'replacements.index','active'=>request()->routeIs('replacements.index')],
-['name'=>'employes','route'=>'employes.index','active'=>request()->routeIs('employes.index')]
+['name'=>'employes','route'=>'employes.index','active'=>request()->routeIs('employes.index')],
+['name'=>'teams','route'=>'teams.index','active'=>request()->routeIs('teams.index')],
+['name'=>'fails','route'=>'fails.index','active'=>request()->routeIs('fails.index')]
 
 ]
 @endphp

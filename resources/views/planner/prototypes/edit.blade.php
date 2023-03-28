@@ -19,22 +19,22 @@
                             <x-jet-label class="italic my-2 capitalize font-bold" value="{{ __('Nombre del Prototipo') }}"
                                 for="name" />
                             <x-jet-input type="text" name="name" class="w-full "
-                                placeholder="{{ __('input name') }}"
+                                placeholder="{{ __('nombre') }}"
                                 value="{{ old('name', $prototype->name) }}" />
                             <x-jet-input-error for="name" />
                             <x-jet-label class="italic my-2 capitalize font-bold" value="{{ __('Caracteristicas') }}"
                                 for="name" />
                             <x-jet-input type="text" name="cha_1" class="w-full mb-1"
-                                placeholder="{{ __('input feature') }}"
+                                placeholder="{{ __('caracteristica 1') }}"
                                 value="{{ old('cha_1', $prototype->cha_1) }}" />
                             <x-jet-input type="text" name="cha_2" class="w-full mb-1"
-                                placeholder="{{ __('input feature') }}"
+                                placeholder="{{ __('caracteristica 2') }}"
                                 value="{{ old('cha_2', $prototype->cha_2) }}" />
                             <x-jet-input type="text" name="cha_3" class="w-full mb-1"
-                                placeholder="{{ __('input feature') }}"
+                                placeholder="{{ __('caracteristica 3') }}"
                                 value="{{ old('cha_3', $prototype->cha_3) }}" />
                             <x-jet-input type="text" name="cha_4" class="w-full mb-1"
-                                placeholder="{{ __('input feature') }}"
+                                placeholder="{{ __('caracteristica 4') }}"
                                 value="{{ old('cha_4', $prototype->cha_4) }}" />
                             <x-jet-label class="italic capitalize font-bold"
                                 value="{{ __('descripción del Prototipo') }}" for="name" />

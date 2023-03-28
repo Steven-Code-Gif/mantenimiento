@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-
+use App\Models\Equipment;
+use App\Models\Fail;
 use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
@@ -25,5 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PrototypeSeeder::class);
         $this->call(FeatureSeeder::class);
         $this->call(ProtocolSeeder::class);
+        $this->call(FailSeeder::class);
+        Equipment::factory(45)->create();
+        Fail::factory(30)->create();
+        $this->call(TeamSeeder::class);
     }
 }

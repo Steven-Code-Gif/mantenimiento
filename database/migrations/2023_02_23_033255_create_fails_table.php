@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('fails', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('equipment_id')->references('id')->on('equipment')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('type');
+            $table->boolean('status')->default(1);
+            $table->bigInteger('user_id')->nullable();
+            $table->dateTime('reported_at')->nullable();
+            $table->dateTime('assigned_at')->nullable();
+            $table->dateTime('repareid_at')->nullable();
             $table->timestamps();
         });
     }

@@ -151,13 +151,31 @@ class PermissionSeeder extends Seeder
             Permission::create(['name'=>'replacements.show','permission'=>'replacements view']);
 
              //    listado de permisos para rrhh
-             Permission::create(['name'=>'employes.index','permission'=>'employes list']);
-             Permission::create(['name'=>'employes.create','permission'=>'employes create']);
-             Permission::create(['name'=>'employes.store','permission'=>'employes create']);
-             Permission::create(['name'=>'employes.edit','permission'=>'employes edit']);
-             Permission::create(['name'=>'employes.update','permission'=>'employes edit']);
-             Permission::create(['name'=>'employes.destroy','permission'=>'employes delete']);
-             Permission::create(['name'=>'employes.show','permission'=>'employes view']);
+            Permission::create(['name'=>'employes.index','permission'=>'employes list']);
+            Permission::create(['name'=>'employes.create','permission'=>'employes create']);
+            Permission::create(['name'=>'employes.store','permission'=>'employes create']);
+            Permission::create(['name'=>'employes.edit','permission'=>'employes edit']);
+            Permission::create(['name'=>'employes.update','permission'=>'employes edit']);
+            Permission::create(['name'=>'employes.destroy','permission'=>'employes delete']);
+            Permission::create(['name'=>'employes.show','permission'=>'employes view']);
+
+              //    listado de permisos para teams
+            Permission::create(['name'=>'teams.index','permission'=>'teams list']);
+            Permission::create(['name'=>'teams.create','permission'=>'teams create']);
+            Permission::create(['name'=>'teams.store','permission'=>'teams create']);
+            Permission::create(['name'=>'teams.edit','permission'=>'teams edit']);
+            Permission::create(['name'=>'teams.update','permission'=>'teams edit']);
+            Permission::create(['name'=>'teams.destroy','permission'=>'teams delete']);
+            Permission::create(['name'=>'teams.show','permission'=>'teams view']);
+
+               //    listado de permisos para fails
+               Permission::create(['name'=>'fails.index','permission'=>'fails list']);
+               Permission::create(['name'=>'fails.create','permission'=>'fails create']);
+               Permission::create(['name'=>'fails.store','permission'=>'fails create']);
+               Permission::create(['name'=>'fails.edit','permission'=>'fails edit']);
+               Permission::create(['name'=>'fails.update','permission'=>'fails edit']);
+               Permission::create(['name'=>'fails.destroy','permission'=>'fails delete']);
+               Permission::create(['name'=>'fails.show','permission'=>'fails view']);
            
     }
 }

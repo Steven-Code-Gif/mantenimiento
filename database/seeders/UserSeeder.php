@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+   {
         $user = User::create([
             'name' =>'steven',
             'email' =>'steven@gmail.com',
@@ -55,5 +55,20 @@ class UserSeeder extends Seeder
          ]);
 
          $user->assignRole('rrhh');
-    }
+
+         $user = User::create([
+            'name' =>'Supervisor',
+            'email' =>'supervisor@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'remember_token' => Str::random(10),
+         ]);
+
+         $user->assignRole('supervisor');
+
+         User::factory(30)->create()->each(function($user){
+            $user->profile->salary = rand(3000,50000);
+            $user->profile->save();
+         });
+   }
 }

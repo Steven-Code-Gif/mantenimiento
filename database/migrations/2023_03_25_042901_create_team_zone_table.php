@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->float('price',12,2)->default(0);
-            $table->string('supply')->nullable();
-            $table->text('description');
+        Schema::create('team_zone', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('zone_id')->references('id')->on('zones')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('team_zone');
     }
 };

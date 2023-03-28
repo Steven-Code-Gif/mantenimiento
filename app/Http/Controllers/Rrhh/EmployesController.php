@@ -25,4 +25,24 @@ class EmployesController extends Controller
         $employes = User::all();
         return view('rrhh.employes.index',compact('employes'));
     }
+
+    public function edit($id)
+    {
+        $employes = User::find($id);
+        $title="Editar Perfil";
+        $btn="update";
+        return view('rrhh.employes.edit',compact('employes','title','btn'));
+    }
+
+    public function update(Request $request,$id)
+    {
+    $request->validate([
+        'salary'=>'required|numeric|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
+    ]);
+    $user = User::find($id);
+    $profile = $user->profile;
+    $profile->salary = $request->input('salary');
+    $profile->save();
+    return redirect()->route ('employes.index')->with('success','Salario actualizado correctamente');
+}
 }

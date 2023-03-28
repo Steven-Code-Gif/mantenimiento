@@ -42,11 +42,11 @@
                             <td width="30%">{{ $prototype->description }}</td>
                             <td class="grid grid-cols-3 gap-3 items-center justify-between">
                                 <a href="{{ route('prototypes.show', $prototype->id) }}"
-                                    title="{{ __('view daitl of prototype ') . $prototype->name }}"><i
+                                    title="{{ __('ver detalle del prototipo ') . $prototype->name }}"><i
                                         class="icono text-blue-500 fa-solid fa-eye"></i></a>
 
                                 <a href="{{ route('prototypes.edit', $prototype->id) }}"
-                                    title="{{ __('edit prototype ') . $prototype->name }}"><i
+                                    title="{{ __('editar prototipo ') . $prototype->name }}"><i
                                         class="icono text-green-500 
                         fa-solid fa-pen-to-square"></i></a>
 
@@ -59,19 +59,19 @@
                                 </form>
 
                                 <a href="{{ route('prototypes.protocols.create',$prototype->id) }}"
-                                    title="{{ __('add protocol of prototype ') .$prototype->name }}">
+                                    title="{{ __('agregar protocolo al prototipo ') .$prototype->name }}">
                                 <i class="icono fa-solid fa-screwdriver-wrench text-green-600"></i></a>
                                 
                                 <a href="{{ route('features-prototype',$prototype->id) }}"
-                                    title="{{ __('add features of prototype ') .$prototype->name }}">
+                                    title="{{ __('agregar caracteristicas al prototipo ') .$prototype->name }}">
                                <i class="icono text-blue-500 fa-solid fa-file-contract"></i></a>
 
                                 <a href="{{ route('images-prototype',$prototype->id) }}"
-                                    title="{{ __('add images of prototype ') .$prototype->name }}">
+                                    title="{{ __('agregar imagen al prototipo ') .$prototype->name }}">
                                 <i class="icono text-yellow-500 fa-solid fa-camera"></i></a>
 
                                 <a href="{{ route('protocols-prototype',$prototype->id) }}"
-                                    title="{{ __('add protocols of prototype ') .$prototype->name }}">
+                                    title="{{ __('agregar ptotocolo al prototipo ') .$prototype->name }}">
                                     <i class="icono text-pink-500 fa-solid fa-wand-magic-sparkles"></i></a>
                             </td>
                         </tr>

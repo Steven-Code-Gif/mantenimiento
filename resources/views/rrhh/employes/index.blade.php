@@ -17,18 +17,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($employes as $user )
+                @foreach ($employes as $user)
                 <tr>
                     <td width="50%">{{$user->name}}</td>
-                    <td width="20%">{{$user->profile->salary}}</td>
+                    <td width="30%">{{$user->profile->salary}}</td>
                     <td class="text-center flex items-center 
                     justify-between">
-                        <a href="{{ route('employes.show',$user->id)}}" title="{{ __('view daitl of user ').$user->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a>
-                        <a href="{{ route('employes.edit',$user->id)}}" title="{{ __('edit user ').$user->name }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
+                        {{-- <a href="{{ route('employes.show',$user->id)}}" title="{{ __('view daitl of user ').$user->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
+                        <a href="{{ route('employes.edit',$user->id)}}" title="{{ __('edit user ').$user->name }}" ><i class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
                         <form action="{{ route('employes.destroy',$user->id)}}" method="POST" class="form-delete">
                         @csrf
                         @method('DELETE')
-                        <button type="submit"><i class="text-red-500 fa-solid fa-trash-can"></i></button>
+                        <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
                         </form>
                     </td>
                 </tr> 

@@ -2,13 +2,13 @@
     <div class="grid grid-cols-2 max-w-2xl mx-auto border gap-2 p-4 bg-white rounded">
         <form class=" mx-auto" wire:submit.prevent="save">
             <div class="mb-4">
-                <x-jet-label class="italic my-2 capitalize" value="{{ __('description') }}" for="description" />
+                <x-jet-label class="italic my-2 capitalize" value="{{ __('Descripcion') }}" for="description" />
                 <textarea type="text" wire:model="description" class="w-full rounded"
-                    placeholder="{{ __('input description') }}"></textarea>
+                    placeholder="{{ __('descripcion') }}"></textarea>
                 <x-jet-input-error for="description" />
             </div>
             <div class="mb-4">
-                <x-jet-label class="italic my-2 capitalize" value="{{ __('imagen') }}" for="description" />
+                <x-jet-label class="italic my-2 capitalize" value="{{ __('Imagen') }}" for="description" />
                 <input type="file" wire:model="file">
                 <x-jet-input-error for="file" />
             </div>

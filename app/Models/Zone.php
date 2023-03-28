@@ -10,4 +10,9 @@ class Zone extends Model
     use HasFactory;
     
     protected $fillable=['name','slug'];
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class);
+    }
 }

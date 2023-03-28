@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index();
+            $table->unsignedBigInteger('specialty_id');
             $table->string('name');
+            $table->float('cost',12,2)->default(0);
             $table->boolean('personal_team');
             $table->timestamps();
         });

@@ -18,11 +18,10 @@ class RoleSeeder extends Seeder
     {
         $super_admin = Role::create(['name' =>'super-admin']);
         $admin = Role::create(['name' =>'admin']);
-
         $super_admin->givePermissionTo(Permission::all());
-
         $adminpermissions = ['1','2','3','4','5','6','7','8','15'];
         $admin->givePermissionTo($adminpermissions);
+
 
         $planner = Role::create(['name' =>'planner']);
         $plannerPermissions = [
@@ -53,5 +52,13 @@ class RoleSeeder extends Seeder
             '105','106','107','108','109','110','111',
         ];
         $rrhh->givePermissionTo($rrhhPermissions);
+
+
+        $supervisor = Role::create(['name' =>'supervisor']);
+        $supervisorPermissions = [
+            '112','113','114','115','116','117','118',
+            '119','120','121','122','123','124','125'
+        ];
+        $supervisor->givePermissionTo($supervisorPermissions);
     }
 }

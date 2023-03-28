@@ -66,4 +66,12 @@ class User extends Authenticatable
     public function profile(){
         return $this->hasOne(Profile::class);
     }
+    public function team()
+    {
+        return $this->hasOne(Team::class);
+    }
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class);
+    }
 }
