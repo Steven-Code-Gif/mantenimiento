@@ -61,7 +61,7 @@ class Team extends JetstreamTeam
         return $this->belongsToMany(Zone::class);
     }
     public function fails(){
-        return $this->belongsToMany(Fails::class);
+        return $this->belongsToMany(Fail::class);
     }
     public function cost()
     {

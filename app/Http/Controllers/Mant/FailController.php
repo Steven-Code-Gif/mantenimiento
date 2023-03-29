@@ -89,6 +89,25 @@ class FailController extends Controller
     public function add($id)
     {
         $fail = Fail::find($id);
+        if($fail->status==1){
+        return redirect()->route('fails.index')->with('success',
+        'Falla reparada, no se le puede asignar grupo de tarea');
+        }
         return view('mant.fails.add',compact('fail'));
     }
+
+    public function tasks()
+    {
+        $team=auth()->user()->team;
+        $fails=$team->fails()->where('status',0)->get();
+        return view('mant.fails.tasks',compact('fails'));
+    }
+
+    public function repair(Fail $fail)
+    {
+        return view('mant.fails.repair',compact('fail'));
+    }
+
+
+
 }

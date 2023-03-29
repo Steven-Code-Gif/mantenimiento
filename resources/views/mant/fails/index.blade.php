@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-4xl mx-auto">
+        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-6xl mx-auto">
             <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Fallas') }}</h1>
             <div class="flex items-center justify-end mb-3">
                 <a href="{{ route('fails.create') }}"
@@ -27,19 +27,23 @@
                             <td width="20%">
                                 <p class="text-gray-400 font-bold text-sm">{{ $fail->equipment->name }}</p>
                             </td>
-                            <td width="10%" class="text-xs text-gray-400">
+                            <td width="12%" class="text-xs text-gray-400">
                                 <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->format('d-m-Y') }}</p>
                                 <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->diffForHumans() }}</p>
                             </td>
 
-                            <td width="10%" class="text-xs text-gray-400">
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->format('d-m-Y') }}</p>
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->diffForHumans() }}</p>
+                            <td width="12%" class="text-xs text-gray-400">
+                                @if ($fail->teams->count()>0)
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->format('d-m-Y') }}</p>
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->diffForHumans() }}</p>
+                                @endif
                             </td>
 
-                            <td width="10%" class="text-xs text-gray-400">   
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->format('d-m-Y') }}</p>
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->diffForHumans() }}</p>
+                            <td width="12%" class="text-xs text-gray-400">
+                                @if ($fail->status==1)
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->format('d-m-Y') }}</p>
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->diffForHumans() }}</p>
+                                @endif  
                             </td>
 
                             <td width="10%" class="text-xs text-gray-400">
@@ -52,7 +56,7 @@
                                 </p>
                             </td>
 
-                            <td width="25%" class="text-justify text-xs text-gray-400">
+                            <td width="19%" class="text-justify text-xs text-gray-400">
                                 <p class="text-gray-400 font-bold text-xs">
                                     @foreach ($fail->teams as $team )
                                     <p class="text-gray-400 font-bold text-xs">{{ $team->name }}</p>
@@ -72,7 +76,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"><i
-                                            class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                        class="icono text-red-500 fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         </tr>

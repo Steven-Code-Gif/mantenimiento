@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fail;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Zone;
@@ -23,5 +24,8 @@ class TeamSeeder extends Seeder
            $users=User::all()->random(4)->pluck('id');
            $team->users()->attach($users);
          });
+         $team = Team::find(1);
+         $fails= Fail::all()->random(4)->pluck('id');
+         $team->fails()->attach($fails);
     }
 }

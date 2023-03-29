@@ -20,6 +20,8 @@ class AddTeams extends Component
     public function addPersonal($teamId)
     {
         $this->fail->teams()->attach($teamId);
+        $this->fail->assigned_at = now();
+        $this->fail->save();
         $this->fail=Fail::find($this->fail->id);
         $this->failTeams=$this->fail->teams;
         $this->failTeamsId = DB::table('fail_team')->pluck('user_id');
@@ -28,9 +30,13 @@ class AddTeams extends Component
     public function delPersonal($teamId)
     {
         $this->fail->teams()->detach($teamId);
+        if ($this->fail->teams()->count()==0) {
+            $this->fail->assigned_at=now();
+            $this->fail->save();
+        }
         $this->fail=Fail::find($this->fail->id);
         $this->failTeams=$this->fail->teams;
-        $this->failTeamsId = DB::table('fail_team')->pluck('user_id');
+        $this->failTeamsId = DB::table('fail_team')->pluck('team_id');
     }
 
     public function render()

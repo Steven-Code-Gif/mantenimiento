@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('type');
             $table->boolean('status')->default(1);
             $table->bigInteger('user_id')->nullable();
-            $table->dateTime('reported_at')->nullable();
-            $table->dateTime('assigned_at')->nullable();
-            $table->dateTime('repareid_at')->nullable();
+            $table->dateTime('reported_at')->default(now());
+            $table->dateTime('assigned_at')->default(now());
+            $table->dateTime('repareid_at')->default(now());
             $table->timestamps();
         });
     }

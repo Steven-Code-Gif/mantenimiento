@@ -1,53 +1,48 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-4xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Equipos') }}</h1>
-            <div class="flex items-center justify-end mb-3">
-                <a href="{{ route('teams.create') }}"
-                    class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
-                    <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{ __('Agregar Equipo') }}
-                </a>
-            </div>
-            <table id="team" class="">
+        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-3xl mx-auto">
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Tareas') }}</h1>
+            <table id="fails" class="">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Costo</th>
-                        <th>Miembros</th>
+                        <th>Equipo</th>
+                        <th>Reportado</th>
+                        <th>Asignado</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($teams as $team)
+                    @foreach ($fails as $fail)
                         <tr>
-                            <td width="40%">
-                                <p class="text-gray-400 font-bold text-sm">{{ $team->name }}</p>
-                                <p class="text-gray-400 font-bold text-xs">{{ $team->specialty() }}</p>
-                                @foreach ($team->zones as $z )
-                                <p class="text-blue-400 font-bold text-xs">{{ $z->name }}</p>
-                                @endforeach
-                                <hr>
+                            <td width="">
+                                <p class="text-gray-400 font-bold text-sm">{{ $fail->equipment->name }}</p>
+                                <p class="text-gray-400 font-bold text-sm">{{ $fail->equipment->location() }}</p>
                             </td>
-                            <td width="10%" class="text-xs text-gray-400">{{ $team->cost() }}</td>
-                            <td width="30%" class="text-xs text-gray-400">
-                                @foreach ($team->users as $user)
-                                    <p>{{ $user->name }}</p>
-                                @endforeach
+                            <td width="" class="text-xs text-gray-400">
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->format('d-m-Y') }}</p>
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->diffForHumans() }}</p>
                             </td>
+
+                            <td width="" class="text-xs text-gray-400">
+                                @if ($fail->teams->count()>0)
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->format('d-m-Y') }}</p>
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->diffForHumans() }}</p>
+                                @endif
+                            </td>
+
                             <td class="text-center flex items-center justify-between">
-                                <a href="{{ route('teams.members-add', $team->id) }}"
-                                    title="{{ __('ver detalles del ') . $team->name }}"><i
-                                        class="icono text-blue-600 fa-solid fa-people-group"></i></a>
-                                <a href="{{ route('teams.edit', $team->id) }}"
-                                    title="{{ __('editar ') . $team->name }}"><i
+                                <a href="{{ route('fails.repair', $fail->id) }}"
+                                    title="{{ __('reparar falla ') . $fail->name }}"><i 
+                                    class="icono text-green-600 fa-solid fa-person-digging"></i></a>
+                                <a href="{{ route('fails.edit', $fail->id) }}"
+                                    title="{{ __('editar ') . $fail->name }}"><i
                                         class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
-                                <form action="{{ route('teams.destroy', $team->id) }}" method="POST"
+                                <form action="{{ route('fails.destroy', $fail->id) }}" method="POST"
                                     class="form-delete">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"><i
-                                    class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                        class="icono text-red-500 fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -59,7 +54,7 @@
     @push('script')
         <script>
             $(document).ready(function() {
-                $('#team').DataTable({
+                $('#fails').DataTable({
                     "pagingType": "full_numbers",
                     "language": {
                         "info": "Mostrando pag  _PAGE_ de _PAGES_  páginas,  Total de Registros: _TOTAL_ ",
@@ -88,7 +83,7 @@
                         "infoFiltered": ""
                     },
                     "columnDefs": [{
-                        "targets": [3],
+                        "targets": [6],
                         "orderable": false
                     }]
                 });
@@ -97,7 +92,7 @@
             $('.form-delete').submit(function(e) {
                 e.preventDefault();
                 Swal.fire({
-                    title: 'Esta seguro de querer eliminar Equipo?',
+                    title: 'Esta seguro de querer eliminar Falla?',
                     text: "Esta operacion es irreversible",
                     icon: 'warning',
                     showCancelButton: true,

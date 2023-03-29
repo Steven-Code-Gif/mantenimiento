@@ -56,7 +56,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/rrhh.php'));
 
-            Route::middleware('web','auth','role:supervisor|super-admin')
+            Route::middleware('web','auth','role:supervisor|super-admin|tecnico')
                 ->prefix('mant')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/mant.php'));

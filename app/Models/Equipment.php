@@ -14,10 +14,14 @@ class Equipment extends Model
         return $this->belongsTo(Prototype::class);
     }
     public function features(){
-        return $this->belongsToMany(feature::class)->withPivot('id','value');
+        return $this->belongsToMany(Feature::class)->withPivot('id','value');
     }
 
     public function fails(){
-        return $this->hasMany(Equipment::class);
+        return $this->hasMany(Fail::class);
+    }
+
+    public function location(){
+        return Zone::find($this->location)->name;
     }
 }

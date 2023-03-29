@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Specialty;
+use App\Models\Team;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -65,6 +67,30 @@ class UserSeeder extends Seeder
          ]);
 
          $user->assignRole('supervisor');
+
+         $user = User::create([
+            'name' =>'Tecnico',
+            'email' =>'tecnico@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'remember_token' => Str::random(10),
+         ]);
+
+         $user->assignRole('tecnico');
+
+         $team = Team::create([
+            'name' => 'equipo de tareas steven',
+            'specialty_id' => Specialty::all()->random()->id,
+            'user_id' => $user->id,
+            'personal_team' => true,
+
+         ]);
+
+         User::factory(4)->create()->each(function($user) use($team){
+            $user->profile->salary = rand(3000,50000);
+            $user->profile->save();
+            $team->users()->attach($user->id);
+         });
 
          User::factory(30)->create()->each(function($user){
             $user->profile->salary = rand(3000,50000);
