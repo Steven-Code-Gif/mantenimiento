@@ -12,7 +12,7 @@
                             <x-jet-label class="italic my-2 capitalize" value="{{ __('Nombre') }}"
                             for="name"/>
                             <x-jet-input type="text" name="name" class="w-full " placeholder="{{ __
-                            ('input name')}}"
+                            ('nombre')}}"
                             value="{{ old('name' ,$employes->name) }}"/>
                             <x-jet-input-error for="name"/> 
                         </div>

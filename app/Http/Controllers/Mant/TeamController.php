@@ -11,11 +11,12 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('can:teams.index')->only('index');
-        $this->middleware('can:teams.create')->only(['create','store']);
+        $this->middleware('can:teams.create')->only(['create', 'store']);
         $this->middleware('can:teams.show')->only('show');
-        $this->middleware('can:teams.edit')->only(['edit','update']);
+        $this->middleware('can:teams.edit')->only(['edit', 'update']);
         $this->middleware('can:teams.destroy')->only('destroy');
     }
     /**
@@ -25,8 +26,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::all();
-        return view('mant.teams.index',compact('teams'));
+        $teams = Team::with('zones','users')->get();
+        return view('mant.teams.index', compact('teams'));
     }
 
     /**
@@ -37,12 +38,12 @@ class TeamController extends Controller
     public function create()
     {
         $team = new Team();
-        $specialties = Specialty::orderBy('name','asc')->get();
-        $users = User::orderBy('name','asc')->get();
-        $zones = Zone::orderBy('name','asc')->get();
-        $title="Agregar Equipo";
-        $btn="create";
-        return view('mant.teams.create',compact('team','specialties','zones','users','title','btn'));
+        $specialties = Specialty::orderBy('name', 'asc')->get();
+        $users = User::orderBy('name', 'asc')->get();
+        $zones = Zone::orderBy('name', 'asc')->get();
+        $title = "Agregar Equipo";
+        $btn = "create";
+        return view('mant.teams.create', compact('team', 'specialties', 'zones', 'users', 'title', 'btn'));
     }
 
     /**
@@ -54,18 +55,18 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'specialty_id'=>'required',
-            'user_id'=>'required|unique:teams,user_id',
+            'name' => 'required',
+            'specialty_id' => 'required',
+            'user_id' =>'required|unique:teams,user_id',
         ]);
         $team = Team::create([
-            'name'=>mb_strtolower($request->input('name')),
-            'specialty_id'=>$request->input('specialty_id'),
-            'user_id'=>$request->input('user_id'),
-            'personal_team'=>true
+            'name' => mb_strtolower($request->input('name')),
+            'specialty_id' => $request->input('specialty_id'),
+            'user_id' => $request->input('user_id'),
+            'personal_team' => true
         ]);
         $team->zones()->sync($request->input('zone_id'));
-        return redirect()->route ('teams.index')->with('success','Equipo creado correctamente');
+        return redirect()->route('teams.index')->with('success', 'Equipo creado correctamente');
     }
 
     /**
@@ -87,12 +88,12 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
-        $specialties = Specialty::orderBy('name','asc')->get();
-        $users = User::orderBy('name','asc')->get();
-        $zones = Zone::orderBy('name','asc')->get();
-        $title="Editar team";
-        $btn="update";
-        return view('mant.teams.edit',compact('team','zones','specialties','users','title','btn'));
+        $specialties = Specialty::orderBy('name', 'asc')->get();
+        $users = User::orderBy('name', 'asc')->get();
+        $zones = Zone::orderBy('name', 'asc')->get();
+        $title = "Editar Equipo";
+        $btn = "update";
+        return view('mant.teams.edit', compact('team', 'zones', 'specialties', 'users', 'title', 'btn'));
     }
 
     /**
@@ -102,21 +103,21 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Team $team)
+    public function update(Request $request, Team $team)
     {
         $request->validate([
-            'name'=>'required',
-            'specialty_id'=>'required',
-            'user_id'=>'required|unique:teams,user_id'.$team->id,
+            'name' => 'required',
+            'specialty_id' => 'required',
+            'user_id' => 'required|unique:teams,user_id' . $team->id,
         ]);
-        
-            $team->name = mb_strtolower($request->input('name'));
-            $team->specialty_id = $request->input('specialty_id');
-            $team->user_id =$request->input('user_id');
-            $team->personal_team = true;
-            $team->save();
-            $team->zones()->sync($request->input('zone_id'));
-           return redirect()->route ('teams.index')->with('success','Equipo actualizado correctamente');
+
+        $team->name = mb_strtolower($request->input('name'));
+        $team->specialty_id = $request->input('specialty_id');
+        $team->user_id = $request->input('user_id');
+        $team->personal_team = true;
+        $team->save();
+        $team->zones()->sync($request->input('zone_id'));
+        return redirect()->route('teams.index')->with('success', 'Equipo actualizado correctamente');
     }
 
     /**
@@ -127,16 +128,16 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
-        $team -> delete();
-        return redirect()->route('teams.index')->with('success','Equipo eliminado correctamente');
+        $team->delete();
+        return redirect()->route('teams.index')->with('success', 'Equipo eliminado correctamente');
     }
 
     public function add($id)
     {
         $team = Team::find($id);
-        $users = User::orderBy('name','asc')->get();
-        $title="add team";
-        $btn="create";
-        return view('mant.teams.add',compact('team','users','title','btn'));
+        $users = User::orderBy('name', 'asc')->get();
+        $title = "agregar Equipo";
+        $btn = "create";
+        return view('mant.teams.add', compact('team', 'users', 'title', 'btn'));
     }
 }

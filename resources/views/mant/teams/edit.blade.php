@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="container mx-auto py-6 my-8">
-        <form action="{{ route('teams.update',$team->id) }}" method="POST" class="card max-w-lg mx-auto">
+        <form action="{{ route('teams.update', $team->id) }}" method="POST" class="card max-w-lg mx-auto">
             @csrf
-            @method('put')
+            @method('PUT')
             <div class="card max-w-xl">
                 <div class="card-body">
                     <h1 class="card-title">{{ __($title) }}</h1>
@@ -71,7 +71,6 @@
                     </div>
                 </div>
             </div>
-
         </form>
     </div>
     @push('script')

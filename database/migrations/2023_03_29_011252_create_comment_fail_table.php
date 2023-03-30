@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('equipment', function (Blueprint $table) {
+        Schema::create('comment_fail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('prototype_id')->references('id')->on('prototypes')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('name');
-            $table->string('slug');
-            $table->text('description')->nullable();
-            $table->string('location')->nullable();
-            $table->string('service')->nullable();
+            $table->foreignId('comment_id')->references('id')->on('comments')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('fail_id')->references('id')->on('fails')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipment');
+        Schema::dropIfExists('comment_fail');
     }
 };

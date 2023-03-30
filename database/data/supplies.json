@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "name": "detergente y lavavajillas",
+        "slug": "detergente-y-lavavajillas",
+        "brand": "Hola",
+        "supply": "Hoeger Hola",
+        "price": 27598.37,
+        "stock": 2125,
+        "unit": null,
+        "description": "Unde ducimus sed repudiandae eaque. Dolorum est et soluta velit a veniam. Sint consectetur perspiciatis nulla laborum.",
+        "created_at": "2022-11-18T14:47:16.000000Z",
+        "updated_at": "2022-11-18T14:47:16.000000Z"
+    }
+]

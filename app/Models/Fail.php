@@ -31,6 +31,17 @@ class Fail extends Model
         return $this->belongsToMany(Team::class);
     }
 
+    public function comments(){
+        return $this->morphToMany(Comment::class,'commentable');
+    }
+
+    public function replacements(){
+        return $this->belongsToMany(Replacement::class);
+    }
+
+
+
+
 
 
 }

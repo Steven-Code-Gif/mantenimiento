@@ -1,0 +1,14 @@
+[
+    {
+        "id":1,
+        "name":"condensador",
+        "slug":"condensador",
+        "brand":"Pollich-Jones",
+        "price":4298.4,
+        "stock":1020,
+        "supply":"Hettinger Ltd",
+        "description":" Lorem Ipsum door velit quis std minus et voluptmen Lorem Ipsum door velit quis std minus et voluptmen",
+        "created_at":"2022-11-18T14:47:16.000000Z",
+        "updated_at":"2022-11-18T14:47:16.000000Z"
+    }
+]

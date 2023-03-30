@@ -62,10 +62,10 @@
                             </td>
                             <td class="grid grid-cols-3 gap-4 items-center justify-between">
                                 <a href="{{ route('equipments.show', $equipment->id) }}"
-                                    title="{{ __('view daitl of equipment ') . $equipment->task }}"><i
+                                    title="{{ __('ver detalle del equipo ') . $equipment->task }}"><i
                                         class="icono text-blue-500 fa-solid fa-eye"></i></a>
                                 <a href="{{ route('equipments.edit', $equipment->id) }}"
-                                    title="{{ __('Editar equipmento') . $equipment->task }}"><i
+                                    title="{{ __('Editar equipo ') . $equipment->task }}"><i
                                         class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
                                 <form action="{{ route('equipments.destroy', $equipment->id) }}" method="POST"
                                     class="form-delete">
