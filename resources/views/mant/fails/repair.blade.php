@@ -3,30 +3,32 @@
         <div class="card">
             <div class="card-body">
                 <div class="grid grid-cols-4 gap-4">
-                    <article>
-                        <div class="card">
-                            <div class="card-body">
-                                <h1 class="text-xl font-bold text-gray-500"> Agregar Repuesto</h1>
-                                <hr class="mt-2 mb-3">
-                                <form action="">
-                                    <textarea class="rounded w-full"></textarea>
-                                </form>
-                            </div>
-                        </div>
-                    </article>
-
-                    <div class="col-span-1 bg-gray-400">
+                    <div class="col-span-1">
+                        @livewire('mant.fails.fail-observation', ['fail' => $fail])
+                    </div>
+                    <div class="col-span-1">
                         @livewire('mant.fails.fail-replacement', ['fail' => $fail])
                     </div>
-                    <div class="col-span-1 bg-gray-400">
-                        
+                    <div class="col-span-1">
+                        @livewire('mant.fails.fail-supply', ['fail' => $fail])
                     </div>
-                    <div class="col-span-1 bg-gray-400">
-                       
+                    <div class="col-span-1">
+                        @livewire('mant.fails.fail-service', ['fail' => $fail])
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="container mx-auto my-1">
+        <div class="card">
+            <div class="card-body">
+                <div class="grid grid-cols-5 gap-4">
+                    <div class="col-span-3">
+                        @livewire('mant.fails.fail-image', ['fail' => $fail])
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>

@@ -178,7 +178,7 @@ class PermissionSeeder extends Seeder
       Permission::create(['name' => 'fails.show', 'permission' => 'fails view']);
 
       //    listado de permisos para fails 127-128
-      Permission::create(['name' => 'fails.task', 'permission' => 'fails task']);
+      Permission::create(['name' => 'fails.tasks', 'permission' => 'fails tasks']);
       Permission::create(['name' => 'fails.repareid', 'permission' => 'fails repareid']);
    }
 }

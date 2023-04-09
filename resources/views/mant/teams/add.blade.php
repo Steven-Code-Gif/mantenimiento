@@ -1,3 +1,3 @@
 <x-app-layout>
-   @livewire('mant.team-controller',compact('team'))
+   @livewire('mant.team-controller',compact('team'));
 </x-app-layout>

@@ -1,22 +1,22 @@
 <article class="shadow-lg border border-gray-100 rounded p-2">
     <div class="card">
         <div class="card-body">
-            <h1 class="text-xl font-bold text-gray-500"> Agregar Repuesto</h1>
+            <h1 class="text-xl font-bold text-gray-500"> Agregar Servicio</h1>
             <hr class="mt-2 mb-3">
 
             <form action="" class="text-xs" wire:submit.prevent="saveReplacement">
-                <select wire:model="replacementId" id="" class="select w-full">
-                    <option value="">Select Replacement</option>
-                    @foreach ($replacements as $r)
+                <select wire:model="serviceId" id="" class="select w-full">
+                    <option value="">Select Service</option>
+                    @foreach ($services as $r)
                         <option value="{{ $r->id }}">{{ $r->name }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="replacementId" />
+                <x-jet-input-error for="serviceId" />
 
                 <div class="mb-4">
-                    <x-jet-label class="italic my-2 capitalize" value="{{ __('Cantidad') }}" for="quantity" />
+                    <x-jet-label class="italic my-2 capitalize" value="{{ __('price') }}" for="quantity" />
                     <input type="text" wire:model.defer="quantity" id="quantity" class="w-full rounded"
-                        placeholder="{{ __('cantidad') }}" value="" />
+                        placeholder="{{ __('precio') }}" value="" />
                     <x-jet-input-error for="quantity" />
                 </div>
 
@@ -41,7 +41,7 @@
             $('.select').select2();
             $('.select').on('select2:select',function(e){
                 var data = e.params.data;
-                @this.replacementId = data.id
+                @this.serviceId = data.id
                 console.log(data);
             });
         });

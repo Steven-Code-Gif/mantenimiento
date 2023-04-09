@@ -43,6 +43,6 @@ class EmployesController extends Controller
     $profile = $user->profile;
     $profile->salary = $request->input('salary');
     $profile->save();
-    return redirect()->route ('employes.index')->with('success','Salario actualizado correctamente');
+    return redirect()->route('employes.index')->with('success','Salario actualizado correctamente');
 }
 }

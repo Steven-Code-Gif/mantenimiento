@@ -60,7 +60,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('mant')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/mant.php'));
-            
         });
     }
 

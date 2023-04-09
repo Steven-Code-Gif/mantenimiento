@@ -1,17 +1,17 @@
 <article class="shadow-lg border border-gray-100 rounded p-2">
     <div class="card">
         <div class="card-body">
-            <h1 class="text-xl font-bold text-gray-500"> Agregar Repuesto</h1>
+            <h1 class="text-xl font-bold text-gray-500"> Agregar Insumos</h1>
             <hr class="mt-2 mb-3">
 
             <form action="" class="text-xs" wire:submit.prevent="saveReplacement">
-                <select wire:model="replacementId" id="" class="select w-full">
+                <select wire:model="supplyId" id="" class="select w-full">
                     <option value="">Select Replacement</option>
-                    @foreach ($replacements as $r)
+                    @foreach ($supplies as $r)
                         <option value="{{ $r->id }}">{{ $r->name }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="replacementId" />
+                <x-jet-input-error for="supplyId" />
 
                 <div class="mb-4">
                     <x-jet-label class="italic my-2 capitalize" value="{{ __('Cantidad') }}" for="quantity" />
@@ -41,7 +41,7 @@
             $('.select').select2();
             $('.select').on('select2:select',function(e){
                 var data = e.params.data;
-                @this.replacementId = data.id
+                @this.supplyId = data.id
                 console.log(data);
             });
         });

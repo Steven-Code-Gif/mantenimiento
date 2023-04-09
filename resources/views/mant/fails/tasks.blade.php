@@ -35,7 +35,7 @@
                                     title="{{ __('reparar falla ') . $fail->name }}"><i 
                                     class="icono text-green-600 fa-solid fa-person-digging"></i></a>
                                 <a href="{{ route('fails.edit', $fail->id) }}"
-                                    title="{{ __('editar ') . $fail->name }}"><i
+                                    title="{{ __('editar falla') . $fail->name }}"><i
                                         class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
                                 <form action="{{ route('fails.destroy', $fail->id) }}" method="POST"
                                     class="form-delete">

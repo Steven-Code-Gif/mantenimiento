@@ -38,6 +38,9 @@ class Fail extends Model
     public function replacements(){
         return $this->belongsToMany(Replacement::class);
     }
+    public function images(){
+        return $this->morphMany(Image::class,'imageable');
+    }
 
 
 

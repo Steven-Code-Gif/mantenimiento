@@ -54,6 +54,11 @@
 
         <script> ///Session Flash auto close 
         setTimeout (function() { $('#alert').remove() }, 3000) </script>
+        <script>
+            window.addEventListener('swal',function(e){
+                Swal.fire(e.detail);
+            })
+        </script>
 
     </body>
 </html>
