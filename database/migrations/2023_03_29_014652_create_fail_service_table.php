@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('fail_service', function (Blueprint $table) {
             $table->id();
+            $table->float('price',12,2)->default(0);
+            $table->float('total',12,2)->default(0);
             $table->foreignId('service_id')->references('id')->on('services')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('fail_id')->references('id')->on('fails')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

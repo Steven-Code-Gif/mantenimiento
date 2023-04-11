@@ -11,11 +11,11 @@ class FailService extends Component
 {
 
     public $fail, $failService, $service, $services, $replacement;
-    public $serviceId, $quantity;
+    public $serviceId, $price;
 
     protected $rules=[
         'serviceId'=>'required',
-        'quantity'=>'required|numeric|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
+        'price'=>'required|numeric|regex:/^[\d]{0,11}(\.[\d]{1,2})?$/',
     ];
     
     public function mount(Fail $fail){
@@ -28,24 +28,23 @@ class FailService extends Component
 
        $this->service = Service::find($this->serviceId);
        $price=$this->service->price;
-       $total=$this->quantity;
-       $quantity = $this->quantity;
+       $total=$this->price;
        $this->service->fails()->attach($this->fail->id,[
         'price'=>$price,
-        'quantity'=>$quantity,
         'total'=>$total
        ]);
 
-       $this->reset('quantity','serviceId');
+       $this->reset('price','serviceId');
        $this->failService = $this->fail->service;
 
        $this->dispatchBrowserEvent('swal',[
         'title'=>'Accion ejecutada',
-        'timer'=>3000,
+        'timer'=>1000,
         'icon'=>'success',
         'toast'=>true,
         'position'=>'top-right'
        ]);
+       $this->emitTo('mant.fails.fail-service-list','serviceadded');
     }
     public function render()
     {

@@ -36,8 +36,17 @@ class Fail extends Model
     }
 
     public function replacements(){
-        return $this->belongsToMany(Replacement::class);
+        return $this->belongsToMany(Replacement::class)->withPivot('id','price','quantity','total')->withTimestamps();
     }
+
+    public function supplies(){
+        return $this->belongsToMany(Supply::class)->withPivot('id','price','quantity','total')->withTimestamps();
+    }
+
+    public function services(){
+        return $this->belongsToMany(Service::class)->withPivot('id','price','total')->withTimestamps();
+    }
+
     public function images(){
         return $this->morphMany(Image::class,'imageable');
     }

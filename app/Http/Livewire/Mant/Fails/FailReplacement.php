@@ -38,11 +38,13 @@ class FailReplacement extends Component
 
        $this->dispatchBrowserEvent('swal',[
         'title'=>'Accion ejecutada',
-        'timer'=>3000,
+        'timer'=>1000,
         'icon'=>'success',
         'toast'=>true,
         'position'=>'top-right'
        ]);
+
+       $this->emitTo('mant.fails.fail-replacement-list','replacementadded');
     }
 
     public function render()

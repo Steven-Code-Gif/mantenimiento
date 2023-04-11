@@ -14,10 +14,10 @@
                 <x-jet-input-error for="serviceId" />
 
                 <div class="mb-4">
-                    <x-jet-label class="italic my-2 capitalize" value="{{ __('price') }}" for="quantity" />
-                    <input type="text" wire:model.defer="quantity" id="quantity" class="w-full rounded"
+                    <x-jet-label class="italic my-2 capitalize" value="{{ __('precio') }}" for="price" />
+                    <input type="text" wire:model.defer="price" id="price" class="w-full rounded"
                         placeholder="{{ __('precio') }}" value="" />
-                    <x-jet-input-error for="quantity" />
+                    <x-jet-input-error for="price" />
                 </div>
 
                 <div class="mb-4">

@@ -11,6 +11,6 @@ class Replacement extends Model
     protected $guarded = [];
 
     public function fails(){
-        return $this->belongsToMany(Fail::class);
+        return $this->belongsToMany(Fail::class)->withPivot('id','price','quantity','total')->withTimestamps();
     }
 }

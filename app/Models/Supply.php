@@ -9,4 +9,8 @@ class Supply extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function fails(){
+        return $this->belongsToMany(Fail::class)->withPivot('id','price','quantity','total')->withTimestamps();
+    }
 }

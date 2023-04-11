@@ -9,4 +9,8 @@ class Service extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function fails(){
+        return $this->belongsToMany(Fail::class)->withPivot('id','price','total')->withTimestamps();
+    }
 }
