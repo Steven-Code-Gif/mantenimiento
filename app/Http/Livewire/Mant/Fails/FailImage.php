@@ -25,6 +25,9 @@ class FailImage extends Component
             'description'=>mb_strtolower($this->description) 
         ]);
 
+        $this->reset('file');
+        $this->dispatchBrowserEvent('imageAdd');
+
     }
 
     public function render()

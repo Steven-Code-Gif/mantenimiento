@@ -7,11 +7,10 @@
                         <li>
                             <img src="{{ asset($image->url) }}" style="max-height:320px;:" />
 
-                            <form wire:submit.prevent="delete({{$image->id}})"
-                                class="form-delete">
+                            <form wire:submit.prevent="delete({{ $image->id }})" class="form-delete">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="image_id" value="{{ $image->id }}"/>
+                                <input type="hidden" name="image_id" value="{{ $image->id }}" />
                                 <button type="submit" class="cursor-pointer"><i
                                         class="text-red-500 fa-solid fa-trash-can cursor-pointer"></i></button>
                             </form>
@@ -25,12 +24,15 @@
 </div>
 
 @push('script')
-<script>
-    $(window).ready(function() {
-        $('.flexslider').flexslider({
-            animation: "slide",
-
+    <script>
+        $(window).ready(function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+            });
         });
-    });
-</script>
+
+        window.addEventListener('imageAdd', function(e) {
+            location.reload();
+        })
+    </script>
 @endpush

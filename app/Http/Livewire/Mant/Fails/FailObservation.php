@@ -28,11 +28,12 @@ class FailObservation extends Component
 
        $this->dispatchBrowserEvent('swal',[
         'title'=>'Accion ejecutada',
-        'timer'=>2000,
+        'timer'=>1000,
         'icon'=>'success',
         'toast'=>true,
         'position'=>'top-right'
        ]);
+       $this->emitTo('mant.fails.fail-comment-list','commentadded');
     }
 
     public function render()

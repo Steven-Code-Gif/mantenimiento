@@ -21,6 +21,7 @@ class FailImages extends Component
                 $url= str_replace('storage','public',$file);
                 Storage::delete($url);
         $image->delete();
+        $this->dispatchBrowserEvent('imageAdd');
     }
 
     public function render()

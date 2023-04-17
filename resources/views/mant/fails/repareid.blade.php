@@ -18,20 +18,26 @@
                                 <p class="text-gray-400 font-bold text-sm">{{ $fail->equipment->name }}</p>
                                 <p class="text-gray-400 font-bold text-sm">{{ $fail->equipment->location() }}</p>
                             </td>
+
                             <td width="" class="text-xs text-gray-400">
                                 <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->format('d-m-Y') }}</p>
                                 <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->diffForHumans() }}</p>
                             </td>
 
                             <td width="" class="text-xs text-gray-400">
-                                @if ($fail->teams->count()>0)
                                 <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->format('d-m-Y') }}</p>
                                 <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->diffForHumans() }}</p>
+                            </td>
+
+                            <td width="" class="text-xs text-gray-400">
+                                @if ($fail->teams->count()>0)
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->format('d-m-Y') }}</p>
+                                <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->diffForHumans() }}</p>
                                 @endif
                             </td>
 
                             <td class="text-center flex items-center justify-between">
-                                <a href="{{ route('fails.repair', $fail->id) }}"
+                                <a href="{{ route('fails.show', $fail->id) }}"
                                     title="{{ __('reparar falla ') . $fail->name }}"><i 
                                     class="icono text-green-600 fa-solid fa-person-digging"></i></a>
                             </td>
