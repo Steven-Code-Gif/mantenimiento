@@ -67,5 +67,12 @@ class RoleSeeder extends Seeder
             '127','128'
         ];
         $tecnico->givePermissionTo($tecnicoPermissions);
+
+
+        $jefe = Role::create(['name' => 'jefe-de-mantenimiento']);
+        $jefePermissions = [
+            '129','130','131','132','133','134','135',
+        ];
+        $jefe->givePermissionTo($jefePermissions);
     }
 }

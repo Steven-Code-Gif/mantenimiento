@@ -12,5 +12,5 @@ define('FALLA',array(
 define('DIA',array('domingo','lunes','martes','miercoles','jueves','viernes','sabado'));
 
 function price($value){
-    return number_format($value,2).'$';
+    return number_format($value,2).'';
 }

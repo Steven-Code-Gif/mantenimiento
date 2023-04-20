@@ -180,5 +180,14 @@ class PermissionSeeder extends Seeder
       //    listado de permisos para fails 127-128
       Permission::create(['name' => 'fails.tasks', 'permission' => 'fails tasks']);
       Permission::create(['name' => 'fails.repareid', 'permission' => 'fails repareid']);
+
+      //    listado de permisos para jefe 129
+      Permission::create(['name' => 'plans.index', 'permission' => 'plans list']);
+      Permission::create(['name' => 'plans.create', 'permission' => 'plans create']);
+      Permission::create(['name' => 'plans.store', 'permission' => 'plans create']);
+      Permission::create(['name' => 'plans.edit', 'permission' => 'plans edit']);
+      Permission::create(['name' => 'plans.update', 'permission' => 'plans edit']);
+      Permission::create(['name' => 'plans.destroy', 'permission' => 'plans delete']);
+      Permission::create(['name' => 'plans.show', 'permission' => 'plans view']);
    }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('fail');
             $table->unsignedBigInteger('equipment');
             $table->integer('type')->default(0);
             $table->float('total_replacement',12,2)->default(0);

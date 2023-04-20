@@ -8,6 +8,7 @@
                         <th>Equipo</th>
                         <th>Reportado</th>
                         <th>Asignado</th>
+                        <th>Reparado</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -30,16 +31,18 @@
                             </td>
 
                             <td width="" class="text-xs text-gray-400">
-                                @if ($fail->teams->count()>0)
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->format('d-m-Y') }}</p>
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->diffForHumans() }}</p>
+                                @if ($fail->teams->count() > 0)
+                                    <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->format('d-m-Y') }}
+                                    </p>
+                                    <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->diffForHumans() }}
+                                    </p>
                                 @endif
                             </td>
 
                             <td class="text-center flex items-center justify-between">
                                 <a href="{{ route('fails.show', $fail->id) }}"
-                                    title="{{ __('reparar falla ') . $fail->name }}"><i 
-                                    class="icono text-green-600 fa-solid fa-person-digging"></i></a>
+                                    title="{{ __('reparar falla ') . $fail->name }}"><i
+                                        class="icono text-green-600 fa-solid fa-person-digging"></i></a>
                             </td>
                         </tr>
                     @endforeach

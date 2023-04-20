@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Mant;
 use App\Http\Controllers\Controller;
 use App\Models\Fail;
 use App\Models\Resume;
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Queue\Worker;
 
 class FailController extends Controller
 {
@@ -18,8 +18,8 @@ class FailController extends Controller
      */
     public function index()
     {
-        $fails = Fail::orderBy('reported_at','desc')->get();
-        return view('mant.fails.index',compact('fails'));
+        $fails = Fail::orderBy('reported_at', 'desc')->get();
+        return view('mant.fails.index', compact('fails'));
     }
 
     /**
@@ -51,7 +51,13 @@ class FailController extends Controller
      */
     public function show(Fail $fail)
     {
-        //
+        if ($fail->status <> 1) {
+            return redirect()->route('fails.repareid')->with('success', 'falla no reparada');
+        }
+        $resume = Resume::where('fail', $fail->id)->first();
+        $w = str_split($resume->workers);
+        $users = User::find($w);
+        return view('mant.fails.show', compact('resume', 'fail', 'users'));
     }
 
     /**
@@ -91,90 +97,93 @@ class FailController extends Controller
     public function add($id)
     {
         $fail = Fail::find($id);
-        if($fail->status==1){
-        return redirect()->route('fails.index')->with('success',
-        'Falla reparada, no se le puede asignar grupo de tarea');
+        if ($fail->status == 1) {
+            return redirect()->route('fails.index')->with(
+                'success',
+                'Falla reparada, no se le puede asignar grupo de tarea'
+            );
         }
-        return view('mant.fails.add',compact('fail'));
+        return view('mant.fails.add', compact('fail'));
     }
 
     public function tasks()
     {
-        $team=auth()->user()->team;
-        $fails=$team->fails()->where('status',0)->get();
-        return view('mant.fails.tasks',compact('fails'));
+        $team = auth()->user()->team;
+        $fails = $team->fails()->where('status', 0)->get();
+        return view('mant.fails.tasks', compact('fails'));
     }
 
     public function repareid()
     {
-        $team=auth()->user()->team;
-        $fails=$team->fails()->where('status',1)->get();
-        return view('mant.fails.repareid',compact('fails'));
+        $team = auth()->user()->team;
+        $fails = $team->fails()->where('status', 1)->get();
+        return view('mant.fails.repareid', compact('fails'));
     }
 
     public function repair(Fail $fail)
     {
-        return view('mant.fails.repair',compact('fail'));
+        return view('mant.fails.repair', compact('fail'));
     }
 
-    public function despeje(Request $request,Fail $fail)
+    public function despeje(Request $request, Fail $fail)
     {
         $workers = $request->validate([
             'users' => 'required',
         ]);
-        $fail->status=1;
-        $fail->repareid_at=now();
-        $this->resume($fail,$workers);
+        $fail->status = 1;
+        $fail->repareid_at = now();
+        $this->resume($fail, $workers);
         $fail->save();
-        return redirect()->route('fails.tasks')->with('success',
-        'Falla reparada');
+        return redirect()->route('fails.tasks')->with(
+            'success',
+            'Falla reparada'
+        );
     }
-    public function resume(Fail $fail,$workers){
-        $failreplacementstotal=0;
-        foreach($fail->replacements as $r){
-            $failreplacementstotal = $failreplacementstotal+$r->pivot->total;
+    public function resume(Fail $fail, $workers)
+    {
+        $failreplacementstotal = 0;
+        foreach ($fail->replacements as $r) {
+            $failreplacementstotal = $failreplacementstotal + $r->pivot->total;
         }
 
-        $failsuppliestotal=0;
-        foreach($fail->supplies as $r){
-            $failsuppliestotal = $failsuppliestotal+$r->pivot->total;
+        $failsuppliestotal = 0;
+        foreach ($fail->supplies as $r) {
+            $failsuppliestotal = $failsuppliestotal + $r->pivot->total;
         }
 
-        $failservicestotal=0;
-        foreach($fail->services as $r){
-            $failservicestotal = $failservicestotal+$r->pivot->total;
+        $failservicestotal = 0;
+        foreach ($fail->services as $r) {
+            $failservicestotal = $failservicestotal + $r->pivot->total;
         }
 
-        $totalworkers=0;
-        $str='';
+        $totalworkers = 0;
+        $str = '';
 
-        foreach($workers as $key=>$w){ 
-            $str = implode(',',$w);
+        foreach ($workers as $key => $w) {
+            $str = implode(',', $w);
             $users = User::find($w);
-            foreach($users as $u)
-            $totalworkers = $totalworkers+$u->profile->salary;
+            foreach ($users as $u)
+                $totalworkers = $totalworkers + $u->profile->salary;
         }
 
         $time = $fail->reported_at->diffInHours($fail->repareid_at);
         $days = $fail->reported_at->diffInDays($fail->repareid_at);
 
         Resume::create([
-            'equipment'=>$fail->equipment->id,
-            'type'=>0,
-            'total_replacement'=>$failreplacementstotal,
-            'total_supply' =>$failsuppliestotal,
-            'total_services'=>$failservicestotal,
-            'total_workers'=>$totalworkers,
-            'workers'=>$str,
-            'total'=>($failreplacementstotal+$failsuppliestotal+$failservicestotal+$totalworkers),
-            'reported_at'=>$fail->reported_at,
-            'assigned_at'=>$fail->assigned_at,
-            'repareid_at'=>$fail->repareid_at,
-            'time'=>0,
-            'days'=>0
+            'fail' => $fail->id,
+            'equipment' => $fail->equipment_id,
+            'type' => 0,
+            'total_replacement' => $failreplacementstotal,
+            'total_supply' => $failsuppliestotal,
+            'total_services' => $failservicestotal,
+            'total_workers' => $totalworkers,
+            'workers' => $str,
+            'total' => ($failreplacementstotal + $failsuppliestotal + $failservicestotal + $totalworkers),
+            'reported_at' => $fail->reported_at,
+            'assigned_at' => $fail->assigned_at,
+            'repareid_at' => $fail->repareid_at,
+            'time' => $time,
+            'days' => $days,
         ]);
     }
-
-
-
 }
