@@ -16,4 +16,8 @@ class Plan extends Model
         'start_time',
         'rest_time'
     ];
+
+    public function equipments(){
+        return $this->belongsToMany(Equipment::class)->withTimestamps();
+    }
 }

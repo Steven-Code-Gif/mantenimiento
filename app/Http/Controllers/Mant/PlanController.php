@@ -77,7 +77,7 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        //
+        return view('mant.plans.show',compact('plan'));
     }
 
     /**

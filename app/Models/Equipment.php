@@ -24,4 +24,8 @@ class Equipment extends Model
     public function location(){
         return Zone::find($this->location)->name;
     }
+
+    public function plans(){
+        return $this->belongsToMany(Plan::class)->withTimestamps();
+    }
 }
