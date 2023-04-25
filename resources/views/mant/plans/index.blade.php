@@ -55,7 +55,7 @@
 
                             <td class="grid grid-cols-3 gap-4 items-center justify-between">
                                 <a href="{{ route('plans.show', $plan->id) }}"
-                                    title="{{ __('view daitl of plan ') . $plan->task }}"><i
+                                    title="{{ __('Agregar equipo al plan ') . $plan->task }}"><i
                                         class="icono text-blue-500 fa-solid fa-eye"></i></a>
                                 <a href="{{ route('plans.edit', $plan->id) }}"
                                     title="{{ __('edit plan ') . $plan->task }}"><i
@@ -68,6 +68,9 @@
                                     <button type="submit"><i
                                             class="icono text-red-500 fa-solid fa-trash-can"></i></button>
                                 </form>
+                                <a href="{{ route('plans.protocols', $plan->id) }}"
+                                    title="{{ __('Protocolos de plan ') . $plan->task }}"><i
+                                        class="icono text-green-500 fa fa-file-invoice"></i></a>
                                      </td>
                         </tr>
                     @endforeach

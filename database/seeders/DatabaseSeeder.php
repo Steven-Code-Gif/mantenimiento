@@ -23,12 +23,16 @@ class DatabaseSeeder extends Seeder
         $this->call(ZoneSeeder::class);
         $this->call(SystemSeeder::class);
         $this->call(TaskSeeder::class);
-        $this->call(PrototypeSeeder::class);
         $this->call(FeatureSeeder::class);
         $this->call(ProtocolSeeder::class);
+        $this->call(PrototypeSeeder::class);
         $this->call(FailSeeder::class);
         Equipment::factory(30)->create();
         Fail::factory(30)->create();
         $this->call(TeamSeeder::class);
+        $this->call(ReplacementSeeder::class);
+        // $this->call(ServiceSeeder::class);
+        // $this->call(SupplySeeder::class);
+        // $this->call(ToolSeeder::class);
     }
 }

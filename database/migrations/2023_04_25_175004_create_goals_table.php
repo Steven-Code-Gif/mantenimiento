@@ -4,7 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
 return new class extends Migration
 {
     /**
@@ -14,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('protocols', function (Blueprint $table) {
+        Schema::create('goals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('equipment_id');
             $table->string('specialty_id');
             $table->integer('position')->default(1);
             $table->string('task');
@@ -26,9 +26,20 @@ return new class extends Migration
             $table->string('security')->default('N/A');
             $table->integer('workers')->default(1);//# de trabajadores
             $table->string('conditions')->default('maquinaria detenida');
-            $table->foreignId('task_id')->references('id')->on('tasks')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreignId('prototype_id')->references('id')->on('prototypes')->onDelete('cascade')->onUpdate('cascade');
+            $table->float('total_replacement',12,2)->default(0);
+            $table->float('total_supply',12,2)->default(0);
+            $table->float('total_services',12,2)->default(0);
+            $table->float('total_workers',12,2)->default(0);
+            $table->string('workers_id');
+            $table->float('total',12,2)->default(0); 
+            $table->dateTime('start')->default(now());
+            $table->dateTime('end')->default(now());
+            $table->dateTime('done')->default(now());
+            $table->float('time',12,2)->default(0);
+            $table->float('days',12,2)->default(0);
             $table->timestamps();
+            $table->foreignId('plan_id')->references('id')
+            ->on('plans')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -39,6 +50,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('protocols');
+        Schema::dropIfExists('goals');
     }
 };

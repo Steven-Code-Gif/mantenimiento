@@ -31,14 +31,14 @@ class ProtocolSeeder extends Seeder
             $protocol->task_id = mb_strtolower($obj->task_id);
             $protocol->save();
 
-            DB::table('protocol_prototype')->insert(['protocol_id'=>$protocol->id,'prototype_id'=>
-            $obj->prototype_id]);
+            // DB::table('protocol_prototype')->insert(['protocol_id'=>$protocol->id,'prototype_id'=>
+            // $obj->prototype_id]);
         }
-        $json = File::get('database/data/feature_prototype.json');
-        $data = json_decode($json);
-        foreach($data as $obj){
-            DB::table('feature_prototype')->insert(['feature_id'=>$obj->feature_id,'prototype_id'=>
-            $obj->prototype_id]);
-        }
+        // $json = File::get('database/data/feature_prototype.json');
+        // $data = json_decode($json);
+        // foreach($data as $obj){
+        //     DB::table('feature_prototype')->insert(['feature_id'=>$obj->feature_id,'prototype_id'=>
+        //     $obj->prototype_id]);
+        // }
     }
 }

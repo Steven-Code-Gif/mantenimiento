@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Goal;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 
@@ -139,5 +140,45 @@ class PlanController extends Controller
     {
         $plan->delete();
         return redirect()->route('plans.index')->with('success','Plan de mantenimiento eliminado correctamente');
+    }
+
+    public function protocols(Plan $plan)
+    {
+        $equipments = $plan->equipments;
+        $this->getProtocols($equipments,$plan);
+        return redirect()->route('plans.index')->with('success','Protocolos asignados a plan de mantenimiento');
+    }
+
+    public function getProtocols($equipments,$plan){
+        foreach ($equipments as $e) {
+            $protocols = $e->prototype->protocols;
+            foreach ($protocols as $p) {
+                $goal = Goal::create([
+                    'plan_id'=>$plan->id,
+                    'equipment_id'=>$e->id,
+                    'specialty_id'=>$p->specialty_id,
+                    'position'=>$p->position,
+                    'task'=>$p->task,
+                    'detail'=>$p->detail,
+                    'frecuency'=>$p->frecuency,
+                    'duration'=>$p->duration,
+                    'permissions'=>$p->permissions,
+                    'security'=>$p->security,
+                    'workers'=>$p->workers,
+                    'conditions'=>$p->conditions,
+                    'total_replacement'=>0,
+                    'total_supply'=>0,
+                    'total_services'=>0,
+                    'total_workers'=>0,
+                    'workers_id'=>'',
+                    'total'=>0,
+                    'start'=>$plan->start,
+                    'end'=>now(),
+                    'done'=>now(),
+                    'days'=>0,
+                    'time'=>0
+                ]);
+            }
+        }
     }
 }

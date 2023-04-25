@@ -14,4 +14,5 @@ Route::get('/fail/repair/{fail}',[FailController::class,'repair'])->name('fails.
 Route::post('/fail/despeje/{fail}',[FailController::class,'despeje'])->name('fails.despeje');
 Route::get('/fail/repareid',[FailController::class,'repareid'])->name('fails.repareid');
 Route::resource('/plans',PlanController::class)->names('plans');
+Route::get('/plans/protocols/{plan}',[PlanController::class,'protocols'])->name('plans.protocols');
 

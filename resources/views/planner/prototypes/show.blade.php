@@ -42,6 +42,7 @@
                     <p class="text-sm text-gray-500 mt-3">
                         <i class="icono mr-2 fa-solid fa-shuttle-space text-red-500"></i>
                         <strong>Equipments</strong>:
+                        {{ $prototype->equipments->count() }}
                     </p>
                     <p class="text-sm text-gray-500 mt-3"> <i
                             class="mr-2 icono text-blue-500 fa-solid fa-file-contract"></i><strong>Zones</strong>: </p>

@@ -17,14 +17,18 @@ class Prototype extends Model
     public function images(){
         return $this->morphMany(Image::class,'imageable');
     }
-    public function protocols(){
-        return $this->belongsToMany(Protocol::class);
-    }
     public function features(){
         return $this->belongsToMany(Feature::class);
     }
     public function equipments(){
-        return $this->belongsToMany(Equipment::class)->withPivot('id');
+        return $this->hasMany(Equipment::class);
+    }
+    public function protocols(){
+        return $this->belongsToMany(Protocol::class);
+    }
+
+    public function zones(){
+        
     }
     
 }
