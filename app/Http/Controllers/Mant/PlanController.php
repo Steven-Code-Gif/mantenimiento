@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Equipment;
 use App\Models\Goal;
 use App\Models\Plan;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class PlanController extends Controller
     public function index()
     {
         $plans = Plan::all();
+        $equipment = Equipment::find(1);
         return view('mant.plans.index',compact('plans'));
     }
 
@@ -153,9 +155,11 @@ class PlanController extends Controller
         foreach ($equipments as $e) {
             $protocols = $e->prototype->protocols;
             foreach ($protocols as $p) {
-                $goal = Goal::create([
-                    'plan_id'=>$plan->id,
-                    'equipment_id'=>$e->id,
+                $goal = Goal::updateOrCreate(
+                    ['plan_id'=>$plan->id,
+                    'protocol_id'=>$p->id,
+                    'equipment_id'=>$e->id,],
+                    [
                     'specialty_id'=>$p->specialty_id,
                     'position'=>$p->position,
                     'task'=>$p->task,
@@ -176,9 +180,14 @@ class PlanController extends Controller
                     'end'=>now(),
                     'done'=>now(),
                     'days'=>0,
-                    'time'=>0
-                ]);
+                    'time'=>0]
+                );
             }
         }
+    }
+    public function resources(Plan $plan)
+    {
+        $goals = $plan ->goals;
+        return view('mant.plans.resources',compact('goals'));
     }
 }

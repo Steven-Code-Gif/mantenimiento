@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Mant\FailController;
+use App\Http\Controllers\Mant\GoalController;
 use App\Http\Controllers\Mant\PlanController;
 use App\Http\Controllers\Mant\TeamController;
+
 use Illuminate\Support\Facades\Route;
  
 Route::resource('/teams',TeamController::class)->names('teams');
@@ -15,4 +17,6 @@ Route::post('/fail/despeje/{fail}',[FailController::class,'despeje'])->name('fai
 Route::get('/fail/repareid',[FailController::class,'repareid'])->name('fails.repareid');
 Route::resource('/plans',PlanController::class)->names('plans');
 Route::get('/plans/protocols/{plan}',[PlanController::class,'protocols'])->name('plans.protocols');
+Route::get('/plans/resources/{plan}',[PlanController::class,'resources'])->name('plans.resources');
+Route::get('/goals/replacements/{goal}',[GoalController::class,'replacements'])->name('goals.replacements');
 

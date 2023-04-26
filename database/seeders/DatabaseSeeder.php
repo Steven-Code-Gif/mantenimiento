@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(ServiceSeeder::class);
         // $this->call(SupplySeeder::class);
         // $this->call(ToolSeeder::class);
+        $this->call(PlanSeeder::class);
     }
 }

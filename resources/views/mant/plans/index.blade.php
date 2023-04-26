@@ -45,11 +45,17 @@
                                 </div>
                             </td>
                             <td width="20%">
-                                <p class="text-gray-600 font-semibold text-sm">Equipos: {{ $plan->name }}</p>
+                                <p class="text-gray-600 font-semibold text-sm">Equipos:
+                                    <strong>{{$plan->equipments->count()}}</strong> 
+                                </p>
+                                @foreach ($plan->equipments as $e )
+                                <p class="text-gray-600 font-semibold text-xs">{{
+                                 $e->location().' : '.$e->name }}</p>
+                           @endforeach 
                             </td>
 
                             <td width="25%">
-                                <p class="text-gray-600 font-semibold text-sm">Equipos: {{ $plan->name }}</p>
+                                <p class="text-gray-600 font-semibold text-sm">Equipos: 
                             </td>
 
 
@@ -71,6 +77,11 @@
                                 <a href="{{ route('plans.protocols', $plan->id) }}"
                                     title="{{ __('Protocolos de plan ') . $plan->task }}"><i
                                         class="icono text-green-500 fa fa-file-invoice"></i></a>
+
+                                        <a href="{{ route('plans.resources', $plan->id) }}"
+                                            title="{{ __('recursos de plan ') . $plan->task }}">
+                                            <i class="icono text-blue-500 fa-solid fa-dumpster"></i>
+                                            </a>
                                      </td>
                         </tr>
                     @endforeach

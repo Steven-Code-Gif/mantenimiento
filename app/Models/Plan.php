@@ -20,4 +20,8 @@ class Plan extends Model
     public function equipments(){
         return $this->belongsToMany(Equipment::class)->withTimestamps();
     }
+
+    public function goals(){
+        return $this->hasMany(Goal::class);
+    }
 }

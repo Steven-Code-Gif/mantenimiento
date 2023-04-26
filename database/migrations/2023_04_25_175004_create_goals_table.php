@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('protocol_id');
             $table->unsignedBigInteger('equipment_id');
             $table->string('specialty_id');
             $table->integer('position')->default(1);
