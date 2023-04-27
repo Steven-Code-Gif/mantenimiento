@@ -26,4 +26,17 @@ class Goal extends Model
     public function location(){
         return Equipment::find($this->equipment_id)->location();
     }
+
+    public function replacements(){
+        return $this->belongsToMany(Replacement::class)->withPivot('id','price','quantity','total')->withTimestamps();
+    }
+
+    public function supplies(){
+        return $this->belongsToMany(Supply::class)->withPivot('id','price','quantity','total')->withTimestamps();
+    }
+
+    public function services(){
+        return $this->belongsToMany(Service::class)->withPivot('id','price','total')->withTimestamps();
+    }
+
 }

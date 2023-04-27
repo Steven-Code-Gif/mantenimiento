@@ -13,4 +13,8 @@ class Service extends Model
     public function fails(){
         return $this->belongsToMany(Fail::class)->withPivot('id','price','total')->withTimestamps();
     }
+
+    public function goals(){
+        return $this->belongsToMany(Goal::class)->withPivot('id','price','quantity','total')->withTimestamps();
+    }
 }
