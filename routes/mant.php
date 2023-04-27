@@ -19,4 +19,5 @@ Route::resource('/plans',PlanController::class)->names('plans');
 Route::get('/plans/protocols/{plan}',[PlanController::class,'protocols'])->name('plans.protocols');
 Route::get('/plans/resources/{plan}',[PlanController::class,'resources'])->name('plans.resources');
 Route::get('/goals/replacements/{goal}',[GoalController::class,'replacements'])->name('goals.replacements');
+Route::get('/goals/positions/{goal}',[GoalController::class,'positions'])->name('goals.positions');
 

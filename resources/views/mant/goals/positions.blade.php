@@ -9,7 +9,9 @@
                 <tr>
                     <th>Equipo</th>
                     <th>Tareas</th>
-                    <th>Recursos</th>
+                    <th>Posicion</th>
+                    <th>Restriccion</th>
+                    <th>Prioridad</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -25,50 +27,12 @@
                         <p>{{$goal->task}}</p>
                         <p>{{$goal->detail}}</p>
                     </td>
-                    <td width="30%">
-                        @if ($goal->replacements->count()>0)
-                        <h1>Repuestos</h1>
-                        @foreach ($goal->replacements as $r )
-                        <p class="flex items-center justify-between text-xs font-bold p-2 bg-slate-400">
-                            <span>{{$r->pivot->quantity}}</span>
-                            <span>{{$r->pivot->name}}</span>
-                        </p>
-                        @endforeach
-                        @endif
-
-                        @if ($goal->supplies->count()>0)
-                        <h1>Supplies</h1>
-                        @foreach ($goal->supplies as $r )
-                        <p class="flex items-center justify-between text-xs font-bold p-2 bg-slate-400">
-                            <span>{{$r->pivot->quantity}}</span>
-                            <span>{{$r->pivot->name}}</span>
-                        </p>
-                        @endforeach
-                        @endif
-
-                        @if ($goal->services->count()>0)
-                        <h1>Servicios</h1>
-                        @foreach ($goal->service as $r )
-                        <p class="flex items-center justify-between text-xs font-bold p-2 bg-slate-400">
-                            <span>{{$r->pivot->total}}</span>
-                            <span>{{$r->pivot->name}}</span>
-                        </p>
-                        @endforeach
-                        @endif
-
-                    </td>
+                    <td width="10%">{{ $goal->position }}</td>
+                    <td width="10%">{{ $goal->restriction }}</td>
+                    <td width="10%">{{ $goal->priority }}</td>
                     <td class="flex items-center justify-between">
-                        <a href="" title="{{ __('agregar repuesto a meta').$goal->name }}">
-                            <i class="icono text-blue-500 fa-solid fa-eye"></i>
-                        </a>
-                        <a href="{{ route('goals.replacements',$goal->id)}}" title="" ><i class="icono text-green-500 fa-solid fa-toolbox"></i></a>
-                        <form action="" method="POST" class="form-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
-                        </form>
                         <a href="{{route('goals.positions',$goal->id)}}" title="{{ __('Posicion de la Meta').$goal->name }}">
-                            <i class="icono text-red-600 fa-solid fa-list-ol"></i>
+                            <i class="icono text-green-600 fa-solid fa-arrow-up-1-9"></i>
                         </a>
                     </td>
                 </tr> 

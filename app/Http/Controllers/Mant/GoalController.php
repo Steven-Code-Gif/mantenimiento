@@ -12,4 +12,10 @@ class GoalController extends Controller
         return view('mant.goals.replacements',compact('goal'));
         
     }
+
+    public function positions(Goal $goal){
+        $goals = Goal::where('equipment_id',$goal->equipment_id)->get();
+        return view('mant.goals.positions',compact('goals'));
+        
+    }
 }
