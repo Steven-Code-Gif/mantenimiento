@@ -190,4 +190,11 @@ class PlanController extends Controller
         $goals = $plan ->goals;
         return view('mant.plans.resources',compact('goals'));
     }
+
+    public function teams(Plan $plan)
+    {
+        $goals = $plan ->goals;
+        $equipments = $plan ->equipments;
+        return view('mant.plans.teams',compact('goals','equipments','plan'));
+    }
 }

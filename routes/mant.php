@@ -20,4 +20,8 @@ Route::get('/plans/protocols/{plan}',[PlanController::class,'protocols'])->name(
 Route::get('/plans/resources/{plan}',[PlanController::class,'resources'])->name('plans.resources');
 Route::get('/goals/replacements/{goal}',[GoalController::class,'replacements'])->name('goals.replacements');
 Route::get('/goals/positions/{goal}',[GoalController::class,'positions'])->name('goals.positions');
+Route::get('/goals/edit/{goal}',[GoalController::class,'edit'])->name('goals.edit');
+Route::put('/goals/update/{goal}',[GoalController::class,'update'])->name('goals.update');
+Route::get('/plans/teams/{plan}',[PlanController::class,'teams'])->name('plans.teams');
+Route::get('/goals/teams/{plan}',[GoalController::class,'teams'])->name('goals.teams');
 

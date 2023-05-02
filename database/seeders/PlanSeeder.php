@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Equipment;
+use App\Models\Goal;
 use App\Models\Plan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -31,7 +32,39 @@ class PlanSeeder extends Seeder
                 'description' => 'lorem ipsun door',]
         );
         $random = Rand(7,17);
-        $equipment = Equipment::inRandomOrder()->limit($random)->get();
-        $plan->equipments()->attach($equipment);
+        $equipments = Equipment::inRandomOrder()->limit($random)->get();
+        $plan->equipments()->attach($equipments);
+        foreach ($equipments as $e) {
+            $protocols = $e->prototype->protocols;
+            foreach ($protocols as $p) {
+                $goal = Goal::updateOrCreate(
+                    ['plan_id'=>$plan->id,
+                    'protocol_id'=>$p->id,
+                    'equipment_id'=>$e->id,],
+                    [
+                    'specialty_id'=>$p->specialty_id,
+                    'position'=>$p->position,
+                    'task'=>$p->task,
+                    'detail'=>$p->detail,
+                    'frecuency'=>$p->frecuency,
+                    'duration'=>$p->duration,
+                    'permissions'=>$p->permissions,
+                    'security'=>$p->security,
+                    'workers'=>$p->workers,
+                    'conditions'=>$p->conditions,
+                    'total_replacement'=>rand(578,5000),
+                    'total_supply'=>rand(578,5000),
+                    'total_services'=>rand(578,5000),
+                    'total_workers'=>rand(578,5000),
+                    'workers_id'=>'',
+                    'total'=>rand(578,5000),
+                    'start'=>$plan->start,
+                    'end'=>now(),
+                    'done'=>now(),
+                    'days'=>0,
+                    'time'=>0]
+                );
+            }
+        }
     }
 }

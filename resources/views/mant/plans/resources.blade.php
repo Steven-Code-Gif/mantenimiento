@@ -58,15 +58,9 @@
 
                     </td>
                     <td class="flex items-center justify-between">
-                        <a href="" title="{{ __('agregar repuesto a meta').$goal->name }}">
-                            <i class="icono text-blue-500 fa-solid fa-eye"></i>
-                        </a>
+                       
                         <a href="{{ route('goals.replacements',$goal->id)}}" title="" ><i class="icono text-green-500 fa-solid fa-toolbox"></i></a>
-                        <form action="" method="POST" class="form-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
-                        </form>
+            
                         <a href="{{route('goals.positions',$goal->id)}}" title="{{ __('Posicion de la Meta').$goal->name }}">
                             <i class="icono text-red-600 fa-solid fa-list-ol"></i>
                         </a>

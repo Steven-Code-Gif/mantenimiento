@@ -55,7 +55,25 @@
                             </td>
 
                             <td width="25%">
-                                <p class="text-gray-600 font-semibold text-sm">Equipos: 
+                                <p class="text-gray-600 font-semibold text-sm">Tareas: 
+                                    {{$plan->goals->count()}}
+                                </p>
+
+                                <p class="text-gray-600 font-semibold text-sm">Tiempo Estimado: 
+                                    {{price($plan->goals->sum('duration'))}} hrs.
+                                </p>
+
+                                <p class="text-gray-600 font-semibold text-sm">Repuestos: 
+                                    {{price($plan->goals->sum('total_replacement'))}}
+                                </p>
+
+                                <p class="text-gray-600 font-semibold text-sm">Suministros: 
+                                    {{price($plan->goals->sum('total_supply'))}}
+                                </p>
+
+                                <p class="text-gray-600 font-semibold text-sm">Servicios: 
+                                    {{price($plan->goals->sum('total_services'))}}
+                                </p>
                             </td>
 
 
@@ -76,13 +94,18 @@
                                 </form>
                                 <a href="{{ route('plans.protocols', $plan->id) }}"
                                     title="{{ __('Protocolos de plan ') . $plan->task }}"><i
-                                        class="icono text-green-500 fa fa-file-invoice"></i></a>
-
+                                        class="icono text-green-500 fa fa-file-invoice"></i>
+                                </a>
                                         <a href="{{ route('plans.resources', $plan->id) }}"
                                             title="{{ __('recursos de plan ') . $plan->task }}">
                                             <i class="icono text-blue-500 fa-solid fa-dumpster"></i>
-                                            </a>
-                                     </td>
+                                        </a>
+
+                                        <a href="{{ route('plans.teams', $plan->id) }}"
+                                            title="{{ __('recursos de plan ') . $plan->task }}">
+                                            <i class="icono text-blue-500 fa-solid fa-users"></i>
+                                        </a>
+                                </td>
                         </tr>
                     @endforeach
                 </tbody>

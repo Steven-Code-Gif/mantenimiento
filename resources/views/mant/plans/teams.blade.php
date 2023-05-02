@@ -1,38 +1,36 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-7xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Metas') }}</h1>
+        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-4xl mx-auto">
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Asignacion de grupos') }}</h1>
             <div class="flex items-center justify-end mb-3">
             </div>
-            <table id="goal" class="">
+            <table id="equipment" class="">
             <thead>
                 <tr>
                     <th>Equipo</th>
                     <th>Tareas</th>
-                    <th>Posicion</th>
-                    <th>Prioridad</th>
+                    <th>Grupos</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ( $goals as $goal )
+                @foreach ( $equipments as $equipment )
                 <tr>
-                    <td width="20%">
-                        <p>{{$goal->location()}}</p>
-                        <p>{{$goal->equipment()}}</p>
-                        <p class="text-xs font-bold">{{$goal->specialty()}}</p>
+                    <td width="">
+                        <p>{{$equipment->location()}}</p>
+                        <p>{{$equipment->name}}</p>
                     </td>
-                    <td width="50%">
-                        <p>{{$goal->task}}</p>
-                        <p>{{$goal->detail}}</p>
-                        <p class="text-red-500">Restriction: {{$goal->restriction()}}</p>
+                    <td width="">
+                        <p>{{$goals->count()}}</p>
                     </td>
-                    <td width="10%">{{ $goal->position }}</td>
-                    <td width="10%">{{ $goal->priority }}</td>
+                    <td>
+
+                    </td>
                     <td class="flex items-center justify-between">
-                        <a href="{{route('goals.edit',$goal->id)}}" title="{{ __('Posicion de la Meta').$goal->name }}">
-                            <i class="icono text-green-600 fa-solid fa-arrow-up-1-9"></i>
-                        </a>
+                       
+                        <a href="{{ route('goals.teams',$plan->id)}}" title="Agregar grupo" ><i class="icono text-green-500 fa-solid fa-users"></i></a>
+            
+                       
                     </td>
                 </tr> 
                 @endforeach
@@ -44,7 +42,7 @@
     @push('script')
     <script>
       $(document).ready( function () {
-        $('#goal').DataTable({
+        $('#equipment').DataTable({
             "pagingType":"full_numbers",
            "language":{
              "info": "Mostrando pag  _PAGE_ de _PAGES_  páginas,  Total de Registros: _TOTAL_ ",

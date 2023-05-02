@@ -38,5 +38,10 @@ class Goal extends Model
     public function services(){
         return $this->belongsToMany(Service::class)->withPivot('id','price','total')->withTimestamps();
     }
-
+    public function restriction(){
+        if($this->restriction){
+            return Goal::find($this->restriction)->task;
+        }
+        return ' ';
+    }
 }
