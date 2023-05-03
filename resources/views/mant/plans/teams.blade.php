@@ -15,22 +15,28 @@
             </thead>
             <tbody>
                 @foreach ( $equipments as $equipment )
-                <tr>
+                <tr class="even:bg-white-100 odd:bg-blue-100">
                     <td width="">
                         <p>{{$equipment->location()}}</p>
                         <p>{{$equipment->name}}</p>
+                        <p>Tipo: {{$equipment->prototype->name}}</p>
+                        <p>Tareas por Equipo: {{$equipment->prototype->protocols->count()}}</p>
+                        <p>Tiempo Estimado: {{$equipment->prototype->protocols->sum('duration')}} hrs.</p>
+                        <p>Trabajadores para Tareas: {{$equipment->prototype->protocols->sum('workers')}}</p>
                     </td>
-                    <td width="">
-                        <p>{{$goals->count()}}</p>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td class="flex items-center justify-between">
+                    <td class="text-xs">
+                        @foreach ($equipment->prototype->protocols as $t)
+                        <p>{{ $t->task }}</p> 
+                        @endforeach
                        
-                        <a href="{{ route('goals.teams',$plan->id)}}" title="Agregar grupo" ><i class="icono text-green-500 fa-solid fa-users"></i></a>
-            
-                       
+                    </td>
+                    <td class="text-xs">
+                        @foreach ($equipment->teams($plan->id) as $t)
+                        <p>{{ $t->name }}</p> 
+                        @endforeach
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('goals.teams',[$plan->id,$equipment->id])}}" title="Agregar grupo" ><i class="icono text-green-500 fa-solid fa-users"></i></a>
                     </td>
                 </tr> 
                 @endforeach

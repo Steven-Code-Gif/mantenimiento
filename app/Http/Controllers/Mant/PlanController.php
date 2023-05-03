@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Equipment;
 use App\Models\Goal;
 use App\Models\Plan;
+use App\Models\Timeline;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
@@ -195,6 +197,23 @@ class PlanController extends Controller
     {
         $goals = $plan ->goals;
         $equipments = $plan ->equipments;
-        return view('mant.plans.teams',compact('goals','equipments','plan'));
+        return view('mant.plans.teams',compact('equipments','plan'));
+    }
+
+    public function timeline(Plan $plan)
+    {
+        $goals=$plan->goals()->orderBy('equipment_id')->orderBy('position')->orderBy('specialty_id')->get();
+        Timeline::where('plan_id',$plan->id)->truncate();
+        // Timeline::where('plan_id',$plan->id)->delete();
+        foreach ($goals as $goal) {
+            $timeline = Timeline::create($goal->toArray());
+        }
+        $timelines = Timeline::all();
+        $plan_start = $plan->start->toDateString().' '.$plan->start_time->toTimeString();
+        $plan_start = Carbon::parse($plan_start);
+        foreach ($timelines as $timeline) {
+            
+        }
+        return view('mant.plans.timeline', compact('timelines'));
     }
 }

@@ -16,6 +16,7 @@ Route::get('/fail/repair/{fail}',[FailController::class,'repair'])->name('fails.
 Route::post('/fail/despeje/{fail}',[FailController::class,'despeje'])->name('fails.despeje');
 Route::get('/fail/repareid',[FailController::class,'repareid'])->name('fails.repareid');
 Route::resource('/plans',PlanController::class)->names('plans');
+Route::get('/plans/timeline/{plan}',[PlanController::class,'timeline'])->name('plans.timeline');
 Route::get('/plans/protocols/{plan}',[PlanController::class,'protocols'])->name('plans.protocols');
 Route::get('/plans/resources/{plan}',[PlanController::class,'resources'])->name('plans.resources');
 Route::get('/goals/replacements/{goal}',[GoalController::class,'replacements'])->name('goals.replacements');
@@ -23,5 +24,6 @@ Route::get('/goals/positions/{goal}',[GoalController::class,'positions'])->name(
 Route::get('/goals/edit/{goal}',[GoalController::class,'edit'])->name('goals.edit');
 Route::put('/goals/update/{goal}',[GoalController::class,'update'])->name('goals.update');
 Route::get('/plans/teams/{plan}',[PlanController::class,'teams'])->name('plans.teams');
-Route::get('/goals/teams/{plan}',[GoalController::class,'teams'])->name('goals.teams');
+Route::get('/goals/teams/{goal}/{equipment}',[GoalController::class,'teams'])->name('goals.teams');
+Route::get('/goals/assign',[GoalController::class,'assign'])->name('goals.assign');
 

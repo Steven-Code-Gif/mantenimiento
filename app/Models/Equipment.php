@@ -28,4 +28,10 @@ class Equipment extends Model
     public function plans(){
         return $this->belongsToMany(Plan::class)->withTimestamps();
     }
+
+    public function teams($id){
+        $plan = Plan::find($id);
+        $specialties=$plan->goals->where('equipment_id',$this->id)->unique('specialty_id')->pluck('specialty_id');
+        return $teams = Team::whereIn('specialty_id',$specialties)->get();
+    }
 }

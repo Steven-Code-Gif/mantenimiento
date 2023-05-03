@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Mant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Equipment;
 use App\Models\Goal;
 use App\Models\Plan;
+use App\Models\Team;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class GoalController extends Controller
 {
@@ -36,7 +39,36 @@ class GoalController extends Controller
         return redirect()->route('goals.positions',$goal->id)
         ->with('success','Protocolo actualizado correctamente');
     }
-    public function teams(Plan $plan){
-
+    public function teams($planId,$equipmentId){
+        $plan = Plan::find($planId);
+        $equipment = Equipment::find($equipmentId);
+        $specialties = $plan->goals->where('equipment_id',$equipmentId)->unique('specialty_id')->pluck('specialty_id');
+        $teams = Team::whereIn('specialty_id',$specialties)->get();
+        return view ('mant.goals.teams',compact('teams','equipment','plan'));
+    }
+    public function assign(Request $request){
+        $request->validate([
+            'equipment_id' => 'required',
+            'plan_id' => 'required',
+            'teams'=>'required',
+        ]);
+        $teams = Team::find($request->input('teams'));
+        $teamIds = $teams->pluck('id')->toArray();
+        $teamIds = implode(',',$teamIds);
+        $salary = 0;
+        foreach($teams as $t){
+            $workers = $t->users;
+            foreach ($workers as $w){
+                $salary = $salary + $w->profile->salary;
+            }
+        }
+        $goal = Goal::where('plan_id',$request->input('plan_id'))
+        ->where('equipment_id',$request->input('equipment_id'))->first();
+        $goal->total_workers = $salary;
+        $goal->workers_id =$teamIds;
+        $goal->save();
+        $goal->teams()->sync($teams);
+        return redirect()->route('plans.teams',$request->input('plan_id'))
+        ->with('success','Equipo asignado correctamente');
     }
 }

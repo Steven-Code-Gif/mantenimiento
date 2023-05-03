@@ -105,6 +105,11 @@
                                             title="{{ __('recursos de plan ') . $plan->task }}">
                                             <i class="icono text-blue-500 fa-solid fa-users"></i>
                                         </a>
+
+                                        <a class="col-span-3 w-full" href="{{ route('plans.timeline', $plan->id) }}"
+                                            title="{{ __('generar plan ') . $plan->task }}">
+                                            <i class="w-full text-xs icono text-green-600 fa-solid fa-clock-rotate-left"><span class="text-xs p-2">Generar Plan</span></i>
+                                        </a>
                                 </td>
                         </tr>
                     @endforeach

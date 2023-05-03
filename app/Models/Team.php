@@ -63,6 +63,11 @@ class Team extends JetstreamTeam
     public function fails(){
         return $this->belongsToMany(Fail::class);
     }
+
+    public function goals(){
+        return $this->belongsToMany(Goal::class)->withTimestamps();
+    }
+
     public function cost()
     {
         $cost=0;
