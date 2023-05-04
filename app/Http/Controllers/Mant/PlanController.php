@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Equipment;
 use App\Models\Goal;
 use App\Models\Plan;
+use App\Models\Team;
 use App\Models\Timeline;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -211,6 +212,8 @@ class PlanController extends Controller
         $timelines = Timeline::all();
         $plan_start = $plan->start->toDateString().' '.$plan->start_time->toTimeString();
         $plan_start = Carbon::parse($plan_start);
+        $plan_specialties = $plan->goals->unique('specialty_id')->pluck('specialty_id');
+        $plan_teams = Team::whereIn('specialty_id',$plan_specialties)->get();
         foreach ($timelines as $timeline) {
             
         }

@@ -23,8 +23,9 @@ return new class extends Migration
             $table->integer('daily_shift')->default(8);
             $table->integer('work_holiday')->default(0);
             $table->integer('work_overtime')->default(0);
-            $table->time('rest_time');
+            $table->time('work_time');
             $table->integer('rest_hours')->default(1);
+            $table->integer('rest_time_hours')->default(4);
             $table->text('description')->nullable();
             $table->timestamps();
         });

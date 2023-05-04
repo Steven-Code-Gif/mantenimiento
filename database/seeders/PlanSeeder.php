@@ -27,8 +27,9 @@ class PlanSeeder extends Seeder
                 'daily_shift' => 8,
                 'work_holiday' => 0,
                 'work_overtime' => 1,
-                'rest_time' => '2023-04-26T18:51:00.000000Z',
+                'work_time' => '06:00:00',
                 'rest_hours' => 1,
+                'rest_time_hours' => 4,
                 'description' => 'lorem ipsun door',]
         );
         $random = Rand(7,17);
@@ -36,14 +37,23 @@ class PlanSeeder extends Seeder
         $plan->equipments()->attach($equipments);
         foreach ($equipments as $e) {
             $protocols = $e->prototype->protocols;
+            $position = 0;
+            $restriction = 0;
             foreach ($protocols as $p) {
+                $position = $position + 1;
+                $restriction = $position - 1;
+                if ($position>13) {
+                    $position = 1;
+                    $restriction = 0;
+                }
                 $goal = Goal::updateOrCreate(
                     ['plan_id'=>$plan->id,
                     'protocol_id'=>$p->id,
                     'equipment_id'=>$e->id,],
                     [
                     'specialty_id'=>$p->specialty_id,
-                    'position'=>$p->position,
+                    'position'=>$position,
+                    'restriction'=>$restriction,
                     'task'=>$p->task,
                     'detail'=>$p->detail,
                     'frecuency'=>$p->frecuency,

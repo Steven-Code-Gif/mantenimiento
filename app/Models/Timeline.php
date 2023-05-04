@@ -12,7 +12,8 @@ class Timeline extends Model
     protected $dates = [
         'start',
         'end',
-        'done'
+        'done',
+        'work_time'
     ];
 
     public function specialty(){

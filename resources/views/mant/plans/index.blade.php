@@ -18,7 +18,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody>                                             
                     @foreach ($plans as $plan)
                         <tr>
                             <td width="40%">
