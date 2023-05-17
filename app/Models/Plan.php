@@ -14,7 +14,8 @@ class Plan extends Model
         'start',
         'end',
         'start_time',
-        'rest_time'
+        'rest_time',
+        'work_time',
     ];
 
     public function equipments(){

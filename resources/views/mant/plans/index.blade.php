@@ -32,9 +32,14 @@
                                     </p>
                                     <p class="text-gray-600 font-semibold text-sm">Horas laborables semanales: <strong>{{ $plan->weekly_shift }} horas</strong>
                                     </p>
+                                    <p class="text-gray-600 font-semibold text-sm">Horario de inicio: <strong>{{ $plan->work_time->format('h:i A') }}</strong>
+                                    </p>
                                     <p class="text-gray-600 font-semibold text-sm">Horas laborables diarias: <strong>{{ $plan->daily_shift }} horas</strong>
                                     </p>
-                                    <p class="text-gray-600 font-semibold text-sm">Hora de descanso: <strong>{{ $plan->rest_time->format('h:i A') }}-{{ $plan->rest_time->addhours($plan->rest_hours)->format('h:i A') }}</strong>
+                                    <p class="text-gray-600 font-semibold text-sm">Hora de descanso: <strong>{{ 
+                                    $plan->work_time->addhours($plan->rest_time_hours)->format('h:i A') }}-{{ 
+                                    $plan->work_time->addhours($plan->rest_hours+$plan->rest_time_hours)->format('h:i A') }}
+                                    </strong>
                                      Total horas :
                                      <strong>{{ $plan->rest_hours }} horas</strong>
                                     </p>

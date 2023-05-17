@@ -12,12 +12,17 @@
                 <tbody>
                     @foreach ($timelines as $goal)
                     <tr>
-                        <td width="10%">
+                        <td width="30%">
                             <div>
-                                <p class="text-gray-700 font-bold text-base">{{$goal->id}}-{{$goal->position}}</p>
+                                <p class="text-gray-700 font-bold text-base">
+                                    {{$rest_start->format('h:i A').'-'.$rest_end->format('h:i A')}}
+                                    {{$goal->start->format('h:i A')}}
+                                    {{$goal->start->format('h:i A')}}
+
+                                </p>
                             </div>
                         </td>
-                        <td width="60%">
+                        <td width="40%">
                             <div>
                                 <p class="text-gray-700 font-bold text-base">{{$goal->task}}</p>
                             </div>

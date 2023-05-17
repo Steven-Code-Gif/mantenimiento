@@ -46,6 +46,7 @@ class PlanSeeder extends Seeder
                     $position = 1;
                     $restriction = 0;
                 }
+                $duration = rand(1,5);
                 $goal = Goal::updateOrCreate(
                     ['plan_id'=>$plan->id,
                     'protocol_id'=>$p->id,
@@ -57,7 +58,7 @@ class PlanSeeder extends Seeder
                     'task'=>$p->task,
                     'detail'=>$p->detail,
                     'frecuency'=>$p->frecuency,
-                    'duration'=>$p->duration,
+                    'duration'=>$duration,
                     'permissions'=>$p->permissions,
                     'security'=>$p->security,
                     'workers'=>$p->workers,

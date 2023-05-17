@@ -204,19 +204,55 @@ class PlanController extends Controller
     public function timeline(Plan $plan)
     {
         $goals=$plan->goals()->orderBy('equipment_id')->orderBy('position')->orderBy('specialty_id')->get();
-        Timeline::where('plan_id',$plan->id)->truncate();
-        // Timeline::where('plan_id',$plan->id)->delete();
+        $this->delete_table($plan->id);
+       
         foreach ($goals as $goal) {
             $timeline = Timeline::create($goal->toArray());
         }
         $timelines = Timeline::all();
-        $plan_start = $plan->start->toDateString().' '.$plan->start_time->toTimeString();
-        $plan_start = Carbon::parse($plan_start);
+        $plan_start = $this->plan_init($plan->id);
+
         $plan_specialties = $plan->goals->unique('specialty_id')->pluck('specialty_id');
         $plan_teams = Team::whereIn('specialty_id',$plan_specialties)->get();
+
+        $rest_start = $this->plan_init($plan->id);
+        $rest_start = Carbon::parse($rest_start)->addHour($plan->rest_time_hours);
+        $rest_end = Carbon::parse($rest_start)->addHour($plan->rest_hours);
+        $duration=0;
         foreach ($timelines as $timeline) {
-            
+            if ($timeline->position==1) {
+                $timeline->start = $this->plan_init($plan->id);
+                $timeline->start = $plan_start->addHours($timeline->duration);
+                $duration=0;
+            }else{
+                $timeline->start = $plan_start;
+                $timeline->end = $plan_start->addHours($timeline->duration);
+                if ($timeline->start->between($rest_start,$rest_end) || $timeline->end->between($rest_start,$rest_end) ) {
+                    $timeline->end = $timeline->end->addHours($plan->rest_hours);
+                }
+                
+            }
+            $timeline->save();
+            $duration = $duration+$timeline->duration;
+            if ($plan->work_shift==1 && $duration >=8) {
+                $plan_start = $plan_start->addDay();
+                $this->plan_init($plan->id);
+            }
+            if ($plan->work_shift==2 && $duration >=16) {
+                $plan_start = $plan_start->addDay();
+                $this->plan_init($plan->id);
+            }
         }
-        return view('mant.plans.timeline', compact('timelines'));
+        return view('mant.plans.timeline', compact('timelines','rest_start','rest_end'));
+    }
+    private function delete_table($plan){
+        Timeline::where('plan_id',$plan)->truncate();
+        // Timeline::where('plan_id',$plan->id)->delete();
+    }
+    private function plan_init($id){
+        $plan = Plan::find($id);
+        $plan_start = $plan->start->toDateString().' '.$plan->work_time->toTimeString();
+        $plan_start = Carbon::parse($plan_start);
+        return $plan_start;
     }
 }
