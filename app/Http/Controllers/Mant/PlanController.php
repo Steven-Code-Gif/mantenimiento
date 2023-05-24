@@ -10,6 +10,7 @@ use App\Models\Team;
 use App\Models\Timeline;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlanController extends Controller
 {
@@ -22,7 +23,7 @@ class PlanController extends Controller
     {
         $plans = Plan::all();
         $equipment = Equipment::find(1);
-        return view('mant.plans.index',compact('plans'));
+        return view('mant.plans.index', compact('plans'));
     }
 
     /**
@@ -33,11 +34,11 @@ class PlanController extends Controller
     public function create()
     {
         $plan = new Plan();
-        $plan->weekly_shift=44;
-        $plan->daily_shift=8;
+        $plan->weekly_shift = 44;
+        $plan->daily_shift = 8;
         $btn = "crear plan";
         $title = "crear un nuevo plan de mantenimiento ";
-        return view('mant.plans.create',compact('plan','title','btn'));
+        return view('mant.plans.create', compact('plan', 'title', 'btn'));
     }
 
     /**
@@ -59,20 +60,19 @@ class PlanController extends Controller
             'rest_hours' => 'required',
         ]);
 
-        if ($request->work_holiday=='on') {
-            $request->request->add(['work_holiday'=>1]);
-        }else{
-            $request->request->add(['work_holiday'=>0]);
+        if ($request->work_holiday == 'on') {
+            $request->request->add(['work_holiday' => 1]);
+        } else {
+            $request->request->add(['work_holiday' => 0]);
         }
 
-        if ($request->work_overtime=='on') {
-            $request->request->add(['work_overtime'=>1]);
-        }else{
-            $request->request->add(['work_overtime'=>0]);
+        if ($request->work_overtime == 'on') {
+            $request->request->add(['work_overtime' => 1]);
+        } else {
+            $request->request->add(['work_overtime' => 0]);
         }
         Plan::create($request->all());
-        return redirect()->route('plans.index')->with('success','Plan de mantenimiento creado correctamente');
-
+        return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento creado correctamente');
     }
 
     /**
@@ -83,7 +83,7 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        return view('mant.plans.show',compact('plan'));
+        return view('mant.plans.show', compact('plan'));
     }
 
     /**
@@ -96,7 +96,7 @@ class PlanController extends Controller
     {
         $btn = "editar plan";
         $title = "crear un nuevo plan de mantenimiento ";
-        return view('mant.plans.edit',compact('plan','title','btn'));
+        return view('mant.plans.edit', compact('plan', 'title', 'btn'));
     }
 
     /**
@@ -119,19 +119,19 @@ class PlanController extends Controller
             'rest_hours' => 'required',
         ]);
 
-        if ($request->work_holiday=='on') {
-            $request->request->add(['work_holiday'=>1]);
-        }else{
-            $request->request->add(['work_holiday'=>0]);
+        if ($request->work_holiday == 'on') {
+            $request->request->add(['work_holiday' => 1]);
+        } else {
+            $request->request->add(['work_holiday' => 0]);
         }
 
-        if ($request->work_overtime=='on') {
-            $request->request->add(['work_overtime'=>1]);
-        }else{
-            $request->request->add(['work_overtime'=>0]);
+        if ($request->work_overtime == 'on') {
+            $request->request->add(['work_overtime' => 1]);
+        } else {
+            $request->request->add(['work_overtime' => 0]);
         }
         $plan->update($request->all());
-        return redirect()->route('plans.index')->with('success','Plan de mantenimiento actualizado correctamente');
+        return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento actualizado correctamente');
     }
 
 
@@ -144,115 +144,165 @@ class PlanController extends Controller
     public function destroy(Plan $plan)
     {
         $plan->delete();
-        return redirect()->route('plans.index')->with('success','Plan de mantenimiento eliminado correctamente');
+        return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento eliminado correctamente');
     }
 
     public function protocols(Plan $plan)
     {
         $equipments = $plan->equipments;
-        $this->getProtocols($equipments,$plan);
-        return redirect()->route('plans.index')->with('success','Protocolos asignados a plan de mantenimiento');
+        $this->getProtocols($equipments, $plan);
+        return redirect()->route('plans.index')->with('success', 'Protocolos asignados a plan de mantenimiento');
     }
 
-    public function getProtocols($equipments,$plan){
+    public function getProtocols($equipments, $plan)
+    {
         foreach ($equipments as $e) {
             $protocols = $e->prototype->protocols;
             foreach ($protocols as $p) {
                 $goal = Goal::updateOrCreate(
-                    ['plan_id'=>$plan->id,
-                    'protocol_id'=>$p->id,
-                    'equipment_id'=>$e->id,],
                     [
-                    'specialty_id'=>$p->specialty_id,
-                    'position'=>$p->position,
-                    'task'=>$p->task,
-                    'detail'=>$p->detail,
-                    'frecuency'=>$p->frecuency,
-                    'duration'=>$p->duration,
-                    'permissions'=>$p->permissions,
-                    'security'=>$p->security,
-                    'workers'=>$p->workers,
-                    'conditions'=>$p->conditions,
-                    'total_replacement'=>0,
-                    'total_supply'=>0,
-                    'total_services'=>0,
-                    'total_workers'=>0,
-                    'workers_id'=>'',
-                    'total'=>0,
-                    'start'=>$plan->start,
-                    'end'=>now(),
-                    'done'=>now(),
-                    'days'=>0,
-                    'time'=>0]
+                        'plan_id' => $plan->id,
+                        'protocol_id' => $p->id,
+                        'equipment_id' => $e->id,
+                    ],
+                    [
+                        'specialty_id' => $p->specialty_id,
+                        'position' => $p->position,
+                        'task' => $p->task,
+                        'detail' => $p->detail,
+                        'frecuency' => $p->frecuency,
+                        'duration' => $p->duration,
+                        'permissions' => $p->permissions,
+                        'security' => $p->security,
+                        'workers' => $p->workers,
+                        'conditions' => $p->conditions,
+                        'total_replacement' => 0,
+                        'total_supply' => 0,
+                        'total_services' => 0,
+                        'total_workers' => 0,
+                        'workers_id' => '',
+                        'total' => 0,
+                        'start' => $plan->start,
+                        'end' => now(),
+                        'done' => now(),
+                        'days' => 0,
+                        'time' => 0
+                    ]
                 );
             }
         }
     }
     public function resources(Plan $plan)
     {
-        $goals = $plan ->goals;
-        return view('mant.plans.resources',compact('goals'));
+        $goals = $plan->goals;
+        return view('mant.plans.resources', compact('goals'));
     }
 
     public function teams(Plan $plan)
     {
-        $goals = $plan ->goals;
-        $equipments = $plan ->equipments;
-        return view('mant.plans.teams',compact('equipments','plan'));
+        $goals = $plan->goals;
+        $equipments = $plan->equipments;
+        return view('mant.plans.teams', compact('equipments', 'plan'));
     }
 
     public function timeline(Plan $plan)
     {
-        $goals=$plan->goals()->orderBy('equipment_id')->orderBy('position')->orderBy('specialty_id')->get();
+        $goals = $plan->goals()->orderBy('equipment_id')->orderBy('position')->orderBy('specialty_id')->get();
         $this->delete_table($plan->id);
-       
+
         foreach ($goals as $goal) {
             $timeline = Timeline::create($goal->toArray());
         }
         $timelines = Timeline::all();
         $plan_start = $this->plan_init($plan->id);
+        $work_start = $plan_start;
+        $work_end = $this->plan_end($plan->id);
+
 
         $plan_specialties = $plan->goals->unique('specialty_id')->pluck('specialty_id');
-        $plan_teams = Team::whereIn('specialty_id',$plan_specialties)->get();
+        $plan_teams = Team::whereIn('specialty_id', $plan_specialties)->get();
 
         $rest_start = $this->plan_init($plan->id);
         $rest_start = Carbon::parse($rest_start)->addHour($plan->rest_time_hours);
         $rest_end = Carbon::parse($rest_start)->addHour($plan->rest_hours);
-        $duration=0;
+        $duration = 0;
+        $week = 0;
+
         foreach ($timelines as $timeline) {
-            if ($timeline->position==1) {
+            if ($timeline->position == 1) {
+
                 $timeline->start = $this->plan_init($plan->id);
+                $plan_start = $this->plan_init($plan->id);
                 $timeline->start = $plan_start->addHours($timeline->duration);
-                $duration=0;
-            }else{
+            } else {
                 $timeline->start = $plan_start;
                 $timeline->end = $plan_start->addHours($timeline->duration);
-                if ($timeline->start->between($rest_start,$rest_end) || $timeline->end->between($rest_start,$rest_end) ) {
-                    $timeline->end = $timeline->end->addHours($plan->rest_hours);
+                if ($plan->work_shift != 3) {
+                if ($timeline->start->hour >= $work_end->hour) {
+                    $plan_start->addDay();
+                    if ($plan_start->dayOfWeek == 0) {
+                        $plan_start->next('Monday');
+                    }
+                    $plan_start->hour = $work_start->hour;
+                    $timeline->start = $plan_start;
+                    $timeline->end = $plan_start->addHours($timeline->duration);
                 }
-                
+            }
+            }
+            $duration = $duration + $timeline->duration;
+            $week = $week + $timeline->duration;
+            if ($plan->work_shift != 3) {
+                if ($plan->work_shift == 2 && $duration >= 16) {
+                    $plan_start->addDay();
+                    if ($plan_start->dayOfWeek == 0) {
+                        $plan_start->next('Monday');
+                    }
+                    $plan_start->hour = $plan->work_time->hour;
+                    $duration = 0;
+                }
+
+                if ($plan->work_shift == 1 && $duration >= 8) {
+                    $plan_start->addDay();
+                    if ($plan_start->dayOfWeek == 0) {
+                        $plan_start->next('Monday');
+                    }
+                    $plan_start->hour = $plan->work_time->hour;
+                    $duration = 0;
+                }
+                if ($plan->work_shift <= 2 && $week >= $plan->weekly_shift * $plan->work_shift) {
+                    $plan_start->next('Monday');
+                    $plan_start->hour = $plan->work_time->hour;
+                    $week = 0;
+                }
             }
             $timeline->save();
-            $duration = $duration+$timeline->duration;
-            if ($plan->work_shift==1 && $duration >=8) {
+            if ($plan->work_shift == 2 && $duration >= 16) {
                 $plan_start = $plan_start->addDay();
-                $this->plan_init($plan->id);
-            }
-            if ($plan->work_shift==2 && $duration >=16) {
-                $plan_start = $plan_start->addDay();
-                $this->plan_init($plan->id);
             }
         }
-        return view('mant.plans.timeline', compact('timelines','rest_start','rest_end'));
+        return view('mant.plans.timeline', compact('timelines', 'rest_start', 'rest_end'));
     }
-    private function delete_table($plan){
-        Timeline::where('plan_id',$plan)->truncate();
+    private function delete_table($plan)
+    {
+        DB::statement("SET foreign_key_checks=0");
+        Timeline::where('plan_id', $plan)->truncate();
+        DB::statement("SET foreign_key_checks=1");
         // Timeline::where('plan_id',$plan->id)->delete();
     }
-    private function plan_init($id){
+    private function plan_init($id)
+    {
         $plan = Plan::find($id);
-        $plan_start = $plan->start->toDateString().' '.$plan->work_time->toTimeString();
+        $plan_start = $plan->start->toDateString() . ' ' . $plan->work_time->toTimeString();
         $plan_start = Carbon::parse($plan_start);
+        return $plan_start;
+    }
+
+    private function plan_end($id)
+    {
+        $plan = Plan::find($id);
+        $plan_start = $plan->start->toDateString() . ' ' . $plan->work_time->toTimeString();
+        $plan_start = Carbon::parse($plan_start);
+        $plan_start->addHours($plan->daily_shift * $plan->work_shift);
         return $plan_start;
     }
 }

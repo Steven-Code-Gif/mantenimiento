@@ -11,6 +11,8 @@ define('FALLA',array(
 
 define('DIA',array('domingo','lunes','martes','miercoles','jueves','viernes','sabado'));
 
+define('MES',array('enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'));
+
 function price($value){
     return number_format($value,2).'';
 }
