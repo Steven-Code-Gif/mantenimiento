@@ -60,6 +60,7 @@ class PlanController extends Controller
             'rest_hours' => 'required',
         ]);
 
+
         if ($request->work_holiday == 'on') {
             $request->request->add(['work_holiday' => 1]);
         } else {
@@ -71,6 +72,15 @@ class PlanController extends Controller
         } else {
             $request->request->add(['work_overtime' => 0]);
         }
+        $start_time=Carbon::createFromTimestamp(strtotime($request->start_time))->hour;
+        $rest_time=Carbon::createFromTimestamp(strtotime($request->rest_time))->hour;
+        $rest_time_hours=$rest_time - $start_time;
+        $work_time=$request->start_time;
+        $request->request->add(['work_time' => $work_time]);
+        $request->request->add(['rest_time_hours'=>$rest_time_hours]);
+        $request->request->remove('rest_time');
+
+
         Plan::create($request->all());
         return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento creado correctamente');
     }
@@ -229,7 +239,7 @@ class PlanController extends Controller
         $week = 0;
 
         foreach ($timelines as $timeline) {
-            if ($timeline->position == 1) {
+            if ($timeline->position == 1 && $timeline->sequence==1) {
 
                 $timeline->start = $this->plan_init($plan->id);
                 $plan_start = $this->plan_init($plan->id);
@@ -282,10 +292,51 @@ class PlanController extends Controller
         }
         return view('mant.plans.timeline', compact('timelines', 'rest_start', 'rest_end'));
     }
+
+    public function calendar(Plan $plan){
+        $timelines = Timeline::where('plan_id', $plan->id)->get();
+        $events=[];
+        foreach ($timelines as $timeline) {
+            $events[]=[
+                'id' => $timeline->id,
+                'title' => $timeline->title,
+                'start' =>$timeline->start,
+                'end' =>$timeline->end
+            ];
+        }
+        return view('mant.plans.calendar',compact('events'));
+    }
+
+    public function sequence(Plan $plan)
+    {
+        $timelines = Timeline::where('plan_id', $plan->id)->get()->unique('equipment_id');
+        if ($timelines->first()->sequence == 0) {
+            $timelines->first()->sequence =1;
+            $timelines->first()->save();
+        }
+        return view('mant.plans.sequence',compact('timelines','plan'));
+
+    }
+    public function sequence_update(Request $request,Plan $plan)
+    {
+       $timelines = Timeline::where('plan_id', $plan->id)->get()->unique('equipment_id');
+       $id=$timelines->firs()->equipment_id;
+       $ids =$request->input('ids');
+       if(!in_array($id,$ids)){
+        array_push($ids,$id);
+       }
+
+       Timeline::where('plan_id',$plan->id)->update(array('sequence'=>0));
+       Timeline::where('plan_id',$plan->id)->where('position','1')->whereIn('equipment_id',$ids)->update(array('sequence'=>1));
+       Goal::where('plan_id',$plan->id)->update(array('sequence'=>0));
+       Goal::where('plan_id',$plan->id)->where('position','1')->whereIn('equipment_id',$ids)->update(array('sequence'=>1));
+       $timelines = Timeline::where('plan_id', $plan->id)->get()->unique('equipment_id');
+       return view('mant.plans.sequence',compact('timelines','plan'));
+    }
     private function delete_table($plan)
     {
         DB::statement("SET foreign_key_checks=0");
-        Timeline::where('plan_id', $plan)->truncate();
+        Timeline::where('plan_id', $plan)->delete();
         DB::statement("SET foreign_key_checks=1");
         // Timeline::where('plan_id',$plan->id)->delete();
     }

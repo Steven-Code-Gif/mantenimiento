@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>                                             
                     @foreach ($plans as $plan)
-                        <tr>
+                        <tr class="even:bg-amber-100 odd:bg-blue-100">
                             <td width="40%">
                                 <div>
                                     <p class="text-gray-700 font-bold text-base">{{ $plan->name }}</p>
@@ -85,10 +85,13 @@
                             <td class="grid grid-cols-3 gap-4 items-center justify-between">
                                 <a href="{{ route('plans.show', $plan->id) }}"
                                     title="{{ __('Agregar equipo al plan ') . $plan->task }}"><i
-                                        class="icono text-blue-500 fa-solid fa-eye"></i></a>
-                                <a href="{{ route('plans.edit', $plan->id) }}"
-                                    title="{{ __('edit plan ') . $plan->task }}"><i
-                                        class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
+                                        class="icono text-blue-500 fa-solid fa-clipboard-list"></i></a>
+
+                                @if ($plan->equipments->count()>0)
+                                <a href="{{ route('plans.sequence', $plan->id) }}"
+                                    title="{{ __('secuencia de plan ') . $plan->task }}"><i
+                                        class="icono text-green-500 fa-solid fa-arrow-up-1-9"></i></a>
+                                 @endif
 
                                 <form action="{{ route('plans.destroy', $plan->id) }}" method="POST"
                                     class="form-delete">
@@ -97,17 +100,18 @@
                                     <button type="submit"><i
                                             class="icono text-red-500 fa-solid fa-trash-can"></i></button>
                                 </form>
+                                @if ($plan->equipments->count()>0)
                                 <a href="{{ route('plans.protocols', $plan->id) }}"
-                                    title="{{ __('Protocolos de plan ') . $plan->task }}"><i
+                                    title="{{ __('agregar Protocolos de plan ') . $plan->task }}"><i
                                         class="icono text-green-500 fa fa-file-invoice"></i>
                                 </a>
                                         <a href="{{ route('plans.resources', $plan->id) }}"
-                                            title="{{ __('recursos de plan ') . $plan->task }}">
+                                            title="{{ __('agregar recursos de plan ') . $plan->task }}">
                                             <i class="icono text-blue-500 fa-solid fa-dumpster"></i>
                                         </a>
 
                                         <a href="{{ route('plans.teams', $plan->id) }}"
-                                            title="{{ __('recursos de plan ') . $plan->task }}">
+                                            title="{{ __('agregar grupo de plan ') . $plan->task }}">
                                             <i class="icono text-blue-500 fa-solid fa-users"></i>
                                         </a>
 
@@ -115,6 +119,16 @@
                                             title="{{ __('generar plan ') . $plan->task }}">
                                             <i class="w-full text-xs icono text-green-600 fa-solid fa-clock-rotate-left"><span class="text-xs p-2">Generar Plan</span></i>
                                         </a>
+
+                                        <a class="col-span-3 w-full" href="{{ route('plans.sequence', $plan->id) }}"
+                                            title="{{ __('secuencia de plan ') . $plan->task }}"><i
+                                                class="w-full icono text-green-500 fa-solid fa-arrow-up-1-9"><span class="text-xs p-2">Secuencia</span></i></a>
+
+                                         <a class="col-span-3 w-full" href="{{ route('plans.calendar', $plan->id) }}"
+                                            title="{{ __('calendario plan ') . $plan->task }}">
+                                            <i class="w-full text-xs icono text-blue-600 fa-solid fa-calendar"><span class="text-xs p-2">Calendario</span></i>
+                                        </a>
+                                        @endif
                                 </td>
                         </tr>
                     @endforeach
