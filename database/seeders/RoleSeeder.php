@@ -57,7 +57,7 @@ class RoleSeeder extends Seeder
         $supervisor = Role::create(['name' => 'supervisor']);
         $supervisorPermissions = [
             '113', '114', '115', '116', '117', '118','119', 
-            '120', '121', '122', '123', '124', '125','126'
+            '120', '121', '122', '123', '124', '125','126','136'
         ];
         $supervisor->givePermissionTo($supervisorPermissions);
 

@@ -189,5 +189,8 @@ class PermissionSeeder extends Seeder
       Permission::create(['name' => 'plans.update', 'permission' => 'plans edit']);
       Permission::create(['name' => 'plans.destroy', 'permission' => 'plans delete']);
       Permission::create(['name' => 'plans.show', 'permission' => 'plans view']);
+
+       //    listado de permisos para fails 136
+       Permission::create(['name' => 'timelines.pending', 'permission' => 'timelines pending']);
    }
 }
