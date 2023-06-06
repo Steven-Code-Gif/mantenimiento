@@ -105,20 +105,32 @@ class FailController extends Controller
         }
         return view('mant.fails.add', compact('fail'));
     }
+    //errrrrooooooorrrrrrr
+    // public function tasks()
+    // {
+    //     $team = auth()->user()->teams()->first();
+    //     if (!$team) {
+    //         $team = auth()->user()->team;
+    //         if(!$team){
+    //             return redirect()->route('dashboard')->with('fail','Usuario no esta asignado a ningun equipo de tareas');
+    //         }
+    //     }
+    //     $fails = $team->fails()->where('status', 0)->get();
+    //     return view('mant.fails.tasks', compact('fails'));
+    // }
 
-    public function tasks()
-    {
-        $team = auth()->user()->team;
-        $fails = $team->fails()->where('status', 0)->get();
-        return view('mant.fails.tasks', compact('fails'));
-    }
-
-    public function repareid()
-    {
-        $team = auth()->user()->team;
-        $fails = $team->fails()->where('status', 1)->get();
-        return view('mant.fails.repareid', compact('fails'));
-    }
+    // public function repareid()
+    // {
+    //     $team = auth()->user()->teams()->first(); 
+    //     if (!$team) {
+    //         $team = auth()->user()->team;
+    //         if(!$team){
+    //             return redirect()->route('dashboard')->with('fail','Usuario no esta asignado a ningun equipo de tareas');
+    //         }
+    //     }
+    //     $fails = $team->fails()->where('status', 1)->get();
+    //     return view('mant.fails.repareid', compact('fails'));
+    // }
 
     public function repair(Fail $fail)
     {

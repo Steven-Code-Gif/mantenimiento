@@ -320,7 +320,7 @@ class PlanController extends Controller
     public function sequence_update(Request $request,Plan $plan)
     {
        $timelines = Timeline::where('plan_id', $plan->id)->get()->unique('equipment_id');
-       $id=$timelines->firs()->equipment_id;
+       $id=$timelines->first()->equipment_id;
        $ids =$request->input('ids');
        if(!in_array($id,$ids)){
         array_push($ids,$id);

@@ -8,6 +8,17 @@
                 <div class="card-body">
                     <h1 class="card-title"> {{ __($title) }} </h1> 
                     <div class="grid grid-cols-2 gap-3">
+                        <div class="mb-4 col-span-2">
+                            <x-jet-label class="italic my-2 capitalize" value="{{ __('Rol') }}"
+                            for="role"/>
+                            <select class="w-full rounded" name="role">
+                                @foreach ($roles as $role )
+                                <option value="{{$role->id}}" @if ($employes->role == $role->id) selected @endif>
+                                            {{ $role->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="mb-4">
                             <x-jet-label class="italic my-2 capitalize" value="{{ __('Nombre') }}"
                             for="name"/>
