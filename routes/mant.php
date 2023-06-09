@@ -23,7 +23,7 @@ Route::get('/timelines/assigned',[TimeLineController::class,'assigned'])->name('
 Route::get('/timelines/boss/{timeline}',[TimeLineController::class,'boss'])->name('timelines.boss');
 Route::post('/timelines/worker/{timeline}',[TimeLineController::class,'worker'])->name('timelines.worker');
 Route::get('/timelines/pending',[TimeLineController::class,'pending'])->name('timelines.pending');
-
+Route::get('/timelines/work/{timeline}',[TimeLineController::class,'work'])->name('timelines.work');
 Route::get('/plans/timeline/{plan}',[PlanController::class,'timeline'])->name('plans.timeline');
 Route::get('/plans/protocols/{plan}',[PlanController::class,'protocols'])->name('plans.protocols');
 Route::get('/plans/resources/{plan}',[PlanController::class,'resources'])->name('plans.resources');

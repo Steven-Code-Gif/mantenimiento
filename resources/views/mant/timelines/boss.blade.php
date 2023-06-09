@@ -11,7 +11,7 @@
                     for="name" />
                     <select name="workers_id" class="w-full rounded">
                         @foreach ($teams as $team)
-                        <option value="{{ $team->id}}">{{$team->user->name}}</option>                            
+                        <option value="{{ $team->id}}">{{$team->bossName()}}</option>                            
                         @endforeach
                     </select>
                     </div>

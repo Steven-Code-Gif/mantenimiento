@@ -222,6 +222,8 @@ class PlanController extends Controller
 
         foreach ($goals as $goal) {
             $timeline = Timeline::create($goal->toArray());
+            $timeline->goal_id=$goal->id;
+            $timeline->save();
         }
         $timelines = Timeline::all();
         $plan_start = $this->plan_init($plan->id);

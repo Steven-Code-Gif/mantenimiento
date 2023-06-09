@@ -36,6 +36,20 @@ class Timeline extends Model
         return $team = Team::find($this->team_id);
     }
 
+    public function fnReplacements(){
+       $goal = Goal::find($this->goal_id);
+        return $goal->replacements;
+    }
+
+    public function fnServices(){
+        $goal = Goal::find($this->goal_id);
+        return $goal->services;
+    }
+
+    public function fnSupplies(){
+        $goal = Goal::find($this->goal_id);
+        return $goal->supplies;
+    }
     public function replacements(){
         $goal = Goal::where('protocol_id',$this->protocol_id)
                     ->where('equipment_id',$this->equipment_id)->first();

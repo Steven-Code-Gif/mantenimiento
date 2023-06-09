@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('timelines', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('plan_id');
+            $table->unsignedBigInteger('goal_id')->nullable();
             $table->unsignedBigInteger('protocol_id');
             $table->unsignedBigInteger('equipment_id');
             $table->string('specialty_id');

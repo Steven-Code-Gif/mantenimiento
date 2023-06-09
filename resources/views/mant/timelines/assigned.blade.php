@@ -54,9 +54,9 @@
                             </td>
 
                             <td class="text-center flex items-center justify-between">
-                                <a href="{{ route('timelines.boss',$timeline->id)}}"
-                                    title="{{ __('Asignar jefe ') . $timeline->name }}"><i
-                                        class="icono text-blue-600 fa-solid fa-people-group"></i></a>
+                                <a href="{{ route('timelines.work',$timeline->id)}}"
+                                    title="{{ __('Trabajar en linea de tiempo') . $timeline->name }}"><i
+                                        class="icono text-blue-600 fa-solid fa-screwdriver-wrench"></i></a>
                             </td>
                         </tr>
                     @endforeach

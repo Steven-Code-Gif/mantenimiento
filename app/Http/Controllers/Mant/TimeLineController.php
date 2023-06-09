@@ -44,5 +44,11 @@ class TimeLineController extends Controller
         $timeline->save();
         return redirect()->route('timelines.pending')->with('success','Responsable asignado correctamente');
     }
+    public function work(Timeline $timeline)
+    {
+        $user = auth()->user();
+        //erroooorr  $team=$user->teams()->first();
+        return view('mant.timelines.work',compact('timeline','team'));
+    }
 
 }
