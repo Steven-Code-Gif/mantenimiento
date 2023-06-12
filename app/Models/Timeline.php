@@ -72,4 +72,9 @@ class Timeline extends Model
         return $this->dateStr($date);
     }
 
+    
+    public function comments(){
+        return $this->morphToMany(Comment::class,'commentable');
+    }
+
 }

@@ -34,4 +34,5 @@ Route::put('/goals/update/{goal}',[GoalController::class,'update'])->name('goals
 Route::get('/plans/teams/{plan}',[PlanController::class,'teams'])->name('plans.teams');
 Route::get('/goals/teams/{goal}/{equipment}',[GoalController::class,'teams'])->name('goals.teams');
 Route::get('/goals/assign',[GoalController::class,'assign'])->name('goals.assign');
+Route::post('/timeline/despeje/{timeline}',[TimelineController::class,'despeje'])->name('timelines.despeje');
 
