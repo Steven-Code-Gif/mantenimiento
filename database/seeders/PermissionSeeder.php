@@ -193,7 +193,10 @@ class PermissionSeeder extends Seeder
        //    listado de permisos para fails 136
        Permission::create(['name' => 'timelines.pending', 'permission' => 'timelines pending']);
 
-        //    listado de permisos para fails 137
+        //    listado de permisos para timeline 137
         Permission::create(['name' => 'timelines.assigned', 'permission' => 'timelines assigned']);
+
+          //    listado de permisos para ceo 138
+          Permission::create(['name' => 'statistics.index', 'permission' => 'statistics index']);
    }
 }

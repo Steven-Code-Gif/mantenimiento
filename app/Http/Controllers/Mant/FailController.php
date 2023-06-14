@@ -189,7 +189,7 @@ class FailController extends Controller
         Resume::create([
             'fail' => $fail->id,
             'equipment' => $fail->equipment_id,
-            'type' => 0,
+            'type' => $fail->type,
             'total_replacement' => $failreplacementstotal,
             'total_supply' => $failsuppliestotal,
             'total_services' => $failservicestotal,

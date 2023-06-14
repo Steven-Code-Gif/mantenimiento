@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
          ]);
 
-         $user->assignRole('admin');
+         $user->syncRoles(['admin']);
 
          $user = User::create([
             'name' =>'Planificador',
@@ -95,6 +95,16 @@ class UserSeeder extends Seeder
          ]);
 
          $user->assignRole('jefe-de-mantenimiento');
+
+         $user = User::create([
+            'name' =>'ceo',
+            'email' =>'ceo@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'remember_token' => Str::random(10),
+         ]);
+
+         $user->assignRole('ceo');
 
          User::factory(4)->create()->each(function($user) use($team){
             $user->profile->salary = rand(3000,50000);
