@@ -32,7 +32,7 @@ subtitle: {
 
 yAxis: {
     title: {
-        text: 'Gasto en unidad monetaria'
+        text: 'Gastos de personal año en curso'
     }
 },
 
@@ -58,44 +58,12 @@ plotOptions: {
 
 series: [
     {
-    name: <?php echo json_encode($repuestos_mant[0]['name']); ?>,
-                        data: @json($repuestos_mant)
+    name: <?php echo json_encode($gastos_personal[0]['name']); ?>,
+                        data: @json($gastos_personal)
                     },
                     {
-                        name: <?php echo json_encode($insumos_mant[0]['name']); ?>,
-                        data: @json($insumos_mant)
-                    },
-                    {
-                        name: <?php echo json_encode($servicios_mant[0]['name']); ?>,
-                        data: @json($servicios_mant)
-                    },
-                    {
-                        name: <?php echo json_encode($personal_mant[0]['name']); ?>,
-                        data: @json($personal_mant)
-                    },
-                    {
-                        name: <?php echo json_encode($total_mant[0]['name']); ?>,
-                        data: @json($total_mant)
-                    },
-                    {
-                        name: <?php echo json_encode($repuestos_falla[0]['name']); ?>,
-                        data: @json($repuestos_falla)
-                    },
-                    {
-                        name: <?php echo json_encode($insumos_falla[0]['name']); ?>,
-                        data: @json($insumos_falla)
-                    },
-                    {
-                        name: <?php echo json_encode($servicios_falla[0]['name']); ?>,
-                        data: @json($servicios_falla)
-                    },
-                    {
-                        name: <?php echo json_encode($personal_falla[0]['name']); ?>,
-                        data: @json($personal_falla)
-                    },
-                    {
-                        name: <?php echo json_encode($total_falla[0]['name']); ?>,
-                        data: @json($total_falla)
+    name: <?php echo json_encode($fallas_mes[0]['name']); ?>,
+                        data: @json($fallas_mes)
                     },
                 ],
 

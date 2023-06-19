@@ -31,11 +31,11 @@ class TimeLineController extends Controller
     //     return view('mant.timelines.assigned',compact('timelines'));
     // }
 
-    public function boss(Timeline $timeline)
-    {
-        $teams=$timeline->boss();
-        return view('mant.timelines.boss',compact('teams','timeline'));
-    }
+    // public function boss(Timeline $timeline)
+    // {
+    //     $teams=$timeline->boss();
+    //     return view('mant.timelines.boss',compact('teams','timeline'));
+    // }
 
     public function worker(Request $request,Timeline $timeline)
     {

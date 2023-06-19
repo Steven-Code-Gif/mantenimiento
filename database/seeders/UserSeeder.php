@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
+         $user->syncRoles([]);
          $user->syncRoles(['admin']);
 
          $user = User::create([
@@ -35,8 +35,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
-         $user->assignRole('planner');
+         $user->syncRoles([]);
+         $user->syncRoles('planner');
 
          $user = User::create([
             'name' =>'Almacenista',
@@ -45,8 +45,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
-         $user->assignRole('storer');
+         $user->syncRoles([]);
+         $user->syncRoles('storer');
 
          $user = User::create([
             'name' =>'Recursos Humanos',
@@ -55,8 +55,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
-         $user->assignRole('rrhh');
+         $user->syncRoles([]);
+         $user->syncRoles('rrhh');
 
          $user = User::create([
             'name' =>'Supervisor',
@@ -65,8 +65,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
-         $user->assignRole('supervisor');
+         $user->syncRoles([]);
+         $user->syncRoles('supervisor');
 
          $user = User::create([
             'name' =>'Tecnico',
@@ -75,8 +75,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
-         $user->assignRole('tecnico');
+         $user->syncRoles([]);
+         $user->syncRoles('tecnico');
 
          $team = Team::create([
             'name' => 'equipo de tareas steven',
@@ -93,8 +93,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
-         $user->assignRole('jefe-de-mantenimiento');
+         $user->syncRoles([]);
+         $user->syncRoles('jefe-de-mantenimiento');
 
          $user = User::create([
             'name' =>'ceo',
@@ -103,8 +103,9 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-
-         $user->assignRole('ceo');
+         $user->syncRoles([]);
+         $user->syncRoles('ceo');
+         $user->syncRoles([]);
 
          User::factory(4)->create()->each(function($user) use($team){
             $user->profile->salary = rand(3000,50000);

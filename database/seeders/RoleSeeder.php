@@ -78,7 +78,7 @@ class RoleSeeder extends Seeder
 
         $ceo = Role::create(['name' => 'ceo']);
         $ceoPermissions = [
-            '138',
+            '138','139','140'
         ];
         $ceo->givePermissionTo($ceoPermissions);
     }
