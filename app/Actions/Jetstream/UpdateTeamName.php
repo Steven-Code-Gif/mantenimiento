@@ -15,7 +15,7 @@ class UpdateTeamName implements UpdatesTeamNames
      *
      * @param  array<string, string>  $input
      */
-    public function update(User $user, Team $team, array $input): void
+    public function update(User $user, Team $team, array $input)
     {
         Gate::forUser($user)->authorize('update', $team);
 

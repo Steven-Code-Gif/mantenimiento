@@ -108,7 +108,7 @@ class TeamController extends Controller
         $request->validate([
             'name' => 'required',
             'specialty_id' => 'required',
-            'user_id' => 'required | unique:teams,user_id' . $team->id,
+            'user_id' => 'required|unique:teams,user_id'.$team->id,
         ]);
 
         $team->name = mb_strtolower($request->input('name'));

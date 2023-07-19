@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Prototype;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class PrototypeController extends Controller
@@ -150,7 +152,7 @@ class PrototypeController extends Controller
             $message="archivos eliminados correctamente";
         }
         $prototype->images()->delete();
-        return redirect()->route('prototypes.index')->with('fail',$message);
+        return redirect()->route('prototypes.index')->with('success',$message);
     }
 
     public function image(Prototype $prototype){

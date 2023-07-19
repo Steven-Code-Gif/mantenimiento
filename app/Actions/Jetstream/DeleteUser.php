@@ -28,7 +28,7 @@ class DeleteUser implements DeletesUsers
     /**
      * Delete the given user.
      */
-    public function delete(User $user): void
+    public function delete($user)
     {
         DB::transaction(function () use ($user) {
             $this->deleteTeams($user);
@@ -41,11 +41,11 @@ class DeleteUser implements DeletesUsers
     /**
      * Delete the teams and team associations attached to the user.
      */
-    protected function deleteTeams(User $user): void
+    protected function deleteTeams(User $user)
     {
         $user->teams()->detach();
 
-        $user->ownedTeams->each(function (Team $team) {
+        $user->ownedTeams->each(function ($team) {
             $this->deletesTeams->delete($team);
         });
     }

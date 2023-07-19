@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Mant;
 
 use App\Http\Controllers\Controller;
+
+
+use App\Interfaces\DatosServiceInterface;
+use App\Models\Equipment;
 use App\Models\Fail;
 use App\Models\Resume;
+use App\Models\Team;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Http\Request;
-use Illuminate\Queue\Worker;
 
 class FailController extends Controller
 {
@@ -18,7 +23,7 @@ class FailController extends Controller
      */
     public function index()
     {
-        $fails = Fail::orderBy('reported_at', 'desc')->get();
+        $fails = Fail::all();
         return view('mant.fails.index', compact('fails'));
     }
 
@@ -29,7 +34,15 @@ class FailController extends Controller
      */
     public function create()
     {
-        //
+        $fail = new Fail();
+        $zones = Zone::orderBy('name', 'asc')->get();
+        $title = "new failure";
+        if (old('zone_id')) {
+            $equipments = Equipment::where('location', old('zone_id'))->get();
+        } else {
+            $equipments = collect();
+        }
+        return view('mant.fails.create', compact('fail', 'zones', 'title', 'equipments'));
     }
 
     /**
@@ -40,7 +53,23 @@ class FailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'equipment_id' => 'required|numeric',
+            'zone_id' => 'required|numeric',
+            'type' => 'required',
+        ]);
+        $fail = Fail::create([
+            'equipment_id' => $request->input('equipment_id'),
+            'zone_id' => $request->input('zone_id'),
+            'type' => $request->input('type'),
+            'status' => 0,
+            'user_id' => auth()->user()->id,
+            'reported_at' => now(),
+            'assigned_at' => now(),
+            'repareid_at' => now(),
+        ]);
+
+        return redirect()->route('fails.index')->with('success', 'Falla reportada correctamente.');
     }
 
     /**
@@ -51,13 +80,12 @@ class FailController extends Controller
      */
     public function show(Fail $fail)
     {
-        if ($fail->status <> 1) {
-            return redirect()->route('fails.repareid')->with('success', 'falla no reparada');
+        if ($fail->status != 1) {
+            return redirect()->route('fails.repareid')->with('success', 'Falla No reparada.');
         }
+
         $resume = Resume::where('fail', $fail->id)->first();
-        if($resume == null){
-            return redirect()->route('fails.repareid')->with('success', 'falla reparada sin resumen');
-        }
+        if ($resume == null) {return redirect()->route('fails.repareid')->with('success', 'Falla reparada sin resumen.');}
         $w = str_split($resume->workers);
         $users = User::find($w);
         return view('mant.fails.show', compact('resume', 'fail', 'users'));
@@ -71,7 +99,11 @@ class FailController extends Controller
      */
     public function edit(Fail $fail)
     {
-        //
+        $zones = Zone::orderBy('name', 'asc')->get();
+        $title = "new failure";
+        $equipment = $fail->equipment_id;
+        $equipments = Equipment::where('location', $fail->zone_id)->get();
+        return view('mant.fails.edit', compact('fail', 'zones', 'title', 'equipments', 'equipment'));
     }
 
     /**
@@ -101,64 +133,67 @@ class FailController extends Controller
     {
         $fail = Fail::find($id);
         if ($fail->status == 1) {
-            return redirect()->route('fails.index')->with(
-                'success',
-                'Falla reparada, no se le puede asignar grupo de tarea'
+            return redirect()->route('fails.index')->with('success','Falla reparada, no se le puede asignar grupo de tarea'
             );
         }
         return view('mant.fails.add', compact('fail'));
     }
-    //errrrrooooooorrrrrrr
-    // public function tasks()
-    // {
-    //     $team = auth()->user()->teams()->first();
-    //     if (!$team) {
-    //         $team = auth()->user()->team;
-    //         if(!$team){
-    //             return redirect()->route('dashboard')->with('fail','Usuario no esta asignado a ningun equipo de tareas');
-    //         }
-    //     }
-    //     $fails = $team->fails()->where('status', 0)->get();
-    //     return view('mant.fails.tasks', compact('fails'));
-    // }
 
-    // public function repareid()
-    // {
-    //     $team = auth()->user()->teams()->first(); 
-    //     if (!$team) {
-    //         $team = auth()->user()->team;
-    //         if(!$team){
-    //             return redirect()->route('dashboard')->with('fail','Usuario no esta asignado a ningun equipo de tareas');
-    //         }
-    //     }
-    //     $fails = $team->fails()->where('status', 1)->get();
-    //     return view('mant.fails.repareid', compact('fails'));
-    // }
+    public function tasks()
+    {
+        // $team = auth()->user()->teams()->first();
+        // if (!$team) {
+        //     $team = auth()->user()->team;
+        //     if(!$team){
+        //         return redirect()->route('dashboard')->with('fail','Usuario no esta asignado a ningun equipo de tareas');
+        //     }
+        // }
+        // $fails = $team->fails()->where('status', 0)->get();
+        // return view('mant.fails.tasks', compact('fails'));
+    }
+
+    public function repareid()
+    {
+        // $team = auth()->user()->teams()->first(); 
+        // if (!$team) {
+        //     $team = auth()->user()->team;
+        //     if(!$team){
+        //         return redirect()->route('dashboard')->with('fail','Usuario no esta asignado a ningun equipo de tareas');
+        //     }
+        // }
+        // $fails = $team->fails()->where('status', 1)->get();
+        // return view('mant.fails.repareid', compact('fails'));
+    }
 
     public function repair(Fail $fail)
     {
-        $user = auth()->user();
-        //erroooorr  $team=$user->teams()->first();
-        return view('mant.fails.repair', compact('fail','team'));
+        
+        // $team = auth()->user()->teams()->first();
+        // if (!$team) {
+        //     $team = auth()->user()->team;
+        //     if (!$team) {
+        //         return redirect()->route('dashboard')->with('fail','Usuario no está asignado a ningún equipo de tareas');
+        //     }
+        // }
+        // return view('mant.fails.repair', compact('fail', 'team'));
+
     }
 
-    public function despeje(Request $request, Fail $fail)
+    public function despeje(Request $request, Fail $fail,DatosServiceInterface $datosServiceInterface)
     {
         $workers = $request->validate([
             'users' => 'required',
         ]);
         $fail->status = 1;
         $fail->repareid_at = now();
-        $this->resume($fail, $workers);
+        $this->resume($fail, $workers, $datosServiceInterface);
         $fail->save();
-        return redirect()->route('fails.tasks')->with(
-            'success',
-            'Falla reparada'
-        );
+        return redirect()->route('fails.tasks')->with('success','Falla reparada');
     }
-    public function resume(Fail $fail, $workers)
+    public function resume(Fail $fail, $workers, $datosServiceInterface)
     {
         $failreplacementstotal = 0;
+
         foreach ($fail->replacements as $r) {
             $failreplacementstotal = $failreplacementstotal + $r->pivot->total;
         }
@@ -179,8 +214,10 @@ class FailController extends Controller
         foreach ($workers as $key => $w) {
             $str = implode(',', $w);
             $users = User::find($w);
-            foreach ($users as $u)
+            foreach ($users as $u){
                 $totalworkers = $totalworkers + $u->profile->salary;
+                $datosServiceInterface->assignwork($u->id,$fail->id);
+            }
         }
 
         $time = $fail->reported_at->diffInHours($fail->repareid_at);
@@ -197,10 +234,15 @@ class FailController extends Controller
             'workers' => $str,
             'total' => ($failreplacementstotal + $failsuppliestotal + $failservicestotal + $totalworkers),
             'reported_at' => $fail->reported_at,
-            'assigned_at' => $fail->assigned_at,
             'repareid_at' => $fail->repareid_at,
+            'assigned_at' => $fail->assigned_at,
             'time' => $time,
             'days' => $days,
         ]);
+    }
+    public function zone_equipments($id)
+    {
+        return Equipment::where('location', $id)->get();
+
     }
 }

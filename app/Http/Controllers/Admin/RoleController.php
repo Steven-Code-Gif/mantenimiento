@@ -107,7 +107,7 @@ class RoleController extends Controller
         $permissions = $request->permissions;
         $role->save();
         $role->permissions()->sync($permissions);
-        return redirect()->route ('roles.index')->with('success','Role actualizado correctamente');
+        return redirect()->route('roles.index')->with('success','Role actualizado correctamente');
 
     }
 
@@ -119,9 +119,9 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        // $this->authorize('isDeleted',$role);
+        $this->authorize('isDeleted',$role);
         $role->delete();
-        return redirect()->route ('roles.index')->with('success','Role eliminado 
+        return redirect()->route('roles.index')->with('success','Role eliminado 
         correctamente');
     }
 }

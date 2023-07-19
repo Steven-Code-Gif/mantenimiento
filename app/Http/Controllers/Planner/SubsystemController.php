@@ -59,7 +59,7 @@ class SubsystemController extends Controller
             'slug'=>Str::slug($request->input('name')),
             'system_id'=>$request->input('system_id')
         ]);
-        return redirect()->route ('subsystems.index')->with('success','Subsistema creado correctamente');
+        return redirect()->route('subsystems.index')->with('success','Subsistema creado correctamente');
     }
 
     /**
@@ -116,6 +116,6 @@ class SubsystemController extends Controller
     public function destroy(Subsystem $subsystem)
     {
         $subsystem->delete();
-        return redirect()->route ('subsystems.index')->with('fail','Subsistema eliminado correctamente');
+        return redirect()->route('subsystems.index')->with('success','Subsistema eliminado correctamente');
     }
 }

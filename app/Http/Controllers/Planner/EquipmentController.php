@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Equipment;
 use App\Models\Prototype;
 use App\Models\Zone;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class EquipmentController extends Controller
@@ -68,7 +68,7 @@ class EquipmentController extends Controller
      */
     public function show(Equipment $equipment)
     {
-        //
+        return view('planner.equipments.show', compact('equipment'));
     }
 
     /**
@@ -79,7 +79,6 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        
         $title="Editar Equipo";
         $btn="update";
         $zones = Zone::orderBy('name')->get();
@@ -118,18 +117,20 @@ class EquipmentController extends Controller
     {
         $equipment->delete();
         return redirect()->route('equipments.index')
-        ->with('fail','Equipo eliminado correctamente');
+        ->with('success','Equipo eliminado correctamente');
     }
     public function addFeatures(Equipment $equipment)
     {
         $prototypeFeatures = $equipment->prototype->features->pluck('id')->toarray();
         $equipmentFeatures = $equipment->features->pluck('id')->toarray();
         $resume = array_filter($prototypeFeatures,function($item) use($equipmentFeatures){
-            if(!in_array($item,$equipmentFeatures)){return $item;}
+            if(!in_array($item,$equipmentFeatures)){
+                return $item;}
         });
-       $equipment->features()->sync($resume);
+
+       $equipment->features()->sync($equipmentFeatures);
        return redirect()->route('equipments.index')
-       ->with('success','Equipo actualizado correctamente');
+       ->with('success','Caracteristicas de Equipo actualizada correctamente');
     }
     public function addValues(Equipment $equipment)
     {

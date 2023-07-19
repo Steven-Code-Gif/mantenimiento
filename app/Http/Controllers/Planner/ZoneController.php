@@ -96,7 +96,7 @@ class ZoneController extends Controller
         $zone->name = mb_strtolower($request->input('name'));
         $zone->slug=Str::slug($request->input('name'));
         $zone->save();
-        return redirect()->route ('zones.index')->with('success','Zona actualizada correctamente');
+        return redirect()->route('zones.index')->with('success','Zona actualizada correctamente');
     }
 
     /**
@@ -108,6 +108,6 @@ class ZoneController extends Controller
     public function destroy(Zone $zone)
     {
         $zone->delete();
-        return redirect()->route ('zones.index')->with('fail','Zona eliminada correctamente');
+        return redirect()->route ('zones.index')->with('success','Zona eliminada correctamente');
     }
 }

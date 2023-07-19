@@ -8,8 +8,10 @@ use App\Models\Goal;
 use App\Models\Plan;
 use App\Models\Team;
 use App\Models\Timeline;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class PlanController extends Controller
@@ -21,9 +23,9 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $plans = Plan::all();
-        $equipment = Equipment::find(1);
-        return view('mant.plans.index', compact('plans'));
+        $plans = Plan::All();
+        $tecnicos = User::role('tecnico')->get();
+        return view('mant.plans.index', compact('plans', 'tecnicos'));
     }
 
     /**
@@ -72,6 +74,7 @@ class PlanController extends Controller
         } else {
             $request->request->add(['work_overtime' => 0]);
         }
+
         $start_time=Carbon::createFromTimestamp(strtotime($request->start_time))->hour;
         $rest_time=Carbon::createFromTimestamp(strtotime($request->rest_time))->hour;
         $rest_time_hours=$rest_time - $start_time;
@@ -80,9 +83,8 @@ class PlanController extends Controller
         $request->request->add(['rest_time_hours'=>$rest_time_hours]);
         $request->request->remove('rest_time');
 
-
-        Plan::create($request->all());
-        return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento creado correctamente');
+        $plan = Plan::create($request->all());
+        return redirect()->route('plans.show',$plan->id)->with('success', 'Plan de mantenimiento creado correctamente');
     }
 
     /**
@@ -93,8 +95,15 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        return view('mant.plans.show', compact('plan'));
+        $tecnicos = User::role('tecnico')->get();
+        return view('mant.plans.show', compact('plan','tecnicos'));
     }
+
+    public function equipments(Plan $plan)
+    {
+        return view('mant.plans.equipments', compact('plan'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -105,7 +114,8 @@ class PlanController extends Controller
     public function edit(Plan $plan)
     {
         $btn = "editar plan";
-        $title = "crear un nuevo plan de mantenimiento ";
+        $title = "editar plan";
+        $plan->work_time = Carbon::parse($plan->start_time)->addHours($plan->rest_time_hours);
         return view('mant.plans.edit', compact('plan', 'title', 'btn'));
     }
 
@@ -140,6 +150,15 @@ class PlanController extends Controller
         } else {
             $request->request->add(['work_overtime' => 0]);
         }
+
+        $start_time = Carbon::createFromTimestamp(strtotime($request->start_time))->hour;
+        $rest_time = Carbon::createFromTimestamp(strtotime($request->rest_time))->hour;
+        $rest_time_hours = $rest_time - $start_time;
+        $work_time = $request->start_time;
+        $request->request->add(['work_time' => $work_time]);
+        $request->request->add(['rest_time_hours' => $rest_time_hours]);
+        $request->request->remove('rest_time');
+
         $plan->update($request->all());
         return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento actualizado correctamente');
     }
@@ -153,22 +172,36 @@ class PlanController extends Controller
      */
     public function destroy(Plan $plan)
     {
+        Timeline::where('plan_id', $plan->id)->delete();
         $plan->delete();
-        return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento eliminado correctamente');
+        return redirect()->route('plans.index')->with('success', 'Plan de mantenimiento Eliminado correctamente.');
     }
 
     public function protocols(Plan $plan)
     {
-        $equipments = $plan->equipments;
-        $this->getProtocols($equipments, $plan);
-        return redirect()->route('plans.index')->with('success', 'Protocolos asignados a plan de mantenimiento');
+        Goal::where('id', '<>', 0)->delete();
+        $eqipments = $plan->equipments;
+        if($eqipments->count()==0){
+            return redirect()->route('plans.show',$plan->id)->with('fail','no hay equipos registrados en el plan, registre equipos primero');
+        }
+        $this->getProtocols($eqipments, $plan);
+
+        return redirect()->route('plans.show',$plan->id)->with('success', 'Protocols asignados a Plan de mantenimiento.');
     }
 
     public function getProtocols($equipments, $plan)
     {
         foreach ($equipments as $e) {
+
             $protocols = $e->prototype->protocols;
             foreach ($protocols as $p) {
+
+                $start = Carbon::parse($plan->start);
+                $start->hour = Carbon::parse($plan->start_time)->hour;
+                $end = Carbon::parse($plan->start);
+                $end->hour = Carbon::parse($plan->start_time)->hour;
+                $end->addHour($p->duration);
+
                 $goal = Goal::updateOrCreate(
                     [
                         'plan_id' => $plan->id,
@@ -192,16 +225,16 @@ class PlanController extends Controller
                         'total_workers' => 0,
                         'workers_id' => '',
                         'total' => 0,
-                        'start' => $plan->start,
-                        'end' => now(),
-                        'done' => now(),
+                        'start' => $start,
+                        'end' => $end,
+                        'done' => $end,
                         'days' => 0,
-                        'time' => 0
-                    ]
+                        'time' => 0]
                 );
             }
         }
     }
+
     public function resources(Plan $plan)
     {
         $goals = $plan->goals;
@@ -218,6 +251,9 @@ class PlanController extends Controller
     public function timeline(Plan $plan)
     {
         $goals = $plan->goals()->orderBy('equipment_id')->orderBy('position')->orderBy('specialty_id')->get();
+        if($goals->count()==0){
+            return redirect()->route('plans.show',$plan->id)->with('fail','no se ha generado cronograma inicial');
+        }
         $this->delete_table($plan->id);
 
         foreach ($goals as $goal) {
@@ -225,11 +261,14 @@ class PlanController extends Controller
             $timeline->goal_id=$goal->id;
             $timeline->save();
         }
-        $timelines = Timeline::all();
+        $timelines = Timeline::where('plan_id',$plan->id)->get();
+        if($timelines->count()==0){
+            return redirect()->route('plans.show',$plan->id)->with('fail','no se ha generado cronograma inicial');
+        }
+
         $plan_start = $this->plan_init($plan->id);
         $work_start = $plan_start;
         $work_end = $this->plan_end($plan->id);
-
 
         $plan_specialties = $plan->goals->unique('specialty_id')->pluck('specialty_id');
         $plan_teams = Team::whereIn('specialty_id', $plan_specialties)->get();
@@ -239,80 +278,106 @@ class PlanController extends Controller
         $rest_end = Carbon::parse($rest_start)->addHour($plan->rest_hours);
         $duration = 0;
         $week = 0;
+        $equipment_id = Timeline::first()->equipment_id;
+        $color = randomColor();
 
         foreach ($timelines as $timeline) {
+
             if ($timeline->position == 1 && $timeline->sequence==1) {
 
                 $timeline->start = $this->plan_init($plan->id);
                 $plan_start = $this->plan_init($plan->id);
-                $timeline->start = $plan_start->addHours($timeline->duration);
+                $timeline->end = $plan_start->addHours($timeline->duration);
+
             } else {
+
                 $timeline->start = $plan_start;
                 $timeline->end = $plan_start->addHours($timeline->duration);
+
                 if ($plan->work_shift != 3) {
-                if ($timeline->start->hour >= $work_end->hour) {
-                    $plan_start->addDay();
-                    if ($plan_start->dayOfWeek == 0) {
-                        $plan_start->next('Monday');
+
+                    if ($timeline->start->format('Gis.u') >= $work_end->format('Gis.u')) {
+                        $plan_start->addDay();
+                        if ($plan_start->dayOfWeek == 0) {$plan_start->next('Monday');}
+                        $plan_start->hour = $work_start->hour;
+                        $timeline->start = $plan_start;
+                        $timeline->end = $plan_start->addHours($timeline->duration);
                     }
-                    $plan_start->hour = $work_start->hour;
-                    $timeline->start = $plan_start;
-                    $timeline->end = $plan_start->addHours($timeline->duration);
-                }
-            }
-            }
+
             $duration = $duration + $timeline->duration;
             $week = $week + $timeline->duration;
+
             if ($plan->work_shift != 3) {
-                if ($plan->work_shift == 2 && $duration >= 16) {
+                if ($plan->work_shift == 2 && $duration >= 16 && $duration < 24 && $week <= 44) {
                     $plan_start->addDay();
-                    if ($plan_start->dayOfWeek == 0) {
-                        $plan_start->next('Monday');
-                    }
+                    if ($plan_start->dayOfWeek == 0) {$plan_start->next('Monday');}
                     $plan_start->hour = $plan->work_time->hour;
                     $duration = 0;
                 }
 
-                if ($plan->work_shift == 1 && $duration >= 8) {
+                if ($plan->work_shift == 2 && $duration >= 16 && $duration < 24 && $week > 44) {
                     $plan_start->addDay();
                     if ($plan_start->dayOfWeek == 0) {
                         $plan_start->next('Monday');
                     }
                     $plan_start->hour = $plan->work_time->hour;
                     $duration = 0;
-                }
-                if ($plan->work_shift <= 2 && $week >= $plan->weekly_shift * $plan->work_shift) {
-                    $plan_start->next('Monday');
-                    $plan_start->hour = $plan->work_time->hour;
                     $week = 0;
                 }
-            }
-            $timeline->save();
-            if ($plan->work_shift == 2 && $duration >= 16) {
-                $plan_start = $plan_start->addDay();
-            }
-        }
-        return view('mant.plans.timeline', compact('timelines', 'rest_start', 'rest_end'));
-    }
 
-    public function calendar(Plan $plan){
+                if ($plan->work_shift == 1 && $duration >= 8 && $duration < 24 && $week <= 44) {
+                    $plan_start->addDay();
+                    if ($plan_start->dayOfWeek == 0) {$plan_start->next('Monday');}
+                    $plan_start->hour = $plan->work_time->hour;
+                    $duration = 0;
+                }
+                if ($plan->work_shift == 1 && $duration >= 8 && $duration < 24 && $week > 44) {
+                    $plan_start->addDay();
+                    if ($plan_start->dayOfWeek == 0) {$plan_start->next('Monday');}
+                    $plan_start->hour = $plan->work_time->hour;
+                    $duration = 0;
+                    $week = 0;
+                }
+
+            }
+
+            if($timeline->equipment_id<>$equipment_id){
+                $color = randomColor();
+                $equipment_id = $timeline->equipment_id;
+            }
+            $timeline->color=$color;
+            $timeline->activity = __("mantenince").' '.$timeline->equipment();
+            $timeline->save();
+
+        }
+    }
+}
+return view('mant.plans.timeline', compact('timelines', 'rest_start', 'rest_end','plan'));
+}
+
+
+    public function calendar(Plan $plan)
+    {
         $timelines = Timeline::where('plan_id', $plan->id)->get();
         $events=[];
+
         foreach ($timelines as $timeline) {
             $events[]=[
                 'id' => $timeline->id,
-                'title' => $timeline->title,
+                'title' => $timeline->task,
                 'start' =>$timeline->start,
-                'end' =>$timeline->end
+                'end' =>$timeline->end,
+                'color'=>$timeline->color
             ];
         }
-        return view('mant.plans.calendar',compact('events'));
+        return view('mant.plans.calendar',['events'=> $events,'plan'=>$plan]);
     }
 
     public function sequence(Plan $plan)
     {
         $timelines = Timeline::where('plan_id', $plan->id)->get()->unique('equipment_id');
-        if ($timelines->first()->sequence == 0) {
+
+        if ($timelines->first()->sequence) {
             $timelines->first()->sequence =1;
             $timelines->first()->save();
         }
@@ -329,10 +394,15 @@ class PlanController extends Controller
        }
 
        Timeline::where('plan_id',$plan->id)->update(array('sequence'=>0));
+
        Timeline::where('plan_id',$plan->id)->where('position','1')->whereIn('equipment_id',$ids)->update(array('sequence'=>1));
+
        Goal::where('plan_id',$plan->id)->update(array('sequence'=>0));
+
        Goal::where('plan_id',$plan->id)->where('position','1')->whereIn('equipment_id',$ids)->update(array('sequence'=>1));
+
        $timelines = Timeline::where('plan_id', $plan->id)->get()->unique('equipment_id');
+       
        return view('mant.plans.sequence',compact('timelines','plan'));
     }
     private function delete_table($plan)

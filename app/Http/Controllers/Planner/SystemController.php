@@ -55,7 +55,7 @@ class SystemController extends Controller
             'name'=>mb_strtolower($request->input('name')),
             'slug'=>Str::slug($request->input('name'))
         ]);
-        return redirect()->route ('systems.index')->with('success','Sistema creado correctamente');
+        return redirect()->route('systems.index')->with('success','Sistema creado correctamente');
     }
 
     /**
@@ -114,6 +114,6 @@ class SystemController extends Controller
             return redirect()->route ('systems.index')->with('fail','Sistema 
             imposible eliminar, posee subsistemas');}
         $system->delete();
-        return redirect()->route('systems.index')->with('fail','Sistema eliminado correctamente');
+        return redirect()->route('systems.index')->with('success','Sistema eliminado correctamente');
     }
 }

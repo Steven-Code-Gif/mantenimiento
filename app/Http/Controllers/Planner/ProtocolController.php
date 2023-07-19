@@ -71,9 +71,26 @@ class ProtocolController extends Controller
      * @param  \App\Models\Protocol  $protocol
      * @return \Illuminate\Http\Response
      */
-    public function show(Protocol $protocol)
+    public function show(Protocol $protocol,Request $request)
     {
-        //
+        $data = $request->validate([
+            'task'=>'required',
+            'detail'=>'required',
+            'permissions'=>'required',
+            'security'=>'required',
+            'conditions'=>'required',
+            'prototype_id'=>'integer|required',
+            'specialty_id'=>'integer|required',
+            'position'=>'integer|required',
+            'task_id'=>'integer|required',
+            'frecuency'=>'integer|required',
+            'duration'=>'integer|required',
+            'workers'=>'integer|required',
+           ]);
+
+           $protocol->update($data);
+           $protocol->save();
+           return redirect()->route('protocols.index')->with('success','Protocolo actualizado correctamente');
     }
 
     /**

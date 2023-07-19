@@ -18,7 +18,7 @@ class AddTeamMember implements AddsTeamMembers
     /**
      * Add a new team member to the given team.
      */
-    public function add(User $user, Team $team, string $email, string $role = null): void
+    public function add(User $user, Team $team, string $email, string $role = null)
     {
         Gate::forUser($user)->authorize('addTeamMember', $team);
 
@@ -38,7 +38,7 @@ class AddTeamMember implements AddsTeamMembers
     /**
      * Validate the add member operation.
      */
-    protected function validate(Team $team, string $email, ?string $role): void
+    protected function validate($team, string $email, ?string $role)
     {
         Validator::make([
             'email' => $email,
@@ -68,7 +68,7 @@ class AddTeamMember implements AddsTeamMembers
     /**
      * Ensure that the user is not already on the team.
      */
-    protected function ensureUserIsNotAlreadyOnTeam(Team $team, string $email): Closure
+    protected function ensureUserIsNotAlreadyOnTeam($team, string $email)
     {
         return function ($validator) use ($team, $email) {
             $validator->errors()->addIf(

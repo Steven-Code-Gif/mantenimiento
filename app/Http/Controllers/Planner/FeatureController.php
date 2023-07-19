@@ -35,7 +35,7 @@ class FeatureController extends Controller
      */
     public function create()
     {
-        $feature = new Feature;
+        $feature = new Feature();
         $title ="Agregar Caracteristica";
         $btn="create";
         return view('planner.features.create',compact('feature','title','btn'));

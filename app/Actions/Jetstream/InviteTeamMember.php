@@ -21,7 +21,7 @@ class InviteTeamMember implements InvitesTeamMembers
     /**
      * Invite a new team member to the given team.
      */
-    public function invite(User $user, Team $team, string $email, string $role = null): void
+    public function invite(User $user, Team $team, string $email, string $role = null)
     {
         Gate::forUser($user)->authorize('addTeamMember', $team);
 
@@ -75,7 +75,7 @@ class InviteTeamMember implements InvitesTeamMembers
     /**
      * Ensure that the user is not already on the team.
      */
-    protected function ensureUserIsNotAlreadyOnTeam(Team $team, string $email): Closure
+    protected function ensureUserIsNotAlreadyOnTeam(Team $team, string $email)
     {
         return function ($validator) use ($team, $email) {
             $validator->errors()->addIf(

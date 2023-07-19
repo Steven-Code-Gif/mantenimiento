@@ -10,7 +10,7 @@ class DeleteTeam implements DeletesTeams
     /**
      * Delete the given team.
      */
-    public function delete(Team $team): void
+    public function delete($team)
     {
         $team->purge();
     }
