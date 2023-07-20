@@ -9,6 +9,7 @@ class Feature extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    
     public function prototypes(){
         return $this->belongsToMany(Prototype::class);
     }

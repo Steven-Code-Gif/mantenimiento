@@ -13,11 +13,6 @@ class GoalServiceList extends Component
 
     public function actualizar(){
         $this->goal->load('services');
-        $suma = DB::table('goal_service')
-        ->where('goal_id',$this->goal->id)
-        ->sum('total');
-        $this->goal->total_service = $suma;
-        $this->goal->save();
         $this->render();
     }
 
@@ -29,6 +24,12 @@ class GoalServiceList extends Component
     public function remove($rfId){
         DB::table('goal_service')->where('id',$rfId)->delete();
         $this->goal->load('services');
+        $suma = DB::table('goal_service')
+                     ->where('goal_id',$this->goal->id)
+                     ->sum('total');
+           $this->goal->total_service = $suma;
+           $this->goal->save();
+   
         $this->render();
     }
     

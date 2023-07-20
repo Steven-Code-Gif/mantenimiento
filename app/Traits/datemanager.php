@@ -4,7 +4,8 @@ namespace App\traits;
 
 use Illuminate\Support\Carbon;
 
-trait DateManager{
+trait DateManager
+{
     private function getDay($date){
         $dia=array('domingo','lunes','martes','miercoles','jueves','viernes','sabado');
         return $dia[$date];

@@ -12,6 +12,7 @@ class PrototypeProtocols extends Component
     public $protocols=[];
     public $search;
     public $prototype,$prototypeProtocolsId;
+    
     public function mount(Prototype $prototype)
     {
         $this->prototype = $prototype;

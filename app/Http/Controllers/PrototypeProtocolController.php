@@ -59,7 +59,7 @@ class PrototypeProtocolController extends Controller
             'duration'=>'integer|required',
             'workers'=>'integer|required',
         ]);
-        //lo del video
+        
         $prototype->protocols()->create($data);
         return redirect()->route('prototypes.index')
         ->with('success','Protocolo creado correctamente');

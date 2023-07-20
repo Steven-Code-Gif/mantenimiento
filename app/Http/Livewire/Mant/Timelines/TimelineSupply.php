@@ -23,6 +23,7 @@ class TimelineSupply extends Component
 
     public function saveReplacement(){
        $this->validate();
+       
        $this->supply = Supply::find($this->supplyId);
        $price=$this->supply->price;
        $total=$this->supply->price * $this->quantity;

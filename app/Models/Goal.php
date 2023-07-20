@@ -48,8 +48,9 @@ class Goal extends Model
     public function restriction(){
         if($this->restriction){
             return Goal::find($this->restriction)->task;
-        }
+        }else{
         return ' ';
     }
+}
     
 }

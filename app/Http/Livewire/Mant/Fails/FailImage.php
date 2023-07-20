@@ -10,7 +10,9 @@ use Livewire\Component;
 class FailImage extends Component
 {
     use WithFileUploads;
+
     public $file,$url,$description,$fail;
+    
     public function mount(Fail $fail){
         $this->fail = $fail;
     }

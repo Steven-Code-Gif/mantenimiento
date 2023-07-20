@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Plan extends Model
 {
     use HasFactory;
@@ -25,4 +26,9 @@ class Plan extends Model
     public function goals(){
         return $this->hasMany(Goal::class);
     }
+
+    // public function workers($str){
+    //     $w = split(',', $str);
+    //     return Team::find($w);
+    // }
 }

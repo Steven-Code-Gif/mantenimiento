@@ -29,7 +29,7 @@ class TimelineReplacementList extends Component
     
     public function render()
     {
-        $this->services = $this->fail->services;
+        $this->replacements = $this->timeline->replacements;
         return view('livewire.mant.timelines.timeline-replacement-list');
     }
 }

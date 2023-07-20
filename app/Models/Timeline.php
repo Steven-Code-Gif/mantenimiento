@@ -17,6 +17,10 @@ class Timeline extends Model
         'work_time'
     ];
 
+    protected $attributes = [
+        'allDay'=>0
+    ];
+
     public function equipment(){
         return Equipment::find($this->equipment_id)->name;
     }
@@ -32,12 +36,14 @@ class Timeline extends Model
     public function boss(){
         return $teams = Team::where('specialty_id',$this->specialty_id)->get();
     }
+
     public function assigned(){
-        return $team = Team::find($this->team_id);
+return $team = Team::find($this->team_id);
+
     }
 
     public function fnReplacements(){
-       $goal = Goal::find($this->goal_id);
+        $goal = Goal::find($this->goal_id);
         return $goal->replacements;
     }
 
@@ -50,31 +56,38 @@ class Timeline extends Model
         $goal = Goal::find($this->goal_id);
         return $goal->supplies;
     }
-    public function replacements(){
-        $goal = Goal::where('protocol_id',$this->protocol_id)
-                    ->where('equipment_id',$this->equipment_id)->first();
-        return $goal->replacements;
-    }
 
-    public function services(){
-        $goal = Goal::where('protocol_id',$this->protocol_id)
-                    ->where('equipment_id',$this->equipment_id)->first();
-        return $goal->services;
+    public function replacements(){
+        return $this->belongsToMany(Replacement::class)->withPivot('id','price','quantity','total')->withTimestamps();
     }
 
     public function supplies(){
-        $goal = Goal::where('protocol_id',$this->protocol_id)
-                    ->where('equipment_id',$this->equipment_id)->first();
-        return $goal->supplies;
+        return $this->belongsToMany(Supply::class)->withPivot('id','price','quantity','total')->withTimestamps();
+    }
+
+    public function services(){
+        return $this->belongsToMany(Service::class)->withPivot('id','price','total')->withTimestamps();
+    }
+
+
+    public function comments()
+    {
+        return $this->morphToMany(Comment::class, 'commentable');
+    }
+
+    public function replacement(){
+         $r = Replacement::Find($this->replacement_id);
+         if($r){
+            return $r->name;
+         }
+    }
+
+    public function images(){
+        return $this->morphMany(Image::class,'imageable');
     }
 
     public function fecha($date){
         return $this->dateStr($date);
-    }
-
-    
-    public function comments(){
-        return $this->morphToMany(Comment::class,'commentable');
     }
 
 }

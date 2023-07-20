@@ -35,7 +35,7 @@ class ServiceController extends Controller
     public function create()
     {
         $service = new Service();
-        $title="Agregar Repuesto";
+        $title="Agregar Servicio";
         $btn="create";
         return view('storer.services.create',compact('service','title','btn'));
     }
@@ -82,7 +82,7 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
 
-        $title="Editar Repuesto";
+        $title="Editar Servicio";
         $btn="update";
         return view('storer.services.edit',compact('service','title','btn'));
     }

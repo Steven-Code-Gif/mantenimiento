@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class TimelineService extends Component
 {
-    public $timeline, $timelineService, $service, $services, $replacement;
+    public $timeline, $timelineService, $timelineReplacements, $service, $services, $replacement;
     public $serviceId, $price;
 
     protected $rules=[
@@ -18,7 +18,7 @@ class TimelineService extends Component
     
     public function mount(Timeline $timeline){
         $this->timeline=$timeline;
-        $this->timelineService = $timeline->service;
+        $this->timelineReplacements = $timeline->service;
     }
 
     public function saveReplacement(){

@@ -30,7 +30,7 @@ class TimelineCommentList extends Component
 
     public function render()
     {
-        $this->comments = $this->comments;
+        $this->comments = $this->timeline->comments;
         return view('livewire.mant.timelines.timeline-comment-list');
     }
 }

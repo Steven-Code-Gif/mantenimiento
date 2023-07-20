@@ -42,7 +42,9 @@ class TeamController extends Component
         $user_id = collect($this->team->user_id);
         $this->teamsUsersId = DB::table('team_user')->pluck('user_id');
         $this->teamUsersId = $this->team->users()->pluck('users.id')->toarray();
+
         $costId = $user_id->concat($this->teamUsersId);
+        
         $this->cost = Profile::whereIn('id',$costId)->sum('salary');
         $search = '%'.$this->search.'%';
         $this->users = User::where('name','like',$search)->whereNotIn('id',

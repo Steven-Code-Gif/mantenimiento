@@ -29,6 +29,7 @@ class TimelineServiceList extends Component
     
     public function render()
     {
+        $this->services = $this->timeline->services;
         return view('livewire.mant.timelines.timeline-service-list');
     }
 }

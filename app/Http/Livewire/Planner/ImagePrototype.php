@@ -11,10 +11,12 @@ class ImagePrototype extends Component
 {
     use WithFileUploads;
     public $file,$url,$description,$prototype;
+
     public function mount(Prototype $prototype){
         $this->prototype = $prototype;
     }
     protected $rules=['file'=>'image|max:2048|mimes:jpg,png,jpeg'];
+    
     public function save(){
         $this->validate();
         $temp = $this->file->store('public/prototypes');

@@ -15,9 +15,7 @@ class FailObservation extends Component
         $this->fail=$fail;
         $this->failComments = $fail->comments;
     }
-    protected $rules=[
-        'observation'=>'required',
-    ];
+    protected $rules=['observation'=>'required',];
 
     public function saveObservation(){
        $this->validate();

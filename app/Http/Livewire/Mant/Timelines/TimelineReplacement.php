@@ -23,6 +23,7 @@ class TimelineReplacement extends Component
 
     public function saveReplacement(){
        $this->validate();
+       
        $this->replacement = Replacement::find($this->replacementId);
        $price=$this->replacement->price;
        $total=$this->replacement->price * $this->quantity;
