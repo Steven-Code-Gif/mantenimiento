@@ -18,104 +18,107 @@ class UserSeeder extends Seeder
      */
     public function run()
    {
-        $user = User::create([
+        $admin = User::create([
             'name' =>'steven',
             'email' =>'steven@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles(['admin']);
+         $admin->syncRoles([]);
+         $admin->syncRoles(['admin']);
 
-         $user = User::create([
+         $planner = User::create([
             'name' =>'Planificador',
             'email' =>'planificador@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles('planner');
+         $planner->syncRoles([]);
+         $planner->syncRoles('planner');
 
-         $user = User::create([
+         $storer = User::create([
             'name' =>'Almacenista',
             'email' =>'almacenista@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles('storer');
+         $storer->syncRoles([]);
+         $storer->syncRoles('storer');
 
-         $user = User::create([
+         $rrhh = User::create([
             'name' =>'Recursos Humanos',
             'email' =>'rrhh@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles('rrhh');
+         $rrhh->syncRoles([]);
+         $rrhh->syncRoles('rrhh');
 
-         $user = User::create([
+         $super = User::create([
             'name' =>'Supervisor',
             'email' =>'supervisor@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles('supervisor');
+         $super->syncRoles([]);
+         $super->syncRoles('supervisor');
 
-         $user = User::create([
+         $tecnico = User::create([
             'name' =>'Tecnico',
             'email' =>'tecnico@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles('tecnico');
+         $tecnico->syncRoles([]);
+         $tecnico->syncRoles('tecnico');
 
          $team = Team::create([
-            'name' => 'equipo de tareas steven',
+            'name' => 'equipo de tareas',
             'specialty_id' => Specialty::all()->random()->id,
-            'user_id' => $user->id,
+            'user_id' => $tecnico->id,
             'personal_team' => true,
 
          ]);
 
-         $user = User::create([
+         $jefe = User::create([
             'name' =>'Jefe',
             'email' =>'jefe@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles('jefe-de-mantenimiento');
+         $jefe->syncRoles([]);
+         $jefe->syncRoles('jefe-de-mantenimiento');
 
-         $user = User::create([
+         $ceo = User::create([
             'name' =>'ceo',
             'email' =>'ceo@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10),
          ]);
-         $user->syncRoles([]);
-         $user->syncRoles('ceo');
-         $user->syncRoles([]);
+         $ceo->syncRoles([]);
+         $ceo->syncRoles('ceo');
 
-         User::factory(4)->create()->each(function($user) use($team){
-            $user->profile->salary = rand(3000,50000);
+         User::factory(4)->create()->each(function ($user) use ($team) {
+            $user->syncRoles([]);
+            $user->profile->salary = rand(3000, 5000);
             $user->profile->save();
             $team->users()->attach($user->id);
-         });
+        });
 
-         User::factory(30)->create()->each(function($user){
-            $user->profile->salary = rand(3000,50000);
+        User::factory(30)->create()->each(function ($user) {
+            $user->syncRoles([]);
+            $user->profile->salary = rand(3000, 5000);
             $user->profile->save();
-         });
+        });
    }
+
 }
+

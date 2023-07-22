@@ -21,13 +21,12 @@
 
         <script>
             Highcharts.chart('container', {
-
+                credits:false,
                 chart: {
-                    type: 'column'
-                },
-
+                    type: 'bar'
+  },
                 title: {
-                    text: 'gastos de personal año en curso'
+                    text: 'fallas por tipo año en curso'
                 },
 
                 subtitle: {
@@ -35,23 +34,17 @@
                 },
 
                 yAxis: {
+                    min: 0,
                     title: {
-                        text: 'Gasto en unidad monetaria'
+                        text: 'Cantidad de fallas'
                     }
+
                 },
 
                 xAxis: {
-                    categories: ['dic', 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov',
-                        'dic'
-                    ],
+                    categories: ['','ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
                     crosshair: true
                 },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{series.name} </span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{point.category}: </td>' +
-                        '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
-                },
-
 
                 legend: {
                     layout: 'vertical',
@@ -64,17 +57,15 @@
                         label: {
                             connectorAllowed: false
                         },
-                        pointStart: 0
+                        pointStart:0,
+                        crosshair: true
                     }
                 },
 
-                series: [{
-                        name: <?php echo json_encode($gastos_personal[0]['name']); ?>,
-                        data: @json($gastos_personal)
-                    },
+                series: [
                     {
-                        name: <?php echo json_encode($fallas_mes[0]['name']); ?>,
-                        data: @json($fallas_mes)
+                        name: 'fallas por tipo',
+                        data: @json($data)
                     },
 
                 ],

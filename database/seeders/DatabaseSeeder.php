@@ -26,14 +26,20 @@ class DatabaseSeeder extends Seeder
         $this->call(FeatureSeeder::class);
         $this->call(ProtocolSeeder::class);
         $this->call(PrototypeSeeder::class);
+
         $this->call(FailSeeder::class);
         Equipment::factory(30)->create();
         Fail::factory(30)->create();
         $this->call(TeamSeeder::class);
         $this->call(ReplacementSeeder::class);
-        // $this->call(ServiceSeeder::class);
-        // $this->call(SupplySeeder::class);
-        // $this->call(ToolSeeder::class);
+        $this->call(ServiceSeeder::class);
+        $this->call(SupplySeeder::class);
+        $this->call(ToolsSeeder::class);
         $this->call(PlanSeeder::class);
+        $this->call(FailSeeder::class);
+        $this->call(WorkSeeder::class);
+        $this->call(ResumeSeeder::class);
+//$this->call(GoalSeeder::class);
+//$this->call(TimelineSeeder::class);
     }
 }

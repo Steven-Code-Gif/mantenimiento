@@ -17,10 +17,13 @@ class RoleSeeder extends Seeder
     public function run()
     {
         app()->make(\spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
         $super_admin = Role::create(['name' => 'super-admin']);
         $admin = Role::create(['name' => 'admin']);
+
         $super_admin->givePermissionTo(Permission::all());
-        $adminpermissions = ['1', '2', '3', '4', '5', '6', '7', '8', '15'];
+
+        $adminpermissions = ['1', '2', '3', '4', '5', '6', '7', '8', '15','21'];
         $admin->givePermissionTo($adminpermissions);
 
 
@@ -43,22 +46,23 @@ class RoleSeeder extends Seeder
             '78', '79', '80', '81', '82', '83', '84',
             '85', '86', '87', '88', '89', '90', '91',
             '92', '93', '94', '95', '96', '97', '98',
-            '99', '100','101','102','103','104','105'
+            '99', '100','101','102','103','104',
         ];
         $storer->givePermissionTo($storerPermissions);
 
 
         $rrhh = Role::create(['name' => 'rrhh']);
         $rrhhPermissions = [
-            '106', '107', '108', '109', '110', '111', '112',
+            '15','18','19',
+            '105','106', '107', '108', '109', '110', '111',
         ];
         $rrhh->givePermissionTo($rrhhPermissions);
 
 
         $supervisor = Role::create(['name' => 'supervisor']);
         $supervisorPermissions = [
-            '113', '114', '115', '116', '117', '118','119', 
-            '120', '121', '122', '123', '124', '125','126','136'
+            '112','113', '114', '115', '116', '117', '118',
+            '119','120', '121', '122', '123', '124', '125','136'
         ];
         $supervisor->givePermissionTo($supervisorPermissions);
 
@@ -78,7 +82,7 @@ class RoleSeeder extends Seeder
 
         $ceo = Role::create(['name' => 'ceo']);
         $ceoPermissions = [
-            '138','139','140'
+            '138','139','140','141','142','143','144','145'
         ];
         $ceo->givePermissionTo($ceoPermissions);
     }

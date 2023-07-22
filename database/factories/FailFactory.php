@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Equipment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Fail>
@@ -18,15 +19,16 @@ class FailFactory extends Factory
      */
     public function definition()
     {
+        $equipment = Equipment::all()->random();
+
         return [
-            'equipment_id'=>Equipment::all()->random()->id,
+            'equipment_id'=>$equipment->id,
+            'zone_id'=>$equipment->location,
             'type'=>$this->faker->randomElement(FALLA),
             'status'=>$this->faker->randomElement([0,1,1,1,1,0,1,0,1,0]),
             'user_id'=>User::all()->random()->id,
-            'reported_at'=>$this->faker->dateTimeBetween($startDate = '-1 years',
-            $endDate = 'now', $timezone = null),
-            'repareid_at'=>$this->faker->dateTimeBetween($startDate = '-1 years',
-            $endDate = 'now', $timezone = null)
+            'reported_at'=>$fecha=Carbon::parse($this->faker->dateTimeBetween($startDate = '-1  years', $endDate = 'now', $timezone = null)),
+            'repareid_at'=>$fecha->addDays(rand(1,3))
         ];
     }
 }

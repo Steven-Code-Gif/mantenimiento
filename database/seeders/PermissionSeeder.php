@@ -69,7 +69,7 @@ class PermissionSeeder extends Seeder
       Permission::create(['name' => 'subsystems.destroy', 'permission' => 'subsystem delete']);
       Permission::create(['name' => 'subsystems.show', 'permission' => 'subsystem view']);
 
-      //listado de permisos para prototype 49
+      //listado de permisos para prototypes 49
       Permission::create(['name' => 'prototypes.index', 'permission' => 'prototype list']);
       Permission::create(['name' => 'prototypes.create', 'permission' => 'prototype create']);
       Permission::create(['name' => 'prototypes.store', 'permission' => 'prototype create']);
@@ -78,7 +78,7 @@ class PermissionSeeder extends Seeder
       Permission::create(['name' => 'prototypes.destroy', 'permission' => 'prototype delete']);
       Permission::create(['name' => 'prototypes.show', 'permission' => 'prototype view']);
 
-      //    listado de permisos para protocol 56
+      //    listado de permisos para protocols 56
       Permission::create(['name' => 'protocols.index', 'permission' => 'protocols list']);
       Permission::create(['name' => 'protocols.create', 'permission' => 'protocols create']);
       Permission::create(['name' => 'protocols.store', 'permission' => 'protocols create']);
@@ -123,7 +123,7 @@ class PermissionSeeder extends Seeder
       Permission::create(['name' => 'services.destroy', 'permission' => 'services delete']);
       Permission::create(['name' => 'services.show', 'permission' => 'services view']);
 
-      //    listado de permisos para tool 91
+      //    listado de permisos para tools 91
       Permission::create(['name' => 'tools.index', 'permission' => 'tools list']);
       Permission::create(['name' => 'tools.create', 'permission' => 'tools create']);
       Permission::create(['name' => 'tools.store', 'permission' => 'tools create']);
@@ -190,7 +190,7 @@ class PermissionSeeder extends Seeder
       Permission::create(['name' => 'plans.destroy', 'permission' => 'plans delete']);
       Permission::create(['name' => 'plans.show', 'permission' => 'plans view']);
 
-       //    listado de permisos para fails 136
+       //    listado de permisos para timeline 136
        Permission::create(['name' => 'timelines.pending', 'permission' => 'timelines pending']);
 
         //    listado de permisos para timeline 137
@@ -200,5 +200,11 @@ class PermissionSeeder extends Seeder
           Permission::create(['name' => 'statistics.index', 'permission' => 'statistics index']);
           Permission::create(['name' => 'statistics.teams', 'permission' => 'statistics teams']);
           Permission::create(['name' => 'statistics.salary', 'permission' => 'statistics salary']);
+          Permission::create(['name' => 'statistics.equipments', 'permission' => 'statistics equipments']);
+          Permission::create(['name' => 'statistics.fails', 'permission' => 'statistics fails']);
+          Permission::create(['name' => 'statistics.types', 'permission' => 'statistics types']);
+          Permission::create(['name' => 'statistics.zones', 'permission' => 'statistics zones']);
+          Permission::create(['name' => 'statistics.dynamic', 'permission' => 'statistics dynamic']);
+          
    }
 }

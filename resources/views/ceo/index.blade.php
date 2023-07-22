@@ -5,60 +5,63 @@
                 <figure class="highcharts-figure">
                     <div id="container"></div>
                     <p class="highcharts-description">
-                       
+
                     </p>
                 </figure>
             </div>
         </div>
     </div>
+
     @push('script')
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script>
-    Highcharts.chart('container', {
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-title: {
-    text: 'Listado de gastos año en curso',
-    align: 'left'
-},
+        <script>
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Listado de gastos año en curso'
+                },
 
-subtitle: {
-    text: 'Source: Dep. Mantenimiento y Recursos Humanos',
-    align: 'left'
-},
+                subtitle: {
+                    text: 'Source: Dep. Mantenimiento y Recursos Humanos'
+                },
 
-yAxis: {
-    title: {
-        text: 'Gasto en unidad monetaria'
-    }
-},
+                yAxis: {
+                    title: {
+                        text: 'Gasto en unidad monetaria'
+                    }
+                },
 
-xAxis: {
-    categories['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],
-    crosshair:true
-    },
+                xAxis: {
+                    categories: ['dic', 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov',
+                        'dic'
+                    ],
+                    crosshair: true
+                },
 
-legend: {
-    layout: 'vertical',
-    align: 'right',
-    verticalAlign: 'middle'
-},
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
 
-plotOptions: {
-    series: {
-        label: {
-            connectorAllowed: false
-        },
-        pointStart:0
-    }
-},
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        pointStart: 0
+                    }
+                },
 
-series: [
-    {
-    name: <?php echo json_encode($repuestos_mant[0]['name']); ?>,
+                series: [{
+                        name: <?php echo json_encode($repuestos_mant[0]['name']); ?>,
                         data: @json($repuestos_mant)
                     },
                     {
@@ -77,6 +80,7 @@ series: [
                         name: <?php echo json_encode($total_mant[0]['name']); ?>,
                         data: @json($total_mant)
                     },
+
                     {
                         name: <?php echo json_encode($repuestos_falla[0]['name']); ?>,
                         data: @json($repuestos_falla)
@@ -99,24 +103,23 @@ series: [
                     },
                 ],
 
-responsive: {
-    rules: [{
-        condition: {
-            maxWidth: 500
-        },
-        chartOptions: {
-            legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-            }
-        }
-    }]
-}
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
 
-});
-
-</script>
-
+            });
+        </script>
     @endpush
+
 </x-app-layout>

@@ -19,13 +19,13 @@ return new class extends Migration
             $table->unsignedBigInteger('equipment_id');
             $table->string('specialty_id');
             $table->integer('position')->default(1);
-            $table->integer('sequence')->default(0);
             $table->unsignedBigInteger('restriction')->nullable();
             $table->integer('priority')->default(1);
             $table->integer('status')->default(0);
             $table->string('task');
             $table->text('detail')->nullable();
             $table->integer('frecuency')->default(1);//veces al año
+            $table->integer('sequence')->default(0);
             $table->integer('duration')->default(1);//horas
             $table->string('permissions')->default('N/A');
             $table->string('security')->default('N/A');

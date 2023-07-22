@@ -17,7 +17,9 @@
 
         <!-- Styles -->
         @livewireStyles
+        @stack('styles')
     </head>
+
     <body class="font-sans antialiased">
         <x-jet-banner />
 
@@ -42,7 +44,6 @@
         </div>
 
         @stack('modals')
-
         @livewireScripts
 
         <script type="text/javascript" src="{{asset ('js/jquery-3.5.1.js')}}"></script>
@@ -53,7 +54,10 @@
         @stack('script')
 
         <script> ///Session Flash auto close 
-        setTimeout (function() { $('#alert').remove() }, 3000) </script>
+        setTimeout (function() { 
+            $('#alert').remove() 
+            }, 3000)
+             </script>
         <script>
             window.addEventListener('swal',function(e){
                 Swal.fire(e.detail);

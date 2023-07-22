@@ -12,12 +12,12 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Action</th>
+                    <th>Privilegio</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ( $permissions as $permission )
-                <tr>
+                <tr class="odd:bg-slate-100">
                     <td width="50%">{{$permission->name}}</td>
                     <td width="50%">{{$permission->permission}}</td>
                     {{-- <td class="flex items-center justify-between">
