@@ -1,45 +1,49 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-3xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Subsistemas') }}</h1>
-            <div class="flex items-center justify-end mb-3">
-                <a href="{{route('subsystems.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
-                    <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{__('Agregar Subsistema')}}
-                </a>
-            </div>
+
+            <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-xl mx-auto">
+                <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('lista de subsistemas') }}</h1>
+                <div class="flex items-center justify-end mb-3 place-content-center">
+                    <a href="{{ route('subsystems.create') }}" class="flex items-center px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                        <i class="text-white fab fa-buromobelexperte fa-2x"></i>
+                       <span class="ml-2">{{ __('agregar subsistema') }}</span>
+                    </a>
+                </div>
             <table id="system" class="">
-            <thead>
-                <tr>
-                    <th>Sistemas</th>
-                    <th>Subsistema</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ( $subsystems as $subsystem )
-                <tr>
-                    <td width="40%">{{$subsystem->system->name}}</td>
-                    <td width="40%">{{$subsystem->name}}</td>
-                    <td class="flex items-center justify-between">
-                        {{-- <a href="{{ route('subsystems.show',$system->id)}}" title="{{ __('view daitl of system ').$system->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
-                        <a href="{{ route('subsystems.edit',$subsystem->id)}}" title="{{ __('Editar Sistema').$subsystem->name }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
-                        <form action="{{ route('subsystems.destroy',$subsystem->id)}}" method="POST" class="form-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"><i class="text-red-500 fa-solid fa-trash-can"></i></button>
-                        </form>
-                    </td>
-                </tr> 
-                @endforeach
-            </tbody>
+                <thead>
+                    <tr>
+                        <th>Sistema</th>
+                        <th>Subsistema</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($subsystems as $subsystem)
+                        <tr class="odd:bg-slate-100">
+                            <td width="40%">{{ $subsystem->system->name }}</td>
+                            <td width="40%">{{ $subsystem->name }}</td>
+                            <td class="flex items-center justify-between">
+                                {{-- <a href="{{ route('subsystems.show',$system->id) }}" title="{{ __('view daitl of system ').$system->name }}"><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
+                                <a href="{{ route('subsystems.edit',$subsystem->id) }}" title="{{ __('editar sistema ').$subsystem->name }}"><i class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
+
+                                <form action="{{ route('subsystems.destroy',$subsystem->id) }}" method="POST" class="form-delete">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                </form>
+
+                            </td>
+
+                        </tr>
+                    @endforeach
+
+                </tbody>
             </table>
         </div>
     </div>
-
     @push('script')
-    <script>
-      $(document).ready( function () {
+        <script>
+           $(document).ready( function () {
         $('#system').DataTable({
             "pagingType":"full_numbers",
            "language":{
@@ -72,11 +76,12 @@
         });
     } );
 
-    $('.form-delete').submit(function(e){
-        e.preventDefault();
-        Swal.fire({
-  title: 'Esta seguro de querer eliminar Subsistema?',
-  text: "Esta operacion es irreversible",
+            $('.form-delete').submit(function(e){
+                e.preventDefault();
+
+                Swal.fire({
+  title: 'Está seguro de querer eliminar system?',
+  text: "Esta operación es irreversible",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -84,7 +89,8 @@
   confirmButtonText: 'Si, Eliminar!'
 }).then((result) => {
   if (result.isConfirmed) {
-    this.submit();
+
+     this.submit();
     // Swal.fire(
     //   'Deleted!',
     //   'Your file has been deleted.',
@@ -92,8 +98,9 @@
     // )
   }
 })
-    })
 
-    </script>
+
+            })
+       </script>
     @endpush
 </x-app-layout>

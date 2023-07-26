@@ -1,59 +1,74 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-3xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Tareas') }}</h1>
-            <table id="fails" class="">
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('lista de tareas') }}</h1>
+
+            <table id="fail">
                 <thead>
                     <tr>
-                        <th>Equipo</th>
-                        <th>Reportado</th>
-                        <th>Asignado</th>
-                        <th>Reparado</th>
-                        <th class="text-center">Action</th>
+                        <th class="capitalize">{{ __('equipment') }}</th>
+                        <th class="capitalize">{{ __('reported') }}</th>
+                        <th class="capitalize">{{ __('assigned') }}</th>
+                        <th class="capitalize">{{ __('repareid') }}</th>
+                        <th class="capitalize text-center">{{ __('action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($fails as $fail)
-                        <tr>
+                        <tr class="odd:bg-slate-100">
                             <td width="">
                                 <p class="text-gray-400 font-bold text-sm">{{ $fail->equipment->name }}</p>
                                 <p class="text-gray-400 font-bold text-sm">{{ $fail->equipment->location() }}</p>
                             </td>
+                            <td width="" class="text-justify text-xs text-gray-400">
 
-                            <td width="" class="text-xs text-gray-400">
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->format('d-m-Y') }}</p>
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->reported_at->diffForHumans() }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ $fail->reported_at->format('d-m-Y') }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ $fail->reported_at->diffForHumans() }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ DIA[$fail->reported_at->dayOfWeek] }}</p>
+
                             </td>
 
-                            <td width="" class="text-xs text-gray-400">
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->format('d-m-Y') }}</p>
-                                <p class="text-blue-400 font-bold text-xs">{{ $fail->repareid_at->diffForHumans() }}</p>
+                            <td width="" class="text-justify text-xs text-gray-400">
+
+                                <p class="text-red-400 font-bold text-xs">{{ $fail->repareid_at->format('d-m-Y') }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ $fail->repareid_at->diffForHumans() }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ DIA[$fail->repareid_at->dayOfWeek] }}</p>
+
+
                             </td>
 
-                            <td width="" class="text-xs text-gray-400">
+                            <td width="" class="text-justify text-xs text-gray-400">
                                 @if ($fail->teams->count() > 0)
-                                    <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->format('d-m-Y') }}
+                                    <p class="text-red-400 font-bold text-xs">{{ $fail->assigned_at->format('d-m-Y') }}
                                     </p>
-                                    <p class="text-blue-400 font-bold text-xs">{{ $fail->assigned_at->diffForHumans() }}
+                                    <p class="text-red-400 font-bold text-xs">{{ $fail->assigned_at->diffForHumans() }}
+                                    </p>
+                                    <p class="text-red-400 font-bold text-xs">{{ DIA[$fail->assigned_at->dayOfWeek] }}
                                     </p>
                                 @endif
                             </td>
 
-                            <td class="text-center flex items-center justify-between">
+
+                            <td class="text-center">
                                 <a href="{{ route('fails.show', $fail->id) }}"
-                                    title="{{ __('reparar falla ') . $fail->name }}"><i
-                                        class="icono text-green-600 fa-solid fa-person-digging"></i></a>
+                                    title="{{ __('reparacion fallida') . $fail->name }}">
+                                    <i class="icono text-green-600 fa-solid fa-person-digging"></i></a>
                             </td>
+
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>
+
     </div>
+
+
     @push('script')
         <script>
             $(document).ready(function() {
-                $('#fails').DataTable({
+                $('#fail').DataTable({
                     "pagingType": "full_numbers",
                     "language": {
                         "info": "Mostrando pag  _PAGE_ de _PAGES_  páginas,  Total de Registros: _TOTAL_ ",
@@ -90,9 +105,10 @@
 
             $('.form-delete').submit(function(e) {
                 e.preventDefault();
+
                 Swal.fire({
-                    title: 'Esta seguro de querer eliminar Falla?',
-                    text: "Esta operacion es irreversible",
+                    title: 'Está seguro de querer eliminar fail?',
+                    text: "Esta operación es irreversible",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -100,6 +116,7 @@
                     confirmButtonText: 'Si, Eliminar!'
                 }).then((result) => {
                     if (result.isConfirmed) {
+
                         this.submit();
                         // Swal.fire(
                         //   'Deleted!',
@@ -108,6 +125,8 @@
                         // )
                     }
                 })
+
+
             })
         </script>
     @endpush

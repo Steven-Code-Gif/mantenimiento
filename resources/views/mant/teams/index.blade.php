@@ -1,53 +1,56 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-4xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Equipos') }}</h1>
+        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-3xl mx-auto">
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('lista de equipos') }}</h1>
             <div class="flex items-center justify-end mb-3">
                 <a href="{{ route('teams.create') }}"
                     class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
-                    <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{ __('Agregar Equipo') }}
+                    <i class="fa-solid fa-address-card"></i>
+                    {{ __('agregar equipo') }}
                 </a>
             </div>
             <table id="team" class="">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Costo</th>
-                        <th>Miembros</th>
-                        <th class="text-center">Action</th>
+                        <th class="capitalize">{{ __('nombre') }}</th>
+                        <th class="capitalize">{{ __('costo') }}</th>
+                        <th class="capitalize">{{ __('miembros') }}</th>
+                        <th class="capitalize text-center">{{ __('action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($teams as $team)
-                        <tr>
+                        <tr class="odd:bg-slate-100">
                             <td width="40%">
                                 <p class="text-gray-400 font-bold text-sm">{{ $team->name }}</p>
                                 <p class="text-gray-400 font-bold text-xs">{{ $team->specialty() }}</p>
-                                @foreach ($team->zones as $z )
-                                <p class="text-blue-400 font-bold text-xs">{{ $z->name }}</p>
+
+                                @foreach ($team->zones as $z)
+                                    <p class="text-red-400 font-bold text-xs">{{ $z->name }}</p>
                                 @endforeach
                                 <hr>
                             </td>
-                            <td width="10%" class="text-xs text-gray-400">{{ $team->cost() }}</td>
-                            <td width="30%" class="text-xs text-gray-400">
+                            <td width="10%" class="text-right text-xs text-gray-400">{{ $team->cost() }}</td>
+                            <td width="30%" class="text-right text-xs text-gray-400">
                                 @foreach ($team->users as $user)
                                     <p>{{ $user->name }}</p>
                                 @endforeach
                             </td>
+
                             <td class="text-center flex items-center justify-between">
                                 <a href="{{ route('teams.members-add', $team->id) }}"
-                                    title="{{ __('ver detalles del ') . $team->name }}"><i
+                                    title="{{ __('ver detalles de equipo') . $team->name }}"><i
                                         class="icono text-blue-600 fa-solid fa-people-group"></i></a>
                                 <a href="{{ route('teams.edit', $team->id) }}"
-                                    title="{{ __('editar ') . $team->name }}"><i
+                                    title="{{ __('editar equipo') . $team->name }}"><i
                                         class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
+
                                 <form action="{{ route('teams.destroy', $team->id) }}" method="POST"
                                     class="form-delete">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"><i
-                                    class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                            class="icono text-red-500 fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -96,9 +99,10 @@
 
             $('.form-delete').submit(function(e) {
                 e.preventDefault();
+
                 Swal.fire({
-                    title: 'Esta seguro de querer eliminar Equipo?',
-                    text: "Esta operacion es irreversible",
+                    title: 'Está seguro de querer eliminar team?',
+                    text: "Esta operación es irreversible",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -106,6 +110,7 @@
                     confirmButtonText: 'Si, Eliminar!'
                 }).then((result) => {
                     if (result.isConfirmed) {
+
                         this.submit();
                         // Swal.fire(
                         //   'Deleted!',
@@ -114,6 +119,8 @@
                         // )
                     }
                 })
+
+
             })
         </script>
     @endpush

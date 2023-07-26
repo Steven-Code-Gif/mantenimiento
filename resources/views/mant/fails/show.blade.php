@@ -31,12 +31,10 @@
                     <h2 class="text-sm text-gray-500 uppercase">Servicio: {{ $fail->equipment->service }} hr/día</h2>
                     <h2 class="text-sm text-gray-500 uppercase">Falla: {{ $fail->type }}</h2>
                     <h2 class="text-xs text-gray-500 italic font-bold">Reportada: {{ $fail->reported_at }}</h2>
-                    <h2 class="text-xs text-gray-500 italic font-bold">Reportada:
-                        {{ $fail->reported_at->diffForHumans() }}</h2>
+                    <h2 class="text-xs text-gray-500 italic font-bold">Reportada:{{ $fail->reported_at->diffForHumans() }}</h2>
                     <hr>
                     @foreach ($users as $user)
                         <p class="font-bold text-sm text-gray-500 italic">
-
                             {{ $user->name }}</p>
                     @endforeach
                     <hr>
@@ -132,7 +130,7 @@
             </div>
         </div> --}}
 
-    @push('scripts')
+    @push('script')
         <script>
             $(window).ready(function() {
                 $('.flexslider').flexslider({

@@ -1,55 +1,54 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-6xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Insumos') }}</h1>
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('lista de suministros') }}</h1>
             <div class="flex items-center justify-end mb-3">
-                <a href="{{route('supplies.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
-                    <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{__('Agregar Insumo')}}
+                <a href="{{ route('supplies.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                    <i class="fas fa-bottle-droplet"></i>
+                    {{ __('agregar suministros') }}
                 </a>
             </div>
             <table id="supply" class="">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Unidad</th>
-                    <th>Marca</th>
-                    <th>Suministro</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Descripcion</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ( $supplies as $supply )
-                <tr>
-                    <td>{{$supply->name}}</td>
-                    <td>{{$supply->unit}}</td>
-                    <td>{{$supply->brand}}</td>
-                    <td>{{$supply->supply}}</td>
-                    <td>{{$supply->price}}</td>
-                    <td>{{$supply->stock}}</td>
-                    <td>{{$supply->description}}</td>
-                    <td class="flex items-center justify-between gap-3">
-                        {{-- <a href="{{ route('Supplies.show',$supply->id)}}" title="{{ __('view daitl of supply ').$supply->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
-                        <a href="{{ route('supplies.edit',$supply->id)}}" title="{{ __('Editar Insumo').$supply->name }}" ><i class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
-                        <form action="{{ route('supplies.destroy',$supply->id)}}" method="POST" class="form-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
-                        </form>
-                    </td>
-                </tr> 
-                @endforeach
-            </tbody>
+                <thead>
+                    <tr class="text-gray-600">
+                        <th class="capitalize">{{ __("nombre") }}</th>
+                        <th class="capitalize">{{ __("unidad") }}</th>
+                        <th class="capitalize">{{ __("marca") }}</th>
+                        <th class="capitalize">{{ __("suministro") }}</th>
+                        <th class="capitalize">{{ __("precio") }}</th>
+                        <th class="capitalize">{{ __("stock") }}</th>
+                        <th class="capitalize">{{ __("descripcion") }}</th>
+                        <th class="capitalize">{{ __("action") }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($supplies as $supply)
+                        <tr class="text-gray-500 odd:bg-slate-100">
+                            <td>{{ $supply->name }}</td>
+                            <td>{{ $supply->unit }}</td>
+                            <td>{{ $supply->brand }}</td>
+                            <td>{{ $supply->supply }}</td>
+                            <td>{{ $supply->price }}</td>
+                            <td>{{ $supply->stock }}</td>
+                            <td>{{ $supply->description }}</td>
+                            <td class="flex items-center justify-between gap-3">
+                                <a href="{{ route('supplies.edit',$supply->id) }}" title="{{ __('editar suministro').$supply->name }}"><i class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
+
+                                <form action="{{ route('supplies.destroy',$supply->id) }}" method="POST" class="form-delete">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
-
     @push('script')
-    <script>
-      $(document).ready( function () {
+        <script>
+           $(document).ready( function () {
         $('#supply').DataTable({
             "pagingType":"full_numbers",
            "language":{
@@ -82,11 +81,12 @@
         });
     } );
 
-    $('.form-delete').submit(function(e){
-        e.preventDefault();
-        Swal.fire({
-  title: 'Esta seguro de querer eliminar Insumo?',
-  text: "Esta operacion es irreversible",
+            $('.form-delete').submit(function(e){
+                e.preventDefault();
+
+                Swal.fire({
+  title: 'Está seguro de querer eliminar supply?',
+  text: "Esta operación es irreversible",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -94,7 +94,8 @@
   confirmButtonText: 'Si, Eliminar!'
 }).then((result) => {
   if (result.isConfirmed) {
-    this.submit();
+
+     this.submit();
     // Swal.fire(
     //   'Deleted!',
     //   'Your file has been deleted.',
@@ -102,8 +103,7 @@
     // )
   }
 })
-    })
-
-    </script>
+            })
+       </script>
     @endpush
 </x-app-layout>

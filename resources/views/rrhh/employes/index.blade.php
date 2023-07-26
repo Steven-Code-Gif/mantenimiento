@@ -1,48 +1,53 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-2xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Usuarios') }}</h1>
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('lista de usuarios') }}</h1>
             <div class="flex items-center justify-end mb-3">
-                {{-- <a href="{{route('employes.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
-                    <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{__('add user')}}
+                {{-- <a href="{{ route('employes.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                    <i class="fa-solid fa-address-card"></i>
+                    {{ __('add user') }}
                 </a> --}}
             </div>
             <table id="user" class="">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Rol</th>
-                    <th>Salario</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($employes as $user)
-                <tr>
-                    <td width="35%">{{$user->name}}</td>
-                    <td width="15%">{{$user->getRoleNames()->join('')}}</td>
-                    <td width="30%">{{$user->profile->salary}}</td>
-                    <td class="text-center flex items-center 
-                    justify-between">
-                        {{-- <a href="{{ route('employes.show',$user->id)}}" title="{{ __('view daitl of user ').$user->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
-                        <a href="{{ route('employes.edit',$user->id)}}" title="{{ __('edit user ').$user->name }}" ><i class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
-                        <form action="{{ route('employes.destroy',$user->id)}}" method="POST" class="form-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
-                        </form>
-                    </td>
-                </tr> 
-                @endforeach
-            </tbody>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Salario</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($employes as $user)
+                        <tr>
+                            <td width="35%">{{ $user->name }}</td>
+                            <td width="15%">{{ $user->getRoleNames()->join('') }}</td>
+                            <td width="30%">{{ $user->profile->salary }}</td>
+                            <td  class="text-center flex items-center justify-between">
+                                {{-- <a href="{{ route('employes.show',$user->id) }}" title="{{ __('view daitl of user ').$user->name }}"><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
+                                <a href="{{ route('employes.edit',$user->id) }}" title="{{ __('editar usuario').$user->name }}"><i class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
+
+                                <form action="{{ route('employes.destroy',$user->id) }}" method="POST" class="form-delete">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                </form>
+
+                            </td>
+
+                        </tr>
+                    @endforeach
+
+                </tbody>
             </table>
         </div>
+
     </div>
 
+
     @push('script')
-    <script>
-      $(document).ready( function () {
+        <script>
+           $(document).ready( function () {
         $('#user').DataTable({
             "pagingType":"full_numbers",
            "language":{
@@ -75,11 +80,12 @@
         });
     } );
 
-    $('.form-delete').submit(function(e){
-        e.preventDefault();
-        Swal.fire({
-  title: 'Esta seguro de querer eliminar Usuario?',
-  text: "Esta operacion es irreversible",
+            $('.form-delete').submit(function(e){
+                e.preventDefault();
+
+                Swal.fire({
+  title: 'Está seguro de querer eliminar user?',
+  text: "Esta operación es irreversible",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -87,7 +93,8 @@
   confirmButtonText: 'Si, Eliminar!'
 }).then((result) => {
   if (result.isConfirmed) {
-    this.submit();
+
+     this.submit();
     // Swal.fire(
     //   'Deleted!',
     //   'Your file has been deleted.',
@@ -95,8 +102,9 @@
     // )
   }
 })
-    })
 
-    </script>
+
+            })
+       </script>
     @endpush
 </x-app-layout>

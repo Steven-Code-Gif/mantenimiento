@@ -1,12 +1,12 @@
 <article class="shadow-lg border border-gray-100 rounded p-2">
     <div class="card">
         <div class="card-body">
-            <h1 class="text-xl font-bold text-gray-500"> Agregar Servicio</h1>
+            <h1 class="text-xl font-bold text-gray-500">{{ __("Agregar servicio") }}</h1>
             <hr class="mt-2 mb-3">
 
             <form action="" class="text-xs" wire:submit.prevent="saveReplacement">
                 <select wire:model="serviceId" id="" class="select w-full">
-                    <option value="">Select Service</option>
+                    <option value="">{{ __("seleccionar servicio") }}</option>
                     @foreach ($services as $r)
                         <option value="{{ $r->id }}">{{ $r->name }}</option>
                     @endforeach

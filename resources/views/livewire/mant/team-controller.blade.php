@@ -1,9 +1,9 @@
 <div class="card max-w-2xl mx-auto my-6">
     <div class="card-body text-xs">
-        <h1 class="text-gray-500 text-center text-2xl text-bold">Asignación de Personal a Equipos{{ ' '.$team->name }}</h1>
+        <h1 class="text-gray-500 text-center text-2xl text-bold">{{ __("Asignacion de personal a equipo") }} : {{$team->name }}</h1>
     <div class="grid grid-cols-2 gap-3 border p-4">
         <div class=" border border-r-3 p-3">
-            <h1 class="text-gray-600 text-center text-xl font-bold">Personal disponible</h1>
+            <h1 class="text-gray-600 text-center text-xl font-bold">{{ __("Personal disponible") }}</h1>
             <input type="text" placeholder="buscar caracteristicas" class="w-full rounded my-2" wire:model="search">
 
             <ul>

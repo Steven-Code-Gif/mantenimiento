@@ -2,15 +2,19 @@
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
+                <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">
+                    {{ __('reparacion de fallas') }}</h1>
                 <div class="grid grid-cols-4 gap-4">
                     <div class="col-span-1">
                         @livewire('mant.fails.fail-observation', ['fail' => $fail])
                     </div>
+
                     <div class="col-span-1">
                         @livewire('mant.fails.fail-replacement', ['fail' => $fail])
                     </div>
                     <div class="col-span-1">
                         @livewire('mant.fails.fail-supply', ['fail' => $fail])
+
                     </div>
                     <div class="col-span-1">
                         @livewire('mant.fails.fail-service', ['fail' => $fail])
@@ -23,6 +27,8 @@
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
+                <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">
+                    {{ __('imagenes de fallas') }}</h1>
                 <div class="grid grid-cols-5 gap-4">
                     <div class="col-span-3">
                         @livewire('mant.fails.fail-image', ['fail' => $fail])
@@ -34,9 +40,13 @@
             </div>
         </div>
     </div>
+
+
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
+                <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">
+                    {{ __('costo de fallas') }}</h1>
                 <div class="grid grid-cols-3 gap-4">
                     <div class="">
                         @livewire('mant.fails.fail-replacement-list', ['fail' => $fail])
@@ -55,7 +65,9 @@
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
-                <div class="grid grid-cols-3 gap-4">
+                <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">
+                    {{ __('fallas de equipo') }}</h1>
+                <div class="grid grid-cols-2 gap-4">
                     <div class="">
                         @livewire('mant.fails.fail-comment-list', ['fail' => $fail])
                     </div>
@@ -66,7 +78,7 @@
                             <form method="POST" action="{{ route('fails.despeje', $fail->id) }}" class="p-2 text-sm">
                                 @method('post')
                                 @csrf
-                                <div class="ml-2 w-full">
+                                <div class=" ml-2 w-full">
                                     <x-jet-input-error for="users" />
                                     @foreach ($team->users as $t)
                                         <div class="flex justify-start items-center gap-3">
@@ -81,6 +93,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </x-app-layout>

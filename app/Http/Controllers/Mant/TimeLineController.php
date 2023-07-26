@@ -49,6 +49,7 @@ class TimeLineController extends Controller
     public function work(Timeline $timeline)
     {
         //  $team = auth()->user()->teams()->first();
+        //  dd($team);
         // if (!$team) {
         //     $team = auth()->user()->team;
         //     if (!$team) {

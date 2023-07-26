@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-body">
-        <h1 class="text-gray-500 text-center text-2xl font-bold p-4">Asignación de Caracteristicas a Prototipo{{ '  '.$prototype->fullName() }}</h1>
+        <h1 class="text-gray-500 text-center text-lg font-bold p-4 uppercase bg-slate-200">{{ __('asignacion de caracteristicas a prototipo') }}: {{ '  '.$prototype->fullName() }}</h1>
     <div class="grid grid-cols-2 gap-3 border p-4">
         <div class=" border border-r-3 p-3">
-            <h1 class="text-gray-600 text-center text-xl font-bold">Caracteristicas disponibles</h1>
+            <h1 class="text-gray-600 text-center text-xl font-bold">{{ __("caracteristicas disponibles") }}</h1>
             <input type="text" placeholder="buscar caracteristicas" class="w-full rounded my-2" wire:model="search">
 
             <ul>

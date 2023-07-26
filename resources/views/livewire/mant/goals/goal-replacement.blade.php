@@ -6,7 +6,7 @@
 
             <form action="" class="text-xs" wire:submit.prevent="saveReplacement">
                 <select wire:model="replacementId" id="" class="select w-full">
-                    <option value="">Select Replacement</option>
+                    <option value="">{{ __("seleccionar repuesto") }}</option>
                     @foreach ($replacements as $r)
                         <option value="{{ $r->id }}">{{ $r->name }}</option>
                     @endforeach

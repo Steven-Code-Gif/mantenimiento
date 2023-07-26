@@ -243,6 +243,5 @@ class FailController extends Controller
     public function zone_equipments($id)
     {
         return Equipment::where('location', $id)->get();
-
     }
 }

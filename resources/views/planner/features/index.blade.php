@@ -1,48 +1,49 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-3xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Características') }}</h1>
+        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-2xl mx-auto">
+            <h1 class="text-xl text-center text-gray-500 uppercase font-bold">{{ __('lista de caracteristicas') }}</h1>
             <div class="flex items-center justify-end mb-3">
-                <a href="{{route('features.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
-                    <i class="fa-sharp fa-solid fa-address-card"></i>
-                    {{__('Agregar Características')}}
+                <a href="{{ route('features.create') }}" class="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                    <i class="fab fa-connectdevelop"></i>
+                    {{ __('agregar caracteristicas') }}
                 </a>
             </div>
             <table id="feature" class="">
-            <thead>
-                <tr>
-                    <th>Medida</th>
-                    <th>Unidad</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-500">
-                @foreach ( $features as $feature )
-                <tr>
-                    <td>{{$feature->measure}}</td>
-                    <td>
-                        <p>{{$feature->unit}}</p>
-                        <p>{{$feature->symbol}}</p>
-                    </td>
-                    <td class="flex items-center justify-between">
-                        {{-- <a href="{{ route('features.show',$feature->id)}}" title="{{ __('view daitl of feature ').$feature->name }}" ><i class="text-blue-500 fa-solid fa-eye"></i></a> --}}
-                        <a href="{{ route('features.edit',$feature->id)}}" title="{{ __('Editar Características').$feature->unit }}" ><i class="text-green-500 fa-solid fa-pen-to-square"></i></a>
-                        <form action="{{ route('features.destroy',$feature->id)}}" method="POST" class="form-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"><i class="text-red-500 fa-solid fa-trash-can"></i></button>
-                        </form>
-                    </td>
-                </tr> 
-                @endforeach
-            </tbody>
+                <thead>
+                    <tr>
+                        <th>Medida</th>
+                        <th>Unidad</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-500">
+                    @foreach ($features as $feature)
+                        <tr class="odd:bg-slate-100">
+                            <td class="font-bold font-mono capitalize">{{ $feature->measure }}</td>
+                            <td>
+                               <p class="italic">{{ $feature->unit }}</p>
+                               <p>{{ $feature->symbol }}</p>
+                            </td>
+                            <td class="flex items-center justify-between">
+                                <a href="{{ route('features.edit',$feature->id) }}" title="{{ __('editar caracteristicas').$feature->unit }}"><i class="icono text-green-500 fa-solid fa-pen-to-square"></i></a>
+
+                                <form action="{{ route('features.destroy',$feature->id) }}" method="POST" class="form-delete">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"><i class="icono text-red-500 fa-solid fa-trash-can"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
 
+
     @push('script')
-    <script>
-      $(document).ready( function () {
+        <script>
+           $(document).ready( function () {
         $('#feature').DataTable({
             "pagingType":"full_numbers",
            "language":{
@@ -75,11 +76,12 @@
         });
     } );
 
-    $('.form-delete').submit(function(e){
-        e.preventDefault();
-        Swal.fire({
-  title: 'Esta seguro de querer eliminar Características?',
-  text: "Esta operacion es irreversible",
+            $('.form-delete').submit(function(e){
+                e.preventDefault();
+
+                Swal.fire({
+  title: 'Está seguro de querer eliminar feature?',
+  text: "Esta operación es irreversible",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -87,7 +89,8 @@
   confirmButtonText: 'Si, Eliminar!'
 }).then((result) => {
   if (result.isConfirmed) {
-    this.submit();
+
+     this.submit();
     // Swal.fire(
     //   'Deleted!',
     //   'Your file has been deleted.',
@@ -95,8 +98,9 @@
     // )
   }
 })
-    })
 
-    </script>
+
+            })
+       </script>
     @endpush
 </x-app-layout>

@@ -1,7 +1,7 @@
 <article class="shadow-lg border border-gray-100 rounded p-2">
     <div class="">
         <div class="">
-            <h1 class="text-xl font-bold text-gray-500"> Listado de Insumos</h1>
+            <h1 class="text-xl font-bold text-gray-500">{{ __("Lista de suministro") }}</h1>
             <hr class="mt-2 mb-3">
             <div class='m-12 space-y-6'>  
             @foreach ($supplies as $replacement )

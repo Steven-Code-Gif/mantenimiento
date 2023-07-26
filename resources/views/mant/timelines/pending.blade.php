@@ -1,64 +1,71 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-6xl mx-auto">
-            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('Lista de Fallas') }}</h1>
-           
-            <table id="timelines" class="">
+        <div class="bg-white shadow-xl sm:rounded-lg p-6 my-8 max-w-5xl mx-auto">
+            <h1 class="text-2xl text-center text-gray-500 uppercase font-bold">{{ __('lista de tiempo de linea') }}</h1>
+
+            <table id="timeline">
                 <thead>
                     <tr>
-                        <th>Equipo</th>
-                        <th>Tareas</th>
-                        <th>Inicio</th>
-                        <th>Fin</th>
-                        <th>Teams</th>
-                        <th class="text-center">Action</th>
+                        <th class="capitalize hidden">{{ __("posicion") }}</th>
+                        <th class="capitalize hidden">{{ __("inicio") }}</th>
+                        <th class="capitalize">{{ __("equipo") }}</th>
+                        <th class="capitalize">{{ __("tarea") }}</th>
+                        <th class="capitalize">{{ __("inicio") }}</th>
+                        <th class="capitalize">{{ __("fin") }}</th>
+                        <th class="capitalize">{{ __("Equipos") }}</th>
+                        <th class="capitalize">{{ __("action") }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($timelines as $timeline)
                         <tr class="even:bg-blue-200 odd:bg-white">
+                            <td class="hidden">{{ $timeline->position }}</td>
+                            <td class="hidden">{{ $timeline->start }}</td>
                             <td width="20%">
-                                <p class="text-gray-400 font-bold text-sm">{{ $timeline->equipment()}}</p>
-                                <p class="text-gray-400 font-bold text-xs">{{ $timeline->location()}}</p>
-                            </td>
+                                <p class="text-gray-400 font-bold text-sm">{{ $timeline->equipment() }}</p>
+                                <p class="text-gray-400 font-bold text-xs">{{ $timeline->location() }}</p>
 
+                            </td>
                             <td width="20%">
-                                <p class="text-blue-400 font-bold text-xs">{{ $timeline->specialty() }}</p>
-                                <p class="text-gray-400 font-bold text-sm">{{ $timeline->task}}</p>
-                            </td>
+                                <p class="text-red-400 font-bold text-xs">{{ $timeline->specialty() }}</p>
+                                <p class="text-gray-400 font-bold text-sm">{{ $timeline->task }}</p>
+                                <p class="text-gray-400 font-bold text-sm">{{ __("position") }} : {{ $timeline->position }}</p>
+                                <p class="text-gray-400 font-bold text-sm">{{ __("duration") }} : {{ $timeline->duration }} {{ __("hours") }}</p>
 
-                            <td width="12%" class="text-xs text-gray-400">
-                                <p class="text-blue-400 font-bold text-xs">{{ $timeline->start->format('d-m-Y') }}</p>
-                                <p class="text-blue-400 font-bold text-xs">{{ $timeline->start->format('h:i A') }}</p>
                             </td>
+                            <td width="12%" class="text-justify text-xs text-gray-400">
 
-                            <td width="12%" class="text-xs text-gray-400">
-                                <p class="text-blue-400 font-bold text-xs">{{ $timeline->end->format('d-m-Y') }}</p>
-                                <p class="text-blue-400 font-bold text-xs">{{ $timeline->end->format('h:i A') }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ $timeline->start->format('d-m-Y') }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ $timeline->start->format('h:i A') }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ DIA[$timeline->start->dayOfWeek] }}</p>
+
                             </td>
-
+                            <td width="12%" class="text-justify text-xs text-gray-400">
+                                <p class="text-red-400 font-bold text-xs">{{ $timeline->end->format('d-m-Y') }}</p>
+                                <p class="text-red-400 font-bold text-xs">{{ $timeline->end->format('h:i A') }}</p>
+                            </td>
                             <td width="26%" class="text-justify text-xs text-gray-400">
-                                @if ($timeline->team_id)
+                                @if($timeline->team_id)
                                 <div class="bg-green-200 text-center p-3">
-                                <p class="text-grey-500 font-bold text-xs">Personal Responsable</p>
-                                <p class="text-grey-500 font-bold text-xs">{{ $timeline->assigned()->name}}</p></div>
+                                <p class="text-gray-600 font-bold text-xs">Personal Responsable</p>
+                                <p class="text-gray-600 font-bold text-xs">{{ $timeline->assigned()->name }}</p></div>
                                 @else
                                 <div class="bg-red-200 text-center p-3">
-                                    <p class="text-gray-600 font-bold text-xs">Personal Disponible</p>
-                                @foreach ($timeline->boss() as $team )
-                                    <p class="text-gray-600 font-bold text-xs">{{$team->name}}</p>
+                                <p class="text-gray-600 font-bold text-xs">Personal Disponible</p>
+                                @foreach ($timeline->boss() as $team)
+                                    <p class="text-gray-600 font-bold text-xs">{{ $team->name }}</p>
                                 @endforeach
                                 </div>
                                 @endif
                             </td>
 
                             <td class="text-center">
-                                <a href="{{ route('timelines.boss',$timeline->id)}}"
-                                    title="{{ __('Asignar jefe ') . $timeline->name }}"><i
+                                <a href="{{ route('timelines.boss',$timeline->id) }}" title="{{ __('Asignar jefe') . $timeline->name }}"><i
                                         class="icono text-blue-600 fa-solid fa-people-group"></i></a>
                             </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -66,7 +73,7 @@
     @push('script')
         <script>
             $(document).ready(function() {
-                $('#timelines').DataTable({
+                $('#timeline').DataTable({
                     "pagingType": "full_numbers",
                     "language": {
                         "info": "Mostrando pag  _PAGE_ de _PAGES_  páginas,  Total de Registros: _TOTAL_ ",
@@ -97,15 +104,17 @@
                     "columnDefs": [{
                         "targets": [5],
                         "orderable": false
-                    }]
+                    }],
+                    "order": [[1, 'asc'],[0,'asc']],
                 });
             });
 
             $('.form-delete').submit(function(e) {
                 e.preventDefault();
+
                 Swal.fire({
-                    title: 'Esta seguro de querer eliminar Falla?',
-                    text: "Esta operacion es irreversible",
+                    title: 'Está seguro de querer eliminar timeline?',
+                    text: "Esta operación es irreversible",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -113,6 +122,7 @@
                     confirmButtonText: 'Si, Eliminar!'
                 }).then((result) => {
                     if (result.isConfirmed) {
+
                         this.submit();
                         // Swal.fire(
                         //   'Deleted!',
@@ -121,6 +131,8 @@
                         // )
                     }
                 })
+
+
             })
         </script>
     @endpush

@@ -2,15 +2,19 @@
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
+                <div class="card-body">
+                    <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">{{ __('añadir recursos a la tarea programada') }}</h1>
                 <div class="grid grid-cols-4 gap-4">
                     <div class="col-span-1">
                         @livewire('mant.timelines.timeline-observation', ['timeline' => $timeline])
                     </div>
+
                     <div class="col-span-1">
                         @livewire('mant.timelines.timeline-replacement', ['timeline' => $timeline])
                     </div>
                     <div class="col-span-1">
                         @livewire('mant.timelines.timeline-supply', ['timeline' => $timeline])
+
                     </div>
                     <div class="col-span-1">
                         @livewire('mant.timelines.timeline-service', ['timeline' => $timeline])
@@ -19,10 +23,10 @@
             </div>
         </div>
     </div>
-
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
+                <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">{{ __('Imágenes de tareas programadas') }}</h1>
                 <div class="grid grid-cols-5 gap-4">
                     <div class="col-span-3">
                         @livewire('mant.timelines.timeline-image', ['timeline' => $timeline])
@@ -37,6 +41,8 @@
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
+                <div class="card-body">
+                    <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">{{ __('recursos utilizados en la tarea programada') }}</h1>
                 <div class="grid grid-cols-3 gap-4">
                     <div class="">
                         @livewire('mant.timelines.timeline-replacement-list', ['timeline' => $timeline])
@@ -51,11 +57,11 @@
             </div>
         </div>
     </div>
-
     <div class="container mx-auto my-6">
         <div class="card">
             <div class="card-body">
-                <div class="grid grid-cols-3 gap-4">
+                <h1 class="w-full text-center text-mono font-bold bg-slate-400 mb-2 py-2 uppercase font-gray-500">{{ __('informe final de tareas programadas') }}</h1>
+                <div class="grid grid-cols-2 gap-4">
                     <div class="">
                         @livewire('mant.timelines.timeline-comment-list', ['timeline' => $timeline])
                     </div>
@@ -63,10 +69,10 @@
                         <h1 class="text-xl font-bold text-gray-500">Finalizar Tarea</h1>
                         <hr class="mt-2 mb-3">
                         <div class="">
-                            <form method="POST" action="{{route('timelines.despeje',$timeline->id)}}" class="p-2 text-sm">
+                            <form method="POST" action="{{ route('timelines.despeje',$timeline->id) }}" class="p-2 text-sm">
                                 @method('post')
                                 @csrf
-                                <div class="ml-2 w-full">
+                                <div class=" ml-2 w-full">
                                     <x-jet-input-error for="users" />
                                     @foreach ($team->users as $t)
                                         <div class="flex justify-start items-center gap-3">
@@ -82,5 +88,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>

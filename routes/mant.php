@@ -5,6 +5,7 @@ use App\Http\Controllers\Mant\GoalController;
 use App\Http\Controllers\Mant\PlanController;
 use App\Http\Controllers\Mant\TeamController;
 use App\Http\Controllers\Mant\TimeLineController;
+
 use Illuminate\Support\Facades\Route;
  
 Route::resource('/teams',TeamController::class)->names('teams');
@@ -14,17 +15,24 @@ Route::get('/fails/add/{id}',[FailController::class,'add'])->name('fails.teams-a
 Route::get('/fail/tasks',[FailController::class,'tasks'])->name('fails.tasks');
 Route::get('/fail/repair/{fail}',[FailController::class,'repair'])->name('fails.repair');
 Route::post('/fail/despeje/{fail}',[FailController::class,'despeje'])->name('fails.despeje');
-Route::get('/fail/repareid',[FailController::class,'repareid'])->name('fails.repareid');
+Route::get('/fail/repareid',[FailController::class,'repareid'])->name('fails.repareid')->middleware();
+Route::get('/fail/repareid', [FailController::class, 'repareid'])->name('fails.repareid')->middleware('can:fails.repareid');
+
 Route::resource('/plans',PlanController::class)->names('plans');
 Route::get('/plans/calendar/{plan}',[PlanController::class,'calendar'])->name('plans.calendar');
+Route::get('/plans/equipments/{plan}',[PlanController::class,'equipments'])->name('plans.equipments');
 Route::get('/plans/sequence/{plan}',[PlanController::class,'sequence'])->name('plans.sequence');
 Route::post('/plans/sequence_update/{plan}',[PlanController::class,'sequence_update'])->name('plans.sequence_update');
 Route::get('/timelines/assigned',[TimeLineController::class,'assigned'])->name('timelines.assigned');
+
 Route::get('/timelines/boss/{timeline}',[TimeLineController::class,'boss'])->name('timelines.boss');
 Route::post('/timelines/worker/{timeline}',[TimeLineController::class,'worker'])->name('timelines.worker');
 Route::get('/timelines/pending',[TimeLineController::class,'pending'])->name('timelines.pending');
 Route::get('/timelines/work/{timeline}',[TimeLineController::class,'work'])->name('timelines.work');
+Route::post('/timeline/despeje/{timeline}',[TimelineController::class, 'despeje'])->name('timelines.despeje');
+
 Route::get('/plans/timeline/{plan}',[PlanController::class,'timeline'])->name('plans.timeline');
+
 Route::get('/plans/protocols/{plan}',[PlanController::class,'protocols'])->name('plans.protocols');
 Route::get('/plans/resources/{plan}',[PlanController::class,'resources'])->name('plans.resources');
 Route::get('/goals/replacements/{goal}',[GoalController::class,'replacements'])->name('goals.replacements');
@@ -34,5 +42,4 @@ Route::put('/goals/update/{goal}',[GoalController::class,'update'])->name('goals
 Route::get('/plans/teams/{plan}',[PlanController::class,'teams'])->name('plans.teams');
 Route::get('/goals/teams/{goal}/{equipment}',[GoalController::class,'teams'])->name('goals.teams');
 Route::get('/goals/assign',[GoalController::class,'assign'])->name('goals.assign');
-Route::post('/timeline/despeje/{timeline}',[TimelineController::class,'despeje'])->name('timelines.despeje');
 

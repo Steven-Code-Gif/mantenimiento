@@ -6,12 +6,14 @@
             <h1 class="text-gray-600 text-center text-xl font-bold">Personal disponible</h1>
             <input type="text" placeholder="buscar caracteristicas" class="w-full rounded my-2" wire:model="search">
             <ul>
-               @foreach ($teams as $key=>$f )
+
+            @foreach ($teams as $key=>$f )
                 <li class="px-4 py-1 mx-4 my-1 bg-gradient-to-r from-cyan-700 to-blue-500 rounded text-white">
                     <a class="cursor-pointer" wire:click="addPersonal({{ $key }})">{{ $f }}</a></li>
             @endforeach
             </ul>
         </div>
+
         <div class=" border border-r-3 p-3">
             <h1  class="text-gray-500 text-center text-xl font-bold mb-12">Equipos Asignado</h1><ul>
                @foreach ($failTeams as $f )

@@ -7,11 +7,11 @@
             @foreach ($replacements as $replacement )
                 <div class="bg-green-100 border-t border-b border-green-500 text-green-700 px-1 py-1" role="alert">
                     <p class="font-bold text-sm">{{ $replacement->name}}</p>
-                    <p class="text-xs flex justify-between items-center">Cantidad:{{$replacement->pivot->quantity}}
-                        <i class="icono text-red-500 cursor-pointer fa-solid fa-trash-can"
+                    <p class="text-xs flex justify-between items-center">{{ __("quantity") }}:{{$replacement->pivot->quantity}}
+                        <i title="{{ __("remove item") }}" class="icono text-red-500 cursor-pointer fa-solid fa-trash-can"
                         wire:click="remove({{$replacement->pivot->id}})"></i>
                     </p>
-                    <p class="text-xs">Total: {{$replacement->pivot->total}}</p>
+                    <p class="text-xs">{{ __("total") }}: {{$replacement->pivot->total}}</p>
                 </div>            
             @endforeach
             </div>
